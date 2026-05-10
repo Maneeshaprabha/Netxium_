@@ -10,42 +10,47 @@ export default function WhoWeAreModern() {
   const pillars = [
     {
       id: "01",
-      title: "Artificial Intelligence & ML",
+      title: "Innovation-Driven Team",
+      topic:"We are a team focused on building modern digital and AI-powered solutions.",
       tag1: "Innovation",
-      tag2: "Technology",
-      image: "src/assets/ai-ml-team.jpg",
+      tag2: "AI",
+      image: "src/assets/Innovation.jpg",
       color: "bg-gray-100",
     },
     {
       id: "02",
-      title: "Custom Software Development",
-      tag1: "Engineering",
-      tag2: "Scalability",
-      image: "src/assets/software-team.jpg",
+      title: "Technology Expert Solutions",
+      topic:"We specialize in AI, software development, mobile apps, and UI/UX design.",
+      tag1: "Technology",
+      tag2: "Development",
+      image: "src/assets/expert.jpg",
       color: "bg-[#F4F8FC]",
     },
     {
       id: "03",
-      title: "Intuitive UI/UX Design",
-      tag1: "Creative",
-      tag2: "Experience",
-      image: "src/assets/design-team.jpg",
+      title: "Smart Problem Solvers",
+      topic:"We turn complex business challenges into simple, smart solutions.",
+      tag1: "Solutions",
+      tag2: "Strategy",
+      image: "src/assets/technology.jpg",
       color: "bg-[#29AAE3]",
     },
     {
       id: "04",
-      title: "Digital Transformation",
-      tag1: "Consulting",
-      tag2: "Strategy",
-      image: "src/assets/strategy-team.jpg",
+      title: "Growth Focused Strategy",
+      topic:"We help businesses scale with efficient and intelligent technology.",
+      tag1: "Scalability",
+      tag2: "Growth",
+      image: "src/assets/growing.jpg",
       color: "bg-[#0D4DB1]",
     },
     {
       id: "05",
-      title: "Cloud & Infrastructure",
-      tag1: "DevOps",
-      tag2: "Security",
-      image: "src/assets/cloud-team.jpg",
+      title: "Future Ready Builders",
+      topic:"We create scalable systems that grow and adapt with your business.",
+      tag1: "Future-ready",
+      tag2: "Systems",
+      image: "src/assets/future.jpg",
       color: "bg-[#1A1A1A]",
     },
   ];
@@ -67,7 +72,7 @@ export default function WhoWeAreModern() {
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="text-[40px] md:text-[56px] lg:text-[64px] font-normal leading-tight text-black tracking-tight mb-8"
           >
-            Who we are
+            We Build What’s Next
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -76,10 +81,7 @@ export default function WhoWeAreModern() {
             transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
             className="text-base md:text-lg text-gray-500 leading-relaxed mx-auto max-w-3xl"
           >
-            We design AI-powered features that solve real problems — no bloat,
-            just smart tools that make work faster, decisions clearer, and
-            operations smoother. From automation to insights, every solution is
-            built for performance, scalability, and ease of use.
+            Netxium is a technology company that builds AI, software, and mobile solutions. We help businesses grow by creating smart, simple, and scalable digital products.
           </motion.p>
         </div>
 
@@ -98,7 +100,7 @@ export default function WhoWeAreModern() {
                 whileHover={!isActive ? { scale: 0.98, opacity: 0.8 } : {}}
                 transition={{
                   type: "spring",
-                  stiffness: 200, // Lower stiffness for a smoother, slower glide
+                  stiffness: 200,
                   damping: 25,
                   mass: 1,
                 }}
@@ -108,14 +110,14 @@ export default function WhoWeAreModern() {
                     : `rounded-full ${pillar.color} shadow-inner`
                 }`}
               >
-                {/* INACTIVE STATE (Sleek vertical number at bottom) */}
+                {/* INACTIVE STATE */}
                 {!isActive && (
                   <div className="absolute bottom-6 left-0 right-0 flex justify-center opacity-50 font-mono text-sm font-bold mix-blend-difference text-white transition-opacity group-hover:opacity-100">
                     {pillar.id}
                   </div>
                 )}
 
-                {/* ACTIVE STATE (Animated Content) */}
+                {/* ACTIVE STATE */}
                 <AnimatePresence mode="wait">
                   {isActive && (
                     <motion.div
@@ -141,7 +143,8 @@ export default function WhoWeAreModern() {
 
                       {/* Content Container */}
                       <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-between">
-                        {/* Top Content (Tags & Title) */}
+                        
+                        {/* Top Content (Tags, Title & Topic) */}
                         <div className="overflow-hidden">
                           <motion.div
                             initial={{ y: 30, opacity: 0 }}
@@ -173,6 +176,21 @@ export default function WhoWeAreModern() {
                           >
                             {pillar.title}
                           </motion.h3>
+
+                          {/* --- ADDED TOPIC HERE --- */}
+                          <motion.p
+                            initial={{ y: 30, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{
+                              delay: 0.45, // Slightly delayed after the title
+                              duration: 0.5,
+                              ease: "easeOut",
+                            }}
+                            className="text-white/80 mt-4 text-base md:text-lg font-light max-w-md leading-relaxed"
+                          >
+                            {pillar.topic}
+                          </motion.p>
+                          {/* ----------------------- */}
                         </div>
 
                         {/* Bottom Content (Button) */}
@@ -180,7 +198,7 @@ export default function WhoWeAreModern() {
                           initial={{ y: 30, opacity: 0 }}
                           animate={{ y: 0, opacity: 1 }}
                           transition={{
-                            delay: 0.5,
+                            delay: 0.55, // Adjusted to flow after the topic
                             duration: 0.5,
                             ease: "easeOut",
                           }}

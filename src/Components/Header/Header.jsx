@@ -64,7 +64,19 @@
 // </header>
 
 //   );
-// }
+// }"use client";
+
+
+
+
+
+
+
+
+
+
+
+
 "use client";
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -74,7 +86,6 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   
-  // 1. New state to track if the mouse is over the nav
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
@@ -90,19 +101,16 @@ export default function Navbar() {
     setActiveIndex(index);
   };
 
-  // 2. The nav is ONLY compact if we scrolled down AND we aren't hovering
   const isCompact = isScrolled && !isHovered;
 
   return (
     <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50 flex justify-center w-[95%] max-w-[1200px]">
       <motion.div
-        // 3. Add mouse events to trigger the hover state
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         layout 
         initial={{ borderRadius: 9999 }}
         animate={{
-          // 4. Update these to use 'isCompact' instead of 'isScrolled'
           width: isCompact ? "100px" : "100%",
           padding: isCompact ? "0.75rem" : "0.5rem",
           backgroundColor: isCompact ? "rgba(255, 255, 255, 0.1)" : "rgba(255, 255, 255, 0.05)",
@@ -111,7 +119,6 @@ export default function Navbar() {
         className="flex items-center backdrop-blur-xl border border-white/10 shadow-2xl overflow-hidden rounded-full"
       >
         <AnimatePresence mode="wait">
-          {/* 5. Update this check to use '!isCompact' */}
           {!isCompact ? (
             /* --- FULL NAVBAR STATE --- */
             <motion.div
@@ -123,7 +130,15 @@ export default function Navbar() {
             >
               {/* Left Side: Profile & Status */}
               <div className="flex items-center gap-3 pl-2">
-                <div className="h-8 w-8 rounded-full bg-gradient-to-tr from-neutral-600 to-neutral-400" />
+                
+                {/* --- LOGO UPDATED HERE --- */}
+                <img 
+                  src="../src/assets/NETXIUM_LBOO.png" 
+                  alt="Netxium Logo" 
+                  className="h-4 w-auto object-contain" 
+                />
+                {/* ----------------------- */}
+
                 <span className="font-medium tracking-tight text-sm text-black whitespace-nowrap">
                   Netxium
                 </span>
@@ -169,7 +184,6 @@ export default function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="flex items-center justify-center gap-1.5 w-full h-[38px] cursor-pointer"
-              // Removed the onClick window.scrollTo here so hovering/clicking feels natural
             >
               {/* Animated Dots (Wave Effect) */}
               {[0, 1, 2].map((index) => (
@@ -182,7 +196,7 @@ export default function Navbar() {
                     delay: index * 0.2, 
                     ease: "easeInOut",
                   }}
-                  className="w-1.5 h-1.5 rounded-full bg-white"
+                  className="w-1.5 h-1.5 rounded-full bg-black"
                 />
               ))}
             </motion.div>

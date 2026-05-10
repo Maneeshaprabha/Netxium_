@@ -58,9 +58,8 @@ export default function AboutEditorial() {
             transition={{ duration: 0.6 }}
             className="text-[40px] md:text-[52px] lg:text-[56px] font-normal leading-[1.1] text-black tracking-tight mb-10"
           >
-            Aiero, a marketing firm based in New York, helps businesses
+Netxium powers businesses with intelligent digital solutions
           </motion.h2>
-
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -69,17 +68,13 @@ export default function AboutEditorial() {
             className="space-y-6 text-gray-500 text-[15px] md:text-base leading-relaxed max-w-lg"
           >
             <p>
-              Artificial Intelligence refers to the development of computer systems
-              that can perform tasks that would typically require human intelligence.
-              It involves the creation of algorithms and models that enable machines
-              to learn, reason, perceive, and make decisions.
+   Artificial Intelligence at Netxium is focused on creating smart systems that analyze data, automate workflows, and enhance business operations. By combining AI, machine learning, software development, and modern design, we deliver solutions that improve efficiency, decision-making, and user experiences.
             </p>
             <p>
-              There are generally two types of AI: Narrow or Weak AI, which is
-              designed to perform specific tasks, and General or Strong AI, which
-              possesses human-level intelligence and can handle a wide range of
-              tasks.
+             Our approach integrates intelligent algorithms and scalable technologies to help businesses adapt faster in a rapidly evolving digital world. From AI-powered automation to custom web and mobile applications, Netxium transforms ideas into impactful digital products.
             </p>
+             <p>
+We specialize in building intelligent systems that learn, optimize, and grow alongside your business—empowering organizations with innovation, performance, and long-term scalability.            </p>
           </motion.div>
 
           {/* LOGOS / PARTNERS */}

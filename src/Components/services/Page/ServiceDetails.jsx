@@ -12,7 +12,7 @@ const servicesData = {
       "Our AI systems are built to analyze complex datasets, detect patterns, and make predictions—helping organizations automate decisions, increase efficiency, and innovate faster. We design adaptive AI models that grow smarter over time, integrating seamlessly with your existing systems. Whether it's automating operations, improving customer experience, or unlocking new insights, Netxium's AI & ML solutions bring intelligence to every layer of your business.",
       "We don't just deploy algorithms—we deliver intelligent ecosystems that continuously learn, optimize, and create measurable impact."
     ],
-    image: "/src/assets/ai-robot.jpg",
+    image: "/src/assets/roboservice.jpg",
     postImageText: "We design AI-powered features that solve real problems—no bloat, just smart tools that make work faster, decisions clearer, and operations smoother. From automation to insights, every solution is built for performance, scalability, and ease of use.",
     bullets: [
       "Pacific hake false trevally queen parrotfish black",
@@ -49,7 +49,7 @@ const servicesData = {
       "We utilize agile methodologies to ensure rapid delivery and constant iteration. Whether it's a custom ERP, a SaaS platform, or internal tools, we prioritize clean code and future-proof scalability.",
       "Beyond just writing code, we focus on the entire lifecycle—from discovery and architecture to deployment and long-term maintenance."
     ],
-    image: "/src/assets/software-dev.jpg",
+    image: "/src/assets/softwaredev.jpg",
     postImageText: "Our solutions are engineered to handle high traffic and complex data workflows without compromising on speed or security.",
     bullets: [
       "Custom enterprise solutions",
@@ -83,7 +83,7 @@ const servicesData = {
       "We design and develop premium mobile applications that put your business directly in your customers' pockets.",
       "Using both native and cross-platform technologies, we ensure your app feels responsive, looks stunning, and functions flawlessly across all device types."
     ],
-    image: "/src/assets/mobile-apps.jpg",
+    image: "/src/assets/mobileapp.jpg",
     postImageText: "Focusing on performance and accessibility, we build apps that users actually want to keep on their home screens.",
     bullets: ["iOS (Swift) Development", "Android (Kotlin) Development", "React Native Solutions", "App Store Optimization"],
     keyServices: [
@@ -107,7 +107,7 @@ const servicesData = {
       "Design is more than just aesthetics; it's about how it works. We create interfaces that are intuitive, accessible, and aligned with your business goals.",
       "Our research-driven approach ensures that every design decision is backed by user data and psychological principles."
     ],
-    image: "/src/assets/uiux-design.jpg",
+    image: "/src/assets/uiux.jpg",
     postImageText: "We turn complex architectural problems into simple, beautiful, and high-converting visual interfaces.",
     bullets: ["User Research & Personas", "Wireframing & Prototyping", "Design System Creation", "Accessibility (WCAG) Audits"],
     keyServices: [
@@ -131,7 +131,7 @@ const servicesData = {
       "We act as your technology partners, helping you choose the right tools and strategies to outpace your competition.",
       "From AI readiness audits to omnichannel roadmaps, we provide the clarity you need to invest your budget effectively."
     ],
-    image: "/src/assets/strategy.jpg",
+    image: "/src/assets/DigitalStrategy&Consulting.jpg",
     postImageText: "Strategy isn't just a document; it's a blueprint for measurable business growth.",
     bullets: ["AI Readiness Assessments", "Tech Stack Audits", "Omnichannel Roadmaps", "Growth Consulting"],
     keyServices: [
@@ -193,11 +193,10 @@ export default function ServicesSection() {
             className="bg-[#1A1A1A] rounded-[2.5rem] p-10 text-white relative overflow-hidden shadow-xl"
           >
             <h3 className="text-3xl md:text-[34px] leading-tight font-bold mb-6 relative z-10">
-              We value ideas, talent & voices of people!
+             We Value Innovation, Creativity & Intelligent Solutions !
             </h3>
             <p className="text-gray-400 text-[15px] leading-relaxed mb-10 relative z-10">
-              Transform repetitive, time-consuming tasks into efficient, AI-driven workflows. Our solutions ensure
-            </p>
+Transforming complex challenges into smart digital experiences through AI, software, and modern technology.            </p>
             
             <button className="flex items-center justify-between w-full bg-white text-black px-8 py-5 rounded-full font-bold transition-all hover:bg-gray-100 group relative z-10 shadow-xl">
               <span className="text-lg">Work with me</span>

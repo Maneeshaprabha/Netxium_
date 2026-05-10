@@ -146,7 +146,7 @@ export default function Projects() {
                     {metrics[0].desc}
                   </p>
                 </div>
-                <span className="text-6xl font-normal tracking-tighter">
+                <span className="text-6xl font-bold tracking-tighter">
                   <AnimatedCounter to={metrics[0].value} suffix={metrics[0].suffix} />
                 </span>
               </motion.div>
@@ -162,7 +162,7 @@ export default function Projects() {
                     {metrics[1].desc}
                   </p>
                 </div>
-                <span className="text-6xl font-normal tracking-tighter z-10 relative">
+                <span className="text-6xl font-bold tracking-tighter z-10 relative">
                   <AnimatedCounter to={metrics[1].value} suffix={metrics[1].suffix} />
                 </span>
 
@@ -188,7 +188,7 @@ export default function Projects() {
                     {metrics[2].desc}
                   </p>
                 </div>
-                <span className="text-6xl font-normal tracking-tighter">
+                <span className="text-6xl font-bold tracking-tighter">
                   <AnimatedCounter to={metrics[2].value} suffix={metrics[2].suffix} />
                 </span>
               </motion.div>

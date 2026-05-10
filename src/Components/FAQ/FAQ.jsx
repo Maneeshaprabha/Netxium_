@@ -39,24 +39,54 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const faqData = [
   {
-    question: "How long does a typical project take to complete?",
-    answer: "Project timelines vary based on complexity. A simple project might take 2-3 weeks, while more comprehensive designs can take 1-2 months. I will provide a specific estimate after our initial consultation.",
+    question: "What services does Netxium provide?",
+    answer:
+      "Netxium specializes in AI & machine learning, software development, mobile app development, UI/UX design, and intelligent automation solutions.",
   },
   {
-    question: "Can you work with my existing brand and designs?",
-    answer: "Yes, we can seamlessly integrate with your existing brand guidelines, design systems, and tech stacks to ensure absolute consistency across all touchpoints.",
+    question: "What industries does Netxium work with?",
+    answer:
+      "We work with startups, enterprises, and businesses across industries including finance, retail, healthcare, education, and technology.",
   },
   {
-    question: "What makes your design process unique?",
-    answer: "We focus on a strategic, research-backed approach that aligns your core business goals with actual user needs, ensuring not just beautiful visuals, but highly effective solutions.",
+    question: "Can Netxium build custom software solutions?",
+    answer:
+      "Yes. We develop scalable and fully customized web, mobile, and enterprise software tailored to your business needs.",
   },
   {
-    question: "Do you offer ongoing support after the project is completed?",
-    answer: "Absolutely. We offer customized retainer packages and ongoing technical support to ensure your product continues to perform, update, and scale perfectly over time.",
+    question: "Do you provide AI and machine learning solutions?",
+    answer:
+      "Absolutely. We create intelligent systems for automation, predictive analytics, data processing, and AI-powered business optimization.",
   },
   {
-    question: "How do you handle confidentiality and intellectual property rights?",
-    answer: "We sign standard NDAs before any sensitive discussions take place and transfer full Intellectual Property (IP) rights to you upon project completion and final payment.",
+    question: "Does Netxium offer UI/UX design services?",
+    answer:
+      "Yes. Our team designs modern, intuitive, and user-focused digital experiences for web and mobile platforms.",
+  },
+  {
+    question: "Can you develop mobile applications for iOS and Android?",
+    answer:
+      "Yes. We build high-performance mobile applications for both iOS and Android using modern technologies.",
+  },
+  {
+    question: "How does Netxium manage projects?",
+    answer:
+      "We follow a structured process including discovery, planning, design, development, testing, and launch to ensure successful project delivery.",
+  },
+  {
+    question: "Do you provide support after launch?",
+    answer:
+      "Yes. We offer ongoing maintenance, optimization, updates, and technical support after deployment.",
+  },
+  {
+    question: "How can I start a project with Netxium?",
+    answer:
+      "You can contact our team through the website to discuss your ideas, goals, and project requirements.",
+  },
+  {
+    question: "Why choose Netxium?",
+    answer:
+      "Netxium combines innovation, intelligent technology, and creative design to deliver scalable solutions that drive real business growth.",
   },
 ];
 
@@ -180,14 +210,14 @@ export default function FAQ() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="sticky top-32 bg-white border border-gray-200 rounded-[2rem] p-8 md:p-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
           >
-            {/* Profile Image */}
-            <div className="w-16 h-16 rounded-full overflow-hidden mb-8 border border-gray-100">
-              <img 
-                src="src/assets/profile-pic.jpg" // Replace with your actual profile image
-                alt="Profile" 
-                className="w-full h-full object-cover"
-              />
-            </div>
+          {/* Logo */}
+<div className="w-40 h-20 overflow-hidden mb-8  flex items-center justify-center">
+  <img
+    src="src/assets/NETXIUM_LBOO.png"
+    alt="Netxium Logo"
+    className="max-h-full max-w-full object-contain"
+  />
+</div>
 
             {/* Text Content */}
             <h3 className="text-2xl md:text-3xl text-gray-400 font-medium tracking-tight mb-2">

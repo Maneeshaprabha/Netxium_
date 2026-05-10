@@ -48,7 +48,7 @@ export default function ServicesHero() {
             variants={itemVariants}
             className="text-gray-600 text-base md:text-lg leading-relaxed max-w-4xl mb-16 md:mb-24 px-4"
           >
-            We design AI-powered features that solve real problems—no bloat, just smart tools that make
+            We design AI-powered features that solve real problems,no bloat, just smart tools that make
             work faster, decisions clearer, and operations smoother. From automation to insights, every
             solution is built for performance, scalability, and ease of use.
           </motion.p>
