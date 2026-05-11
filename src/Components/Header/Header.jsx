@@ -76,17 +76,19 @@
 
 
 
-
-"use client";
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link, useLocation } from 'react-router-dom'; // 1. Use React Router instead of Next.js
 import { nav as navData } from "../data/data";
+import logo from "../../assets/NETXIUM_LBOO.png";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(0);
-  
   const [isHovered, setIsHovered] = useState(false);
+  
+  // 2. Get the current URL path using React Router's useLocation hook
+  const location = useLocation();
+  const pathname = location.pathname;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -96,10 +98,6 @@ export default function Navbar() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const handleNavClick = (index) => {
-    setActiveIndex(index);
-  };
 
   const isCompact = isScrolled && !isHovered;
 
@@ -130,15 +128,11 @@ export default function Navbar() {
             >
               {/* Left Side: Profile & Status */}
               <div className="flex items-center gap-3 pl-2">
-                
-                {/* --- LOGO UPDATED HERE --- */}
                 <img 
-                  src="../src/assets/NETXIUM_LBOO.png" 
+                  src={logo} 
                   alt="Netxium Logo" 
                   className="h-4 w-auto object-contain" 
                 />
-                {/* ----------------------- */}
-
                 <span className="font-medium tracking-tight text-sm text-black whitespace-nowrap">
                   Netxium
                 </span>
@@ -153,21 +147,26 @@ export default function Navbar() {
               {/* Center Nav Links */}
               <nav className="hidden md:flex mr-20">
                 <ul className="flex items-center space-x-4">
-                  {navData.map((item, index) => (
-                    <li key={index}>
-                      <a
-                        href={item.link}
-                        onClick={() => handleNavClick(index)}
-                        className={`px-4 py-1.5 rounded-full text-sm font-normal transition ${
-                          activeIndex === index
-                            ? "bg-black text-white"
-                            : "text-black hover:bg-gray-200"
-                        }`}
-                      >
-                        {item.name}
-                      </a>
-                    </li>
-                  ))}
+                  {navData.map((item, index) => {
+                    // 3. Check if current path matches the button
+                    const isActive = pathname === item.link;
+
+                    return (
+                      <li key={index}>
+                        {/* 4. React Router uses 'to' instead of 'href' */}
+                        <Link
+                          to={item.link}
+                          className={`px-4 py-1.5 rounded-full text-sm font-normal transition ${
+                            isActive
+                              ? "bg-black text-white shadow-md"
+                              : "text-black hover:bg-gray-200"
+                          }`}
+                        >
+                          {item.name}
+                        </Link>
+                      </li>
+                    );
+                  })}
                 </ul>
               </nav>
 
@@ -185,7 +184,6 @@ export default function Navbar() {
               exit={{ opacity: 0 }}
               className="flex items-center justify-center gap-1.5 w-full h-[38px] cursor-pointer"
             >
-              {/* Animated Dots (Wave Effect) */}
               {[0, 1, 2].map((index) => (
                 <motion.div
                   key={index}
