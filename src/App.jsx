@@ -9,10 +9,13 @@ import Footer from "./Components/Footer/Footer";
 import Contact  from "./Components/ContactUs/Contact";
 import Term from "./Components/Term/Term";
 import PrivacyPolicy from "./Components/PrivacyPolicy/PrivacyPolicy";
+import ScrollToTop from "./Components/ScrollToTop";
 
 function App() {
   return (
     <>
+
+    <ScrollToTop />
       <Header />
 
       <Routes>

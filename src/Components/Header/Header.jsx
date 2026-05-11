@@ -80,7 +80,6 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom'; // 1. Use React Router instead of Next.js
 import { nav as navData } from "../data/data";
-import logo from "../../assets/NETXIUM_LBOO.png";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -129,7 +128,7 @@ export default function Navbar() {
               {/* Left Side: Profile & Status */}
               <div className="flex items-center gap-3 pl-2">
                 <img 
-                  src={logo} 
+                  src="../src/assets/NETXIUM_LBOO.png" 
                   alt="Netxium Logo" 
                   className="h-4 w-auto object-contain" 
                 />
