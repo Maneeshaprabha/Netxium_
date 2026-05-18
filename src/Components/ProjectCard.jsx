@@ -97,7 +97,7 @@ function ProjectCard({ title, category, bgColor, heroText }) {
       {/* Text Below Card */}
       <div className="mt-6 flex justify-between items-start px-2">
         <div>
-          <h3 className="text-2xl font-semibold text-white tracking-tight">{title}</h3>
+          <h3 className="text-2xl font-semibold text-black tracking-tight">{title}</h3>
           <p className="text-neutral-500 font-medium mt-1">{category}</p>
         </div>
         <div className="h-10 w-10 rounded-full border border-white/10 flex items-center justify-center text-white group-hover:bg-white group-hover:text-black transition-colors duration-300">

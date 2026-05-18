@@ -1,4 +1,6 @@
 "use client";
+import { Link } from "react-router-dom";
+
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowLeft, ShieldCheck } from "lucide-react";
@@ -199,10 +201,17 @@ export default function PrivacyPolicy() {
             animate={{ opacity: 1, y: 0 }}
             className="max-w-3xl"
           >
-            <a href="#" className="inline-flex items-center gap-2 text-gray-500 hover:text-black font-medium text-sm mb-8 transition-colors group">
-              <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-              Back to Home
-            </a>
+           <Link
+  to="/"
+  aria-label="Back to Home"
+  className="inline-flex items-center gap-2 text-gray-500 hover:text-black font-medium text-sm mb-8 transition-colors group"
+>
+  <ArrowLeft
+    size={16}
+    className="group-hover:-translate-x-1 transition-transform"
+  />
+  Back to Home
+</Link>
             <h1 className="text-5xl md:text-6xl lg:text-[72px] font-normal tracking-tight text-black mb-6 leading-none">
               Privacy Policy
             </h1>

@@ -74,18 +74,15 @@
 
 
 
-
-
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link, useLocation } from 'react-router-dom'; // 1. Use React Router instead of Next.js
+import { Link, useLocation } from 'react-router-dom';
 import { nav as navData } from "../data/data";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   
-  // 2. Get the current URL path using React Router's useLocation hook
   const location = useLocation();
   const pathname = location.pathname;
 
@@ -110,10 +107,14 @@ export default function Navbar() {
         animate={{
           width: isCompact ? "100px" : "100%",
           padding: isCompact ? "0.75rem" : "0.5rem",
-          backgroundColor: isCompact ? "rgba(255, 255, 255, 0.1)" : "rgba(255, 255, 255, 0.05)",
+          // 1. Invert Background: Black when scrolled, Light when at the top
+          backgroundColor: isScrolled 
+            ? "rgba(10, 10, 10, 0.85)" // Dark frosted glass
+            : "rgba(255, 255, 255, 0.5)", // Light frosted glass
+          borderColor: isScrolled ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.05)"
         }}
         transition={{ type: "spring", stiffness: 400, damping: 30 }}
-        className="flex items-center backdrop-blur-xl border border-white/10 shadow-2xl overflow-hidden rounded-full"
+        className="flex items-center backdrop-blur-xl border shadow-2xl overflow-hidden rounded-full"
       >
         <AnimatePresence mode="wait">
           {!isCompact ? (
@@ -130,11 +131,15 @@ export default function Navbar() {
                 <img 
                   src="../src/assets/NETXIUM_LBOO.png" 
                   alt="Netxium Logo" 
-                  className="h-4 w-auto object-contain" 
+                  // If your logo is an SVG/PNG that is black, you might want to use CSS filters to invert it when scrolled:
+                  className={`h-4 w-auto object-contain transition-all duration-300 ${isScrolled ? 'invert brightness-0' : ''}`} 
                 />
-                <span className="font-medium tracking-tight text-sm text-black whitespace-nowrap">
+                
+                {/* 2. Invert Logo Text */}
+                <span className={`font-medium tracking-tight text-sm whitespace-nowrap transition-colors duration-300 ${isScrolled ? 'text-white' : 'text-black'}`}>
                   Netxium
                 </span>
+                
                 <div className="hidden md:flex items-center gap-1.5 ml-2">
                   <div className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse" />
                   <span className="text-[10px] uppercase tracking-widest text-neutral-500 font-bold">
@@ -147,18 +152,23 @@ export default function Navbar() {
               <nav className="hidden md:flex mr-20">
                 <ul className="flex items-center space-x-4">
                   {navData.map((item, index) => {
-                    // 3. Check if current path matches the button
                     const isActive = pathname === item.link;
+
+                    // 3. Setup dynamic classes based on scroll state
+                    const activeClass = isScrolled 
+                      ? "bg-white text-black shadow-md" // Scrolled + Active
+                      : "bg-black text-white shadow-md"; // Top + Active
+                      
+                    const inactiveClass = isScrolled 
+                      ? "text-white hover:bg-neutral-800" // Scrolled + Inactive
+                      : "text-black hover:bg-gray-200";   // Top + Inactive
 
                     return (
                       <li key={index}>
-                        {/* 4. React Router uses 'to' instead of 'href' */}
                         <Link
                           to={item.link}
-                          className={`px-4 py-1.5 rounded-full text-sm font-normal transition ${
-                            isActive
-                              ? "bg-black text-white shadow-md"
-                              : "text-black hover:bg-gray-200"
+                          className={`px-4 py-1.5 rounded-full text-sm font-normal transition-colors duration-300 ${
+                            isActive ? activeClass : inactiveClass
                           }`}
                         >
                           {item.name}
@@ -170,7 +180,12 @@ export default function Navbar() {
               </nav>
 
               {/* Right Side: CTA Button */}
-              <button className="rounded-full bg-black px-6 py-2.5 text-sm font-bold text-white hover:bg-gray-900 transition-transform active:scale-95 whitespace-nowrap">
+              {/* 4. Invert Button Colors */}
+              <button className={`rounded-full px-6 py-2.5 text-sm font-bold transition-all duration-300 active:scale-95 whitespace-nowrap ${
+                isScrolled 
+                  ? "bg-white text-black hover:bg-gray-200" 
+                  : "bg-black text-white hover:bg-gray-900"
+              }`}>
                 Book a call with me
               </button>
             </motion.div>
@@ -193,7 +208,8 @@ export default function Navbar() {
                     delay: index * 0.2, 
                     ease: "easeInOut",
                   }}
-                  className="w-1.5 h-1.5 rounded-full bg-black"
+                  // 5. Invert Dots
+                  className={`w-1.5 h-1.5 rounded-full ${isScrolled ? 'bg-white' : 'bg-black'}`}
                 />
               ))}
             </motion.div>

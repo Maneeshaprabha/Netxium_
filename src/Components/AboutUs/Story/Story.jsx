@@ -2,9 +2,11 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function WhoWeAreModern() {
   const [activeIndex, setActiveIndex] = useState(0);
+   const navigate = useNavigate();
 
   // --- ACCORDION DATA ---
   const pillars = [
@@ -203,7 +205,7 @@ export default function WhoWeAreModern() {
                             ease: "easeOut",
                           }}
                         >
-                          <button className="group/btn flex items-center gap-4 bg-white/95 backdrop-blur-sm pl-3 pr-6 py-3 rounded-full hover:bg-white transition-all active:scale-[0.97] shadow-xl">
+                          <button  onClick={() => navigate("/contact")}  className="group/btn flex items-center gap-4 bg-white/95 backdrop-blur-sm pl-3 pr-6 py-3 rounded-full hover:bg-white transition-all active:scale-[0.97] shadow-xl">
                             <div className="w-10 h-10 rounded-full bg-[#1A1A1A] flex items-center justify-center text-white group-hover/btn:bg-[#29AAE3] transition-colors duration-300">
                               <ArrowUpRight
                                 size={20}

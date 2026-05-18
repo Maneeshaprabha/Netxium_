@@ -42,7 +42,7 @@ export default function Intro() {
           className="mb-16 text-center space-y-6"
         >
           <h2 className="font-mono text-sm tracking-widest uppercase mb-6 block text-center">
-            //Introducing Netxium
+            // Introducing Netxium
           </h2>
           <h2 className="text-5xl md:text-5xl lg:text-[56px] leading-[1.1] font-semibold tracking-tight mb-8 text-center">
            <span className="text-gray-400 font-medium ">

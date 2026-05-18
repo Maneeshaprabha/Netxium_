@@ -23,21 +23,26 @@ export default function AboutEditorial() {
           className="w-full lg:w-1/2 aspect-square lg:aspect-[4/5] relative flex items-center justify-center"
         >
           {/* Video Frame */}
-          <div className="absolute inset-0 overflow-hidden rounded-[3rem] bg-gray-100 shadow-2xl">
-            <video
+          <div className="absolute inset-0 overflow-hidden ">
+            {/* <video
               autoPlay
               loop
               muted
               playsInline
               className="absolute inset-0 w-full h-full object-cover"
-            >
+            > */}
               {/* Ensure the path to your video is correct */}
-              <source src="../src/assets/about.png" type="video/mp4" />
+              {/* <source src="../src/assets/about.mp4" type="video/mp4" />
               Your browser does not support the video tag.
-            </video>
+            </video> */}
+            <img
+              src="../src/assets/about.png" // Replace with your actual image path
+              alt="About Us Video"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
             
             {/* Subtle Overlay to maintain editorial look */}
-            <div className="absolute inset-0 bg-black/5 pointer-events-none" />
+            {/* <div className="absolute inset-0 bg-black/5 pointer-events-none" /> */}
           </div>
         </motion.div>
 

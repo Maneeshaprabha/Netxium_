@@ -1,11 +1,13 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export default function FutureTech() {
+  const navigate = useNavigate();
   return (
     // Outer wrapper to maintain the wireframe grid
-    <div className="w-full bg-white">
+    <div className="w-full border-t border-gray-200">
       <section className="max-w-7xl mx-auto px-6 py-20 border-x border-gray-200 font-sans">
         
         {/* Main Card Container */}
@@ -66,7 +68,7 @@ export default function FutureTech() {
               transition={{ duration: 0.6, delay: 0.6 }}
             >
               {/* Glassmorphism Button matching the screenshot */}
-              <button className="flex items-center gap-3 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 px-2 py-2 pr-6 rounded-full transition-all group w-fit">
+              <button  onClick={() => navigate("/contact")}  className="flex items-center gap-3 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 px-2 py-2 pr-6 rounded-full transition-all group w-fit">
                 <span className="flex items-center justify-center w-10 h-10 bg-white rounded-full text-black shadow-sm group-hover:scale-105 transition-transform">
                   <svg
                     width="16"

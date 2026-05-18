@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowLeft, Download } from "lucide-react";
+import { Link } from "react-router-dom";
+
 
 // --- DUMMY LEGAL DATA ---
 const termsData = [
@@ -182,10 +184,17 @@ export default function TermsAndConditions() {
             animate={{ opacity: 1, y: 0 }}
             className="max-w-3xl"
           >
-            <a href="#" className="inline-flex items-center gap-2 text-gray-500 hover:text-black font-medium text-sm mb-8 transition-colors group">
-              <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-              Back to Home
-            </a>
+         <Link
+  to="/"
+  aria-label="Back to Home"
+  className="inline-flex items-center gap-2 text-gray-500 hover:text-black font-medium text-sm mb-8 transition-colors group"
+>
+  <ArrowLeft
+    size={16}
+    className="group-hover:-translate-x-1 transition-transform"
+  />
+  Back to Home
+</Link>
             <h1 className="text-5xl md:text-6xl lg:text-[72px] font-normal tracking-tight text-black mb-6 leading-none">
               Terms & Conditions
             </h1>

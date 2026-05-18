@@ -10,9 +10,9 @@ export default function Contact() {
       {/* --- BACKGROUND WIREFRAME GRID --- */}
       <div className="absolute inset-0 z-0 pointer-events-none flex justify-center">
         <div className="w-full max-w-7xl h-full border-x border-gray-100 relative">
-          <div className="absolute left-1/4 top-0 bottom-0 border-l border-gray-100" />
+          {/* <div className="absolute left-1/4 top-0 bottom-0 border-l border-gray-100" />
           <div className="absolute left-1/2 top-0 bottom-0 border-l border-gray-100" />
-          <div className="absolute left-3/4 top-0 bottom-0 border-l border-gray-100" />
+          <div className="absolute left-3/4 top-0 bottom-0 border-l border-gray-100" /> */}
         </div>
       </div>
 
@@ -27,12 +27,11 @@ export default function Contact() {
           className="w-full lg:w-1/2 flex flex-col"
         >
           <h2 className="text-[44px] md:text-[56px] lg:text-[64px] font-normal leading-[1.05] text-black tracking-tight mb-8">
-            We are always ready to help you and answer your questions
+We are always ready to support your business and bring your ideas to life.
           </h2>
           
           <p className="text-[15px] md:text-base text-gray-500 leading-relaxed mb-16 max-w-md">
-            Pacific hake false trevally queen parrotfish black prickleback 
-            mosshead warbonnet sweeper! Greenling sleeper.
+            Netxium blends creativity, AI, and technology to build smart solutions that inspire growth and shape the future.
           </p>
 
           {/* Contact Details Grid */}
@@ -42,8 +41,8 @@ export default function Contact() {
             <div>
               <h4 className="text-black font-semibold text-lg mb-4 tracking-tight">Call Center</h4>
               <div className="space-y-2 text-[15px] text-gray-600">
-                <p>800 100 975 20 34</p>
-                <p>+ (123) 1800-234-5678</p>
+                <p>+(94)776689031</p>
+                <p>+ (94) 703803556</p>
               </div>
             </div>
 

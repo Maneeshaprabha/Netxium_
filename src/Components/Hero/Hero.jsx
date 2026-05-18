@@ -112,7 +112,7 @@
 
 //       {/* Clients Strip */}
 //       <div className="px-8 md:px-16 py-8 border-t flex flex-wrap items-center gap-6 text-gray-500 text-sm">
-//         <span>⭐ 99+ Happy clients</span>
+//         <span>⭐ 15+ Happy clients</span>
 //         <span>Kintsugi</span>
 //         <span>CoreOS</span>
 //         <span>Luminary</span>
@@ -208,7 +208,7 @@ export default function Hero() {
                   </div>
 
                   <p className="text-sm text-neutral-400 font-medium mt-0.5">
-                    99+ Happy clients
+                    15+ Happy clients
                   </p>
                 </div>
               </div>

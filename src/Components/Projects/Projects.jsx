@@ -78,9 +78,9 @@ export default function Projects() {
       {/* BACKGROUND WIREFRAME GRID */}
       <div className="absolute inset-0 z-0 pointer-events-none flex justify-center">
         <div className="w-full max-w-7xl h-full border-x border-gray-100 relative">
-          <div className="absolute left-1/4 top-0 bottom-0 border-l border-gray-100" />
+          {/* <div className="absolute left-1/4 top-0 bottom-0 border-l border-gray-100" />
           <div className="absolute left-1/2 top-0 bottom-0 border-l border-gray-100" />
-          <div className="absolute left-3/4 top-0 bottom-0 border-l border-gray-100" />
+          <div className="absolute left-3/4 top-0 bottom-0 border-l border-gray-100" /> */}
         </div>
       </div>
 

@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 // --- COMPLETE SERVICES DATA ---
 const servicesData = {
@@ -153,6 +154,7 @@ const servicesData = {
 export default function ServicesSection() {
   const [activeTab, setActiveTab] = useState("AI and ML");
   const current = servicesData[activeTab];
+  const navigate = useNavigate();
 
   return (
     <div className="w-full bg-white border-t border-gray-200">
@@ -198,7 +200,7 @@ export default function ServicesSection() {
             <p className="text-gray-400 text-[15px] leading-relaxed mb-10 relative z-10">
 Transforming complex challenges into smart digital experiences through AI, software, and modern technology.            </p>
             
-            <button className="flex items-center justify-between w-full bg-white text-black px-8 py-5 rounded-full font-bold transition-all hover:bg-gray-100 group relative z-10 shadow-xl">
+            <button  onClick={() => navigate("/contact")}  className="flex items-center justify-between w-full bg-white text-black px-8 py-5 rounded-full font-bold transition-all hover:bg-gray-100 group relative z-10 shadow-xl">
               <span className="text-lg">Work with me</span>
               <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center transition-transform group-hover:translate-x-1">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">

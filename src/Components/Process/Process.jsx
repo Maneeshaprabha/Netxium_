@@ -8,33 +8,48 @@ export default function Process() {
       phase: "Discovery",
       tracks: [
         [
-          { name: "Stakeholder interviews & briefing", left: 0, width: 22 },
-          { name: "User & market research", left: 24, width: 20 },
+          { name: "Business analysis", left: 0, width: 22 },
+          { name: "User research  & Market insights", left: 24, width: 30 },
         ],
       ],
     },
     {
-      phase: "Concept",
+      phase: "Strategy",
       tracks: [
-        [{ name: "Creative & strategic exploration", left: 8, width: 32 }],
-        [{ name: "Direction alignment", left: 24, width: 28 }],
-        [{ name: "Concept refinement", left: 28, width: 45, active: true }],
+        [{ name: "Creative & AI strategy ", left: 8, width: 32 }],
+        [{ name: "System architecture", left: 24, width: 28 }],
+        [{ name: "Product planning", left: 28, width: 45, active: true }],
       ],
     },
     {
-      phase: "Execution",
+      phase: "Design",
       tracks: [
-        [{ name: "Design systems", left: 40, width: 35 }],
-        [{ name: "Iterative testing & QA", left: 48, width: 35 }],
+        [{ name: "UI/UX designs", left: 40, width: 35 }],
+        [{ name: "Wireframes & prototypes", left: 48, width: 35 }],
+      ],
+    },
+    {
+      phase: "Development",
+      tracks: [
+        [{ name: "Developing intelligent systems", left: 55, width: 30 , active: true}],
+        [{ name: "Web & mobile solutions", left: 62, width: 35 }],
+      ],
+    },
+     {
+      phase: "Optimize",
+      tracks: [
+        [{ name: "Testing & QA", left: 55, width: 30 }],
+        [{ name: "Performance tuning", left: 62, width: 35 }],
+        [({ name: "System optimization", left: 68, width: 30 })],
       ],
     },
     {
       phase: "Launch",
       tracks: [
-        [{ name: "Rollout & support", left: 55, width: 30 }],
-        [{ name: "Post-launch optimizations", left: 62, width: 35 }],
+        [{ name: "Deployment & monitoring", left: 75, width: 25 , active: true }],
+        [{ name: "Post-launch support", left: 80, width: 20 }],
       ],
-    },
+    }
   ];
 
   // --- Animation Variants ---
