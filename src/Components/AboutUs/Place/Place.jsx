@@ -73,7 +73,7 @@ export default function AboutEditorial() {
               Our approach integrates intelligent algorithms and scalable technologies to help businesses adapt faster in a rapidly evolving digital world. From AI-powered automation to custom web and mobile applications, Netxium transforms ideas into impactful digital products.
             </p>
             <p>
-              We specialize in building intelligent systems that learn, optimize, and grow alongside your business—empowering organizations with innovation, performance, and long-term scalability.
+              We specialize in building intelligent systems that learn, optimize, and grow alongside your business empowering organizations with innovation, performance, and long-term scalability.
             </p>
           </motion.div>
 
