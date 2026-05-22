@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
+import robotImage from "../../../assets/robot.jpg";
 
 export default function ServicesHero() {
   // --- Animation Variants ---
@@ -59,7 +60,7 @@ export default function ServicesHero() {
             className="w-full rounded-[2rem] md:rounded-[3rem] overflow-hidden bg-gray-100 border border-gray-200 shadow-sm relative aspect-[4/3] sm:aspect-[16/9] md:aspect-[21/9] group"
           >
             <img
-              src="../src/assets/robot.jpg" // Replace with your actual image path
+              src={robotImage} // Replace with your actual image path
               alt="Advanced AI Robot"
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-[1.02]"
             />
