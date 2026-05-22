@@ -172,7 +172,7 @@ export default function Hero() {
               variants={item}
               className="max-w-[800px] text-5xl font-medium leading-[1.05] md:text-7xl tracking-tight text-black/80"
             >
-              Where Advanceccccccccccccccccccd Intelligence Meets{" "}
+              Where Advanced Intelligence Meets{" "}
               <span className="text-neutral-500">
                 Human-Centric Design to Drive Measurable Growth.
               </span>
