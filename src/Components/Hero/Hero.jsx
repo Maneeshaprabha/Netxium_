@@ -127,6 +127,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import HeroImageStack from "../Hero/HeroImageStack";
 
+import HeroVideo from "../../assets/smooth.mp4";
+
 export default function Hero() {
   const container = {
     hidden: { opacity: 0 },
@@ -155,7 +157,7 @@ export default function Hero() {
         muted
         playsInline
       >
-        <source src="../src/assets/smooth.mp4" type="video/mp4" />
+        <source src={HeroVideo} type="video/mp4" />
       </video>
 
       {/* CONTENT */}

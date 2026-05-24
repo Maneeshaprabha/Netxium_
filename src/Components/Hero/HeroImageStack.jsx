@@ -2,6 +2,8 @@
 import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
+import HeroImage from "../../assets/home_01.webp";
+
 export default function HeroImageStack() {
   const { scrollY } = useScroll();
   const yParallax = useTransform(scrollY, [0, 500], [0, 100]); 
@@ -25,7 +27,7 @@ export default function HeroImageStack() {
     >
       <motion.div animate={floatAnimation} className="w-full h-full flex justify-center">
         <img 
-          src="../src/assets/home_01.png" 
+          src={HeroImage} 
           alt="AI Humanoid" 
           // INCREASED HEIGHT: max-h-[900px] allows it to grow much taller
           // SCALE: Added lg:scale-110 to give it a 10% visual boost on desktop

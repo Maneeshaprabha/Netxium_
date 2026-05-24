@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import robotImage from "../../../assets/robot.jpg";
+import robotImage from "../../../assets/robot.webp";
 
 export default function ServicesHero() {
   // --- Animation Variants ---

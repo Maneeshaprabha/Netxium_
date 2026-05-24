@@ -2,6 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import future from "../../assets/FutureTech.webp";
 
 export default function FutureTech() {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ export default function FutureTech() {
         >
           {/* Background Image */}
           <img
-            src="../../src/assets/FutureTech.png" // Replace with your actual image path
+            src={future} // Replace with your actual image path
             alt="Woman working with futuristic technology"
             className="absolute inset-0 w-full h-full object-cover object-center"
           />

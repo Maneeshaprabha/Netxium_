@@ -78,6 +78,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import { nav as navData } from "../data/data";
+import logo from "../../assets/NETXIUM_LBOO.webp";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -129,7 +130,7 @@ export default function Navbar() {
               {/* Left Side: Profile & Status */}
               <div className="flex items-center gap-3 pl-2">
                 <img 
-                  src="../src/assets/NETXIUM_LBOO.png" 
+                  src={logo} 
                   alt="Netxium Logo" 
                   // If your logo is an SVG/PNG that is black, you might want to use CSS filters to invert it when scrolled:
                   className={`h-4 w-auto object-contain transition-all duration-300 ${isScrolled ? 'invert brightness-0' : ''}`} 
