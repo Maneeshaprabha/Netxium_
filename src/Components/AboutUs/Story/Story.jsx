@@ -3,11 +3,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import innovationImage from "../../../assets/innovation.webp";
-//import expertImage from "../../../assets/expert.webp";
-import technologyImage from "../../../assets/technology.webp";
-import growingImage from "../../../assets/growing.webp";
-import futureImage from "../../../assets/future.webp";
+
 
 export default function WhoWeAreModern() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -23,7 +19,7 @@ export default function WhoWeAreModern() {
       topic:"We are a team focused on building modern digital and AI-powered solutions.",
       tag1: "Innovation",
       tag2: "AI",
-      image: "innovationImage",
+      image: "/innovation.webp",
       color: "bg-gray-100",
     },
     {
@@ -32,7 +28,7 @@ export default function WhoWeAreModern() {
       topic:"We specialize in AI, software development, mobile apps, and UI/UX design.",
       tag1: "Technology",
       tag2: "Development",
-      image: "src/assets/expert.webp",
+      image: "/expert.webp",
       color: "bg-[#F4F8FC]",
     },
     {
@@ -41,7 +37,7 @@ export default function WhoWeAreModern() {
       topic:"We turn complex business challenges into simple, smart solutions.",
       tag1: "Solutions",
       tag2: "Strategy",
-      image: technologyImage,
+      image: "/technology.webp",
       color: "bg-[#29AAE3]",
     },
     {
@@ -50,7 +46,7 @@ export default function WhoWeAreModern() {
       topic:"We help businesses scale with efficient and intelligent technology.",
       tag1: "Scalability",
       tag2: "Growth",
-      image: growingImage,
+      image: "/growing.webp",
       color: "bg-[#0D4DB1]",
     },
     {
@@ -59,7 +55,7 @@ export default function WhoWeAreModern() {
       topic:"We create scalable systems that grow and adapt with your business.",
       tag1: "Future-ready",
       tag2: "Systems",
-      image: futureImage,
+      image: "/future.webp",
       color: "bg-[#1A1A1A]",
     },
   ];
