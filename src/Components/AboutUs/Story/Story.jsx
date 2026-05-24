@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import innovationImage from "../../../assets/innovation.webp";
-import expertImage from "../../../assets/expert.webp";
+//import expertImage from "../../../assets/expert.webp";
 import technologyImage from "../../../assets/technology.webp";
 import growingImage from "../../../assets/growing.webp";
 import futureImage from "../../../assets/future.webp";
@@ -23,7 +23,7 @@ export default function WhoWeAreModern() {
       topic:"We are a team focused on building modern digital and AI-powered solutions.",
       tag1: "Innovation",
       tag2: "AI",
-      image: innovationImage,
+      image: "innovationImage",
       color: "bg-gray-100",
     },
     {
@@ -32,7 +32,7 @@ export default function WhoWeAreModern() {
       topic:"We specialize in AI, software development, mobile apps, and UI/UX design.",
       tag1: "Technology",
       tag2: "Development",
-      image: expertImage,
+      image: "src/assets/expert.webp",
       color: "bg-[#F4F8FC]",
     },
     {
