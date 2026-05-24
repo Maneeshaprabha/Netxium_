@@ -19,7 +19,7 @@ export default function WhoWeAreModern() {
   const pillars = [
     {
       id: "01",
-      title: "Innovation-Driven Team",
+      title: " Innovation-Driven Team",
       topic:"We are a team focused on building modern digital and AI-powered solutions.",
       tag1: "Innovation",
       tag2: "AI",
