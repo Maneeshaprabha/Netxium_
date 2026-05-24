@@ -1,6 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import robotImage from "../../assets/robot.webp";
+import partnershipImage from "../../assets/partnership.webp";
+import tailoredImage from "../../assets/tailored.webp";
 
 export default function WhyChooseUsModern() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -11,19 +14,19 @@ export default function WhyChooseUsModern() {
       title: "Expertise That Delivers Results",
       desc: "Our team brings deep experience in AI, machine learning, software development, and design ensuring every project is executed with precision and purpose.",
       // Replace these with your actual image paths
-      image: "../src/assets/robot.jpg", 
+      image: robotImage, 
     },
     {
       num: "02",
       title: "Ongoing Support & Partnership",
       desc: "Our commitment doesn't end at launch. We provide continuous optimization, updates, and insights to keep your solutions at their best.",
-      image: "src/assets/partnership.jpg",
+      image: partnershipImage,
     },
     {
       num: "03",
       title: "Tailored Solutions for Every Business",
       desc: "We don't believe in one-size-fits-all. Every solution we craft is customized to meet your goals, challenges, and growth ambitions.",
-      image: "src/assets/tailored.jpg",
+      image: tailoredImage,
     },
   ];
 

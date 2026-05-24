@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
+import creative from "../../assets/creative.webp";
 
 export default function Creative() {
   // --- Animation Variants ---
@@ -35,7 +36,7 @@ export default function Creative() {
   className="w-full lg:w-1/2 flex items-center justify-center"
 >
   <img
-    src="src/assets/creative.png"
+    src={creative}
     alt="Futuristic Robot Profile"
     className="w-full max-w-[500px] h-auto object-contain transition-transform duration-700 group-hover:scale-105"
   />

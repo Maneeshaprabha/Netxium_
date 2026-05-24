@@ -35,6 +35,7 @@
 "use client";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import netxiumLogo from "../../assets/NETXIUM_LBOO.webp";
 
 
 const faqData = [
@@ -213,7 +214,7 @@ export default function FAQ() {
           {/* Logo */}
 <div className="w-40 h-20 overflow-hidden mb-8  flex items-center justify-center">
   <img
-    src="src/assets/NETXIUM_LBOO.png"
+    src={netxiumLogo}
     alt="Netxium Logo"
     className="max-h-full max-w-full object-contain"
   />

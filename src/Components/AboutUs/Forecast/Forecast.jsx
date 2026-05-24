@@ -12,21 +12,21 @@ export default function ProjectShowcase() {
       status: "In Progress",
       title: "Luxina – Brand Studio Template",
       desc: "A bold and expressive template for creatives and agencies. Currently fine-tuning layout and animations.",
-      img: "src/assets/project1.jpg" // Replace with your actual image path
+      img: "src/assets/project1.webp" // Replace with your actual image path
     },
     {
       id: 2,
       status: "Finalized",
       title: "Neximum – Digital Ecosystem",
       desc: "A comprehensive design system built for high-scale AI applications and real-time data monitoring.",
-      img: "src/assets/project2.jpg" // Replace with your actual image path
+      img: "src/assets/project2.webp" // Replace with your actual image path
     },
     {
       id: 3,
       status: "In Review",
       title: "HealthSync – Mobile Interface",
       desc: "An intuitive patient portal prioritizing accessibility, fast load times, and clear data visualization.",
-      img: "src/assets/project3.jpg" // Replace with your actual image path
+      img: "src/assets/project3.webp" // Replace with your actual image path
     }
   ];
 

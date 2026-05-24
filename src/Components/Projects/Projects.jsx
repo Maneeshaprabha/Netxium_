@@ -1,6 +1,8 @@
 "use client";
 import React, { useEffect, useRef } from "react";
 import { motion, useMotionValue, useTransform, animate, useInView } from "framer-motion";
+import humanandrobot from "../../assets/robot_and_human.webp";
+import womentechImage from "../../assets/womentech.webp";
 
 // --- Custom Animated Counter Component ---
 function AnimatedCounter({ from = 0, to, suffix = "", duration = 2 }) {
@@ -127,7 +129,7 @@ export default function Projects() {
               className="col-span-4 rounded-[2rem] overflow-hidden group border border-gray-100 shadow-sm"
             >
               <img
-                src="src/assets/robot_and_human.png"
+                src={humanandrobot}
                 alt="AI project"
                 className="w-full h-64 md:h-80 lg:h-[340px] object-cover transition-transform duration-700 group-hover:scale-105"
               />
@@ -169,7 +171,7 @@ export default function Projects() {
                 {/* Background Image with Blue Overlay */}
                 <div className="absolute inset-0 z-0 transition-transform duration-700 hover:scale-105">
                   <img
-                    src="src/assets/womentech.jpg"
+                    src={womentechImage}
                     alt="Clients"
                     className="w-full h-full object-cover"
                   />

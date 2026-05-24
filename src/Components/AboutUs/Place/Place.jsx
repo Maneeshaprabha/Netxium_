@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
+import abouImage from "../../../assets/about.webp";
 
 export default function AboutEditorial() {
   return (
@@ -36,7 +37,7 @@ export default function AboutEditorial() {
               Your browser does not support the video tag.
             </video> */}
             <img
-              src="../src/assets/about.png" // Replace with your actual image path
+              src={abouImage} // Replace with your actual image path
               alt="About Us Video"
               className="absolute inset-0 w-full h-full object-cover"
             />

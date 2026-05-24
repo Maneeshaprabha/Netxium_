@@ -1,6 +1,13 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
+import card1Image from "../../assets/card_01.webp";
+import card2Image from "../../assets/card_2.webp";
+import card3Image from "../../assets/card_3.webp";
+import card4Image from "../../assets/card_4.webp";
+//import card6Image from "../../assets/card_06.jpg";
+
+import blueVideo from "../../assets/blue.mp4";
 
 export default function Intro() {
   // --- ANIMATION VARIANTS ---
@@ -82,7 +89,7 @@ export default function Intro() {
               </p>
             </div>
             <img
-              src="src/assets/card_01.png"
+              src={card1Image}
               className="w-full h-64 rounded-2xl object-cover mt-auto"
               alt="Workflow visualization"
             />
@@ -101,7 +108,7 @@ export default function Intro() {
               </p>
             </div>
             <img
-              src="src/assets/card_2.jpeg"
+              src={card2Image}
               className="w-full h-64 rounded-2xl object-cover mt-auto"
               alt="Automation graphics"
             />
@@ -139,7 +146,7 @@ export default function Intro() {
               </p>
             </div>
             <img
-              src="src/assets/card_4.jpeg"
+              src={card4Image}
               className="w-full h-64 rounded-2xl object-cover mt-auto"
               alt="UI/UX Design"
             />
@@ -159,7 +166,7 @@ export default function Intro() {
               </p>
             </div>
             <img
-              src="src/assets/card_3.jpeg"
+              src={card3Image}
               className="w-full h-64 rounded-2xl object-cover mt-auto"
               alt="Scaling infrastructure"
             />
@@ -173,7 +180,7 @@ export default function Intro() {
               className="absolute inset-0 w-full h-full object-cover"
             /> */}
             <video
-              src="src/assets/blue.mp4"
+              src={blueVideo}
               autoPlay
               loop
               muted
