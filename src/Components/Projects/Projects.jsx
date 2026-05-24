@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from "react";
 import { motion, useMotionValue, useTransform, animate, useInView } from "framer-motion";
 import humanandrobot from "../../assets/robot_and_human.webp";
 import womentechImage from "../../assets/womentech.webp";
+import robotImage from "../../assets/robot.webp";
 
 // --- Custom Animated Counter Component ---
 function AnimatedCounter({ from = 0, to, suffix = "", duration = 2 }) {
@@ -203,7 +204,7 @@ export default function Projects() {
             className="h-full rounded-[2rem] overflow-hidden border border-gray-100 shadow-sm group"
           >
             <img
-              src="src/assets/robot.jpg"
+              src={robotImage}
               className="w-full h-[400px] md:h-full object-cover transition-transform duration-700 group-hover:scale-105"
               alt="Robot"
             />
