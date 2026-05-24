@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import innovationImage from "../../../assets/Innovation.webp";
-import expertImage from "../../../assets/technology.webp";
+import expertImage from "../../../assets/Expert.webp";
 import technologyImage from "../../../assets/technology.webp";
 import growingImage from "../../../assets/growing.webp";
 import futureImage from "../../../assets/future.webp";
