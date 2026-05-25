@@ -116,7 +116,7 @@ export default function Footer() {
               <li><a href="/services" className="text-sm font-medium text-neutral-300 hover:text-white transition-colors">Services</a></li>
               <li><a href="/about" className="text-sm font-medium text-neutral-300 hover:text-white transition-colors">About Us</a></li>
               <li><a href="/contact" className="text-sm font-medium text-neutral-300 hover:text-white transition-colors">Contact</a></li>
-              <li><a href="/blog" className="text-sm font-medium text-neutral-300 hover:text-white transition-colors">Blog</a></li>
+              <li><a href="/blogs" className="text-sm font-medium text-neutral-300 hover:text-white transition-colors">Blog</a></li>
             </ul>
           </div>
 
