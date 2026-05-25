@@ -32,7 +32,7 @@ export default function ProjectShowcase() {
 
   return (
     // 1. FULL-WIDTH WRAPPER
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16 md:py-24 border-t border-gray-200 font-sans">
+    <div className="max-w-7xl mx-auto px-6 py-20 md:py-24 border-x border-gray-200 font-sans">
       
       {/* 2. MAIN CONTENT WRAPPER */}
       <section className="max-w-7xl mx-auto overflow-hidden">
@@ -45,7 +45,7 @@ export default function ProjectShowcase() {
           transition={{ duration: 0.6 }}
           className="mb-10 md:mb-16 text-center space-y-4 md:space-y-6"
         >
-          <h2 className="text-4xl md:text-[64px] leading-tight font-normal text-black tracking-tight">
+          <h2  className="text-[40px] md:text-[64px] leading-tight font-normal text-black tracking-tight mb-6">
             Our Projects
           </h2>
         </motion.div>

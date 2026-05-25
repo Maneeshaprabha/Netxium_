@@ -26,7 +26,7 @@ export default function Contact() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="w-full lg:w-1/2 flex flex-col"
         >
-          <h2 className="text-4xl md:text-[56px] lg:text-[64px] font-normal leading-[1.1] md:leading-[1.05] text-black tracking-tight mb-6 md:mb-8">
+          <h2  className="text-[40px] md:text-[64px] leading-tight font-normal text-black tracking-tight mb-6">
             We are always ready to support your business and bring your ideas to life.
           </h2>
           
@@ -41,7 +41,7 @@ export default function Contact() {
             <div>
               <h4 className="text-black font-semibold text-lg mb-3 md:mb-4 tracking-tight">Call Center</h4>
               <div className="space-y-1.5 md:space-y-2 text-[15px] text-gray-600">
-                <p>+(94)776689031</p>
+                <p>+(94) 776689031</p>
                 <p>+ (94) 703803556</p>
               </div>
             </div>

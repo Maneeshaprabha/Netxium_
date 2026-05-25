@@ -12,8 +12,13 @@ export const nav = [
         link: "/about"
     },
     {
+        name: "Blog",
+        link: "/blogs"
+    },
+    {
         name: "Contact",
         link: "/contact"
-    }
+    },
+
 
 ]
