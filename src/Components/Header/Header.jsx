@@ -209,13 +209,13 @@ export default function Navbar() {
 
               {/* Right Side: Desktop CTA & Mobile Toggle */}
               <div className="flex items-center gap-2">
-            <button   className={`hidden md:block rounded-full px-6 py-2.5 text-sm font-bold transition-all duration-300 active:scale-95 whitespace-nowrap shadow-lg ${
+            <a   href="https://cal.com/netxium-solution-0h0glw/software-discussion" className={`hidden md:block rounded-full px-6 py-2.5 text-sm font-bold transition-all duration-300 active:scale-95 whitespace-nowrap shadow-lg ${
                 isScrolled 
                   ? "bg-white text-black hover:bg-gray-200" 
                   : "bg-black text-white hover:bg-gray-900"
               }`}>
                 Book a call with us
-              </button>
+              </a>
                 
                 {/* 3 ANIMATED DOTS MENU TOGGLE (MOBILE ONLY AT TOP) */}
                 <button 
@@ -336,15 +336,12 @@ export default function Navbar() {
               transition={{ delay: 0.2 }}
               className="mt-6"
             >
-              <button 
-                onClick={() => {
-                  setIsMobileOpen(false);
-                  navigate('/contact');
-                }}
+              <a 
+                 href="https://cal.com/netxium-solution-0h0glw/software-discussion"
                 className="w-full bg-black backdrop-blur-md text-white border border-white/80 py-3.5 rounded-2xl text-[15px] font-semibold hover:bg-white active:scale-[0.98] transition-all shadow-sm"
               >
                 Book a call with us
-              </button>
+              </a>
             </motion.div>
           </motion.div>
         </>

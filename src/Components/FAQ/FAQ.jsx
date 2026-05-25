@@ -235,7 +235,8 @@ export default function FAQ() {
             <div className="flex flex-wrap items-center gap-4">
               
               {/* Your sleek dark button */}
-              <button className="flex items-center gap-2.5 bg-gradient-to-b from-neutral-800 to-black border border-neutral-700/50 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 px-6 py-3 rounded-full transition-all w-fit group">
+              <a    href="https://cal.com/netxium-solution-0h0glw/software-discussion"
+  className="flex items-center gap-2.5 bg-gradient-to-b from-neutral-800 to-black border border-neutral-700/50 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 px-6 py-3 rounded-full transition-all w-fit group">
                 <svg
                   width="18"
                   height="18"
@@ -256,7 +257,7 @@ export default function FAQ() {
                 <span className="text-white font-bold text-sm md:text-base tracking-wide">
                   Schedule Now
                 </span>
-              </button>
+              </a>
 
               {/* Branding */}
               <span className="text-gray-400 font-medium tracking-wide">
