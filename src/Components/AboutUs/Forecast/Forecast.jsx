@@ -31,30 +31,28 @@ export default function ProjectShowcase() {
   ];
 
   return (
-
-    
-    // 1. FULL-WIDTH WRAPPER (Exactly like Intro)
-    <div className="max-w-7xl mx-auto px-6 py-20 md:py-24 border-t border-gray-200 font-sans">
+    // 1. FULL-WIDTH WRAPPER
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16 md:py-24 border-t border-gray-200 font-sans">
       
-      {/* 2. MAIN CONTENT WRAPPER (Exactly like Intro: border-x on max-w-7xl) */}
-      <section className="max-w-7xl mx-auto px-6 py-20 overflow-hidden  ">
+      {/* 2. MAIN CONTENT WRAPPER */}
+      <section className="max-w-7xl mx-auto overflow-hidden">
         
-        {/* Header matching your typography */}
+        {/* Header */}
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-16 text-center space-y-6"
+          className="mb-10 md:mb-16 text-center space-y-4 md:space-y-6"
         >
-       
-          <h2 className="text-[40px] md:text-[64px] leading-tight font-normal text-black tracking-tight mb-6">
+          <h2 className="text-4xl md:text-[64px] leading-tight font-normal text-black tracking-tight">
             Our Projects
           </h2>
         </motion.div>
 
         {/* 3. SHOWCASE CONTAINER */}
-        <div className="relative w-full aspect-[4/3] md:aspect-[21/9] rounded-[44px] overflow-hidden bg-[#F2F6FF] shadow-sm">
+        {/* FIXED FOR MOBILE: Swapped aspect-[4/3] for min-h-[520px] so the card always fits on narrow screens */}
+        <div className="relative w-full min-h-[520px] md:min-h-0 md:aspect-[21/9] rounded-3xl md:rounded-[44px] overflow-hidden bg-[#F2F6FF] shadow-sm">
           
           {/* ANIMATED BLURRED IMAGE BACKGROUND */}
           <AnimatePresence mode="wait">
@@ -75,43 +73,44 @@ export default function ProjectShowcase() {
           </AnimatePresence>
 
           {/* Dimming overlay so the white card pops */}
-          <div className="absolute inset-0 bg-black/5" />
+          <div className="absolute inset-0 bg-black/10 md:bg-black/5" />
 
           {/* THE FLOATING CENTRAL CARD */}
+          {/* FIXED FOR MOBILE: Added max-w-[90%] to ensure it doesn't touch the phone edges */}
           <div className="absolute inset-0 flex items-center justify-center p-4">
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="bg-white p-8 md:p-12 rounded-[2.5rem] shadow-[0_20px_50px_-10px_rgba(0,0,0,0.1)] max-w-[480px] w-full text-center z-20"
+              className="bg-white p-6 sm:p-8 md:p-12 rounded-3xl md:rounded-[2.5rem] shadow-[0_20px_50px_-10px_rgba(0,0,0,0.15)] max-w-[90%] sm:max-w-[480px] w-full text-center z-20"
             >
               {/* Status indicator */}
-              <div className="flex items-center justify-center gap-2 mb-6">
+              <div className="flex items-center justify-center gap-2 mb-4 md:mb-6">
                 <span className={`w-2 h-2 rounded-full ${projects[index].status === 'In Progress' ? 'bg-yellow-400 animate-pulse' : 'bg-[#29AAE3]'}`} />
-                <span className="text-[11px] font-bold text-gray-400 uppercase tracking-[0.2em]">
+                <span className="text-[10px] md:text-[11px] font-bold text-gray-400 uppercase tracking-[0.2em]">
                   {projects[index].status}
                 </span>
               </div>
 
               {/* Title */}
-              <h3 className="text-2xl md:text-[32px] font-normal text-black mb-4 leading-tight tracking-tight">
+              <h3 className="text-[22px] md:text-[32px] font-medium text-black mb-3 md:mb-4 leading-snug md:leading-tight tracking-tight">
                 {projects[index].title}
               </h3>
 
               {/* Description */}
-              <p className="text-gray-500 text-sm md:text-[15px] mb-10 leading-relaxed max-w-sm mx-auto">
+              <p className="text-gray-500 text-[13px] md:text-[15px] mb-8 md:mb-10 leading-relaxed max-w-sm mx-auto">
                 {projects[index].desc}
               </p>
 
               {/* Action Button */}
-              <button className="w-full py-4 bg-black text-white rounded-2xl font-medium text-[14px] flex items-center justify-center gap-2 hover:bg-gray-800 transition-all hover:gap-3 active:scale-[0.98]">
+              <button className="w-full py-3.5 md:py-4 bg-black text-white rounded-xl md:rounded-2xl font-medium text-[14px] flex items-center justify-center gap-2 hover:bg-gray-800 transition-all hover:gap-3 active:scale-[0.98]">
                 Live Preview <span>→</span>
               </button>
             </motion.div>
           </div>
 
           {/* DOT PAGINATION */}
-          <div className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-3 z-30 bg-white/30 backdrop-blur-md px-4 py-2 rounded-full border border-white/40">
+          <div className="absolute bottom-4 md:bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-2.5 md:gap-3 z-30 bg-white/30 backdrop-blur-md px-3 md:px-4 py-2 rounded-full border border-white/40">
             {projects.map((_, i) => (
               <button
                 key={i}
@@ -121,7 +120,7 @@ export default function ProjectShowcase() {
               >
                 <div 
                   className={`h-1.5 rounded-full transition-all duration-500 ${
-                    index === i ? "w-10 bg-black" : "w-2 bg-black/40 group-hover:bg-black/60"
+                    index === i ? "w-8 md:w-10 bg-black" : "w-2 bg-black/40 group-hover:bg-black/60"
                   }`} 
                 />
               </button>

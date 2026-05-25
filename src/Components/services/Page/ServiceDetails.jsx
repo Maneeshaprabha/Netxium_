@@ -163,26 +163,26 @@ export default function ServicesSection() {
 
   return (
     <div className="w-full bg-white border-t border-gray-200">
-      <section className="max-w-7xl mx-auto px-6 py-20 md:py-32 border-x border-gray-200 font-sans flex flex-col lg:flex-row gap-12 lg:gap-16 items-start relative">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12 md:py-20 lg:py-32 md:border-x border-gray-200 font-sans flex flex-col lg:flex-row gap-8 lg:gap-16 items-start relative">
         
-        {/* LEFT COLUMN: Sidebar matching image_ef933b.png exactly */}
-        <div className="w-full lg:w-[380px] flex-shrink-0 flex flex-col gap-6 lg:sticky lg:top-32 z-10">
+        {/* LEFT COLUMN: Sidebar */}
+        <div className="w-full lg:w-[380px] flex-shrink-0 flex flex-col gap-4 md:gap-6 lg:sticky lg:top-32 z-10">
           
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-[#F4F7FB] rounded-[2.5rem] p-8 md:p-10 shadow-sm"
+            className="bg-[#F4F7FB] rounded-3xl md:rounded-[2.5rem] p-6 sm:p-8 md:p-10 shadow-sm"
           >
-            <h3 className="text-[28px] font-semibold text-black mb-8">Our Service</h3>
-            <div className="flex flex-col gap-4">
+            <h3 className="text-2xl md:text-[28px] font-semibold text-black mb-6 md:mb-8">Our Service</h3>
+            <div className="flex flex-col gap-3 md:gap-4">
               {Object.keys(servicesData).map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`w-full py-4 px-6 rounded-full text-[15px] font-semibold transition-all duration-300 ${
+                  className={`w-full py-3 md:py-4 px-5 md:px-6 rounded-full text-sm md:text-[15px] font-semibold transition-all duration-300 text-left md:text-center ${
                     activeTab === tab
-                      ? "bg-[#1A1A1A] text-white shadow-lg scale-[1.02]"
+                      ? "bg-[#1A1A1A] text-white shadow-lg lg:scale-[1.02]"
                       : "bg-white text-[#4A5568] hover:bg-gray-50 border border-gray-100 shadow-sm"
                   }`}
                 >
@@ -197,18 +197,22 @@ export default function ServicesSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="bg-[#1A1A1A] rounded-[2.5rem] p-10 text-white relative overflow-hidden shadow-xl"
+            className="bg-[#1A1A1A] rounded-3xl md:rounded-[2.5rem] p-6 sm:p-8 md:p-10 text-white relative overflow-hidden shadow-xl"
           >
-            <h3 className="text-3xl md:text-[34px] leading-tight font-bold mb-6 relative z-10">
+            <h3 className="text-2xl md:text-3xl lg:text-[34px] leading-tight font-bold mb-4 md:mb-6 relative z-10">
              We Value Innovation, Creativity & Intelligent Solutions !
             </h3>
-            <p className="text-gray-400 text-[15px] leading-relaxed mb-10 relative z-10">
-Transforming complex challenges into smart digital experiences through AI, software, and modern technology.            </p>
+            <p className="text-gray-400 text-sm md:text-[15px] leading-relaxed mb-8 md:mb-10 relative z-10">
+              Transforming complex challenges into smart digital experiences through AI, software, and modern technology.
+            </p>
             
-            <button  onClick={() => navigate("/contact")}  className="flex items-center justify-between w-full bg-white text-black px-8 py-5 rounded-full font-bold transition-all hover:bg-gray-100 group relative z-10 shadow-xl">
-              <span className="text-lg">Work with me</span>
-              <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center transition-transform group-hover:translate-x-1">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            <button  
+              onClick={() => navigate("/contact")}  
+              className="flex items-center justify-between w-full bg-white text-black px-6 md:px-8 py-4 md:py-5 rounded-full font-bold transition-all hover:bg-gray-100 group relative z-10 shadow-xl"
+            >
+              <span className="text-base md:text-lg">Work with me</span>
+              <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gray-100 flex items-center justify-center transition-transform group-hover:translate-x-1">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="5" y1="12" x2="19" y2="12"></line>
                   <polyline points="12 5 19 12 12 19"></polyline>
                 </svg>
@@ -218,7 +222,7 @@ Transforming complex challenges into smart digital experiences through AI, softw
         </div>
 
         {/* RIGHT COLUMN: Long-form Content */}
-        <div className="w-full lg:flex-1 relative min-h-[1000px]">
+        <div className="w-full lg:flex-1 relative lg:min-h-[1000px]">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
@@ -226,20 +230,20 @@ Transforming complex challenges into smart digital experiences through AI, softw
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
-              className="flex flex-col gap-10 text-gray-600 leading-relaxed"
+              className="flex flex-col gap-6 md:gap-10 text-gray-600 leading-relaxed"
             >
-              <div className="space-y-4">
-                <span className="text-xs uppercase tracking-[0.2em] text-gray-400 font-bold block">
+              <div className="space-y-2 md:space-y-4 mt-6 lg:mt-0">
+                <span className="text-[10px] md:text-xs uppercase tracking-[0.2em] text-gray-400 font-bold block">
                   {current.category}
                 </span>
-                <h2 className="text-4xl md:text-[52px] leading-[1.1] font-bold text-black tracking-tighter">
+                <h2 className="text-3xl md:text-4xl lg:text-[52px] leading-[1.2] lg:leading-[1.1] font-bold text-black tracking-tighter">
                   {current.title}
                 </h2>
               </div>
 
-              <div className="space-y-6">
+              <div className="space-y-4 md:space-y-6">
                 {current.description.map((p, i) => (
-                  <p key={i} className="text-lg md:text-xl text-gray-600">
+                  <p key={i} className="text-base md:text-lg lg:text-xl text-gray-600">
                     {p}
                   </p>
                 ))}
@@ -249,7 +253,7 @@ Transforming complex challenges into smart digital experiences through AI, softw
               <motion.div 
                 initial={{ scale: 0.95, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                className="w-full my-4 rounded-[3rem] overflow-hidden border border-gray-100 shadow-sm aspect-[16/9]"
+                className="w-full my-2 md:my-4 rounded-2xl md:rounded-[3rem] overflow-hidden border border-gray-100 shadow-sm aspect-[16/9]"
               >
                 <img 
                   src={current.image} 
@@ -258,21 +262,21 @@ Transforming complex challenges into smart digital experiences through AI, softw
                 />
               </motion.div>
 
-              <p className="text-lg">{current.postImageText}</p>
+              <p className="text-base md:text-lg">{current.postImageText}</p>
 
               {/* Bulleted List */}
-              <ul className="list-disc pl-5 space-y-2 text-gray-600 marker:text-gray-400">
+              <ul className="list-disc pl-5 space-y-2 text-base md:text-lg text-gray-600 marker:text-gray-400">
                 {current.bullets.map((bullet, i) => (
                   <li key={i}>{bullet}</li>
                 ))}
               </ul>
 
               {/* Key Services Section */}
-              <div className="mt-4">
-                <h3 className="text-xl text-black font-semibold mb-6">Key Services</h3>
-                <div className="space-y-5">
+              <div className="mt-2 md:mt-4">
+                <h3 className="text-lg md:text-xl text-black font-semibold mb-4 md:mb-6">Key Services</h3>
+                <div className="space-y-4 md:space-y-5">
                   {current.keyServices.map((service) => (
-                    <div key={service.id} className="text-lg">
+                    <div key={service.id} className="text-base md:text-lg">
                       <span className="text-black font-bold">{service.id}. {service.label}:</span> {service.text}
                     </div>
                   ))}
@@ -280,33 +284,33 @@ Transforming complex challenges into smart digital experiences through AI, softw
               </div>
 
               {/* Project Highlight Section */}
-              <div className="mt-4 bg-gray-50 rounded-[2.5rem] p-8 md:p-12 border border-gray-100 shadow-inner">
-                <h3 className="text-2xl text-black font-bold mb-8 uppercase tracking-tight">
+              <div className="mt-2 md:mt-4 bg-gray-50 rounded-3xl md:rounded-[2.5rem] p-6 sm:p-8 md:p-12 border border-gray-100 shadow-inner">
+                <h3 className="text-xl md:text-2xl text-black font-bold mb-6 md:mb-8 uppercase tracking-tight">
                   Project Highlight: {current.highlight.title}
                 </h3>
                 
-                <div className="grid md:grid-cols-2 gap-8 mb-8 border-b border-gray-200 pb-8">
-                  <div className="space-y-4">
-                    <p><span className="text-gray-400 font-bold text-xs uppercase block mb-1">Client</span> <span className="text-black font-semibold text-lg">{current.highlight.client}</span></p>
-                    <p><span className="text-gray-400 font-bold text-xs uppercase block mb-1">Industry</span> <span className="text-black font-semibold text-lg">{current.highlight.industry}</span></p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 mb-6 md:mb-8 border-b border-gray-200 pb-6 md:pb-8">
+                  <div className="space-y-3 md:space-y-4">
+                    <p><span className="text-gray-400 font-bold text-[10px] md:text-xs uppercase block mb-1">Client</span> <span className="text-black font-semibold text-base md:text-lg">{current.highlight.client}</span></p>
+                    <p><span className="text-gray-400 font-bold text-[10px] md:text-xs uppercase block mb-1">Industry</span> <span className="text-black font-semibold text-base md:text-lg">{current.highlight.industry}</span></p>
                   </div>
-                  <div className="space-y-4">
-                    <p><span className="text-gray-400 font-bold text-xs uppercase block mb-1">Goal</span> <span className="text-black font-semibold text-lg">{current.highlight.goal}</span></p>
+                  <div className="space-y-3 md:space-y-4">
+                    <p><span className="text-gray-400 font-bold text-[10px] md:text-xs uppercase block mb-1">Goal</span> <span className="text-black font-semibold text-base md:text-lg">{current.highlight.goal}</span></p>
                   </div>
                 </div>
 
-                <div className="mb-8">
-                  <span className="text-gray-400 font-bold text-xs uppercase block mb-1">Solution</span>
-                  <p className="text-gray-700 text-lg leading-relaxed">{current.highlight.solution}</p>
+                <div className="mb-6 md:mb-8">
+                  <span className="text-gray-400 font-bold text-[10px] md:text-xs uppercase block mb-2 md:mb-3">Solution</span>
+                  <p className="text-gray-700 text-base md:text-lg leading-relaxed">{current.highlight.solution}</p>
                 </div>
 
                 <div>
-                  <span className="text-gray-400 font-bold text-xs uppercase block mb-3">Results</span>
-                  <ul className="flex flex-col gap-3">
+                  <span className="text-gray-400 font-bold text-[10px] md:text-xs uppercase block mb-3">Results</span>
+                  <ul className="flex flex-col gap-2 md:gap-3">
                     {current.highlight.results.map((result, i) => (
-                      <li key={i} className="flex items-center gap-4 text-black font-bold text-lg">
-                        <div className="w-2 h-2 rounded-full bg-blue-500" />
-                        {result}
+                      <li key={i} className="flex items-start md:items-center gap-3 md:gap-4 text-black font-bold text-base md:text-lg">
+                        <div className="w-2 h-2 rounded-full bg-blue-500 mt-2 md:mt-0 flex-shrink-0" />
+                        <span>{result}</span>
                       </li>
                     ))}
                   </ul>
