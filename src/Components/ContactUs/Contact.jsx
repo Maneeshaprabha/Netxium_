@@ -1,18 +1,52 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { ChevronRight, Facebook, Linkedin, Youtube } from "lucide-react";
+import { ChevronRight, Facebook, Linkedin, Youtube, CheckCircle } from "lucide-react";
 
 export default function Contact() {
+  // Form State
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [status, setStatus] = useState({ type: '', message: '' });
+
+  // Handle Input Changes
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // Handle Form Submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setStatus({ type: '', message: '' });
+
+    try {
+      const response = await fetch('http://localhost:3001/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setStatus({ type: 'success', message: 'Message sent successfully!' });
+        setFormData({ name: '', email: '', subject: '', message: '' }); // Clear form
+      } else {
+        const errorData = await response.json();
+        setStatus({ type: 'error', message: errorData.error || 'Something went wrong.' });
+      }
+    } catch (err) {
+      setStatus({ type: 'error', message: 'Network error. Is the backend running?' });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="relative w-full bg-white font-sans overflow-hidden border-t border-gray-200">
       
       {/* --- BACKGROUND WIREFRAME GRID --- */}
       <div className="absolute inset-0 z-0 pointer-events-none flex justify-center">
         <div className="w-full max-w-7xl h-full border-x border-gray-100 relative">
-          {/* <div className="absolute left-1/4 top-0 bottom-0 border-l border-gray-100" />
-          <div className="absolute left-1/2 top-0 bottom-0 border-l border-gray-100" />
-          <div className="absolute left-3/4 top-0 bottom-0 border-l border-gray-100" /> */}
         </div>
       </div>
 
@@ -34,10 +68,8 @@ export default function Contact() {
             Netxium blends creativity, AI, and technology to build smart solutions that inspire growth and shape the future.
           </p>
 
-          {/* Contact Details Grid - Stacks on mobile, 2 columns on larger screens */}
+          {/* Contact Details Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-8 md:gap-y-12 gap-x-8">
-            
-            {/* Call Center */}
             <div>
               <h4 className="text-black font-semibold text-lg mb-3 md:mb-4 tracking-tight">Call Center</h4>
               <div className="space-y-1.5 md:space-y-2 text-[15px] text-gray-600">
@@ -46,7 +78,6 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* Our Location */}
             <div>
               <h4 className="text-black font-semibold text-lg mb-3 md:mb-4 tracking-tight">Our Location</h4>
               <div className="space-y-1.5 md:space-y-2 text-[15px] text-gray-600">
@@ -55,7 +86,6 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* Email */}
             <div>
               <h4 className="text-black font-semibold text-lg mb-3 md:mb-4 tracking-tight">Email</h4>
               <div className="text-[15px] text-gray-600">
@@ -63,7 +93,6 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* Social Network */}
             <div>
               <h4 className="text-black font-semibold text-lg mb-3 md:mb-4 tracking-tight">Social network</h4>
               <div className="flex items-center gap-5 text-black">
@@ -83,7 +112,6 @@ export default function Contact() {
                 </a>
               </div>
             </div>
-
           </div>
         </motion.div>
 
@@ -96,58 +124,104 @@ export default function Contact() {
           className="w-full lg:w-1/2"
         >
           <div className="bg-[#F4F5F7] rounded-3xl md:rounded-[2.5rem] p-6 sm:p-10 md:p-14 w-full relative z-10 shadow-sm border border-gray-100">
-            <h3 className="text-2xl md:text-3xl font-normal text-black tracking-tight mb-3 md:mb-4">
-              Get in Touch
-            </h3>
-            <p className="text-gray-500 text-sm md:text-[15px] mb-8 md:mb-12 max-w-sm">
-              Define your goals and identify areas where AI can add value to your business
-            </p>
-
-            <form className="flex flex-col gap-6 md:gap-8">
-              {/* Minimalist Input Fields */}
-              <div className="relative">
-                <input 
-                  type="text" 
-                  placeholder="Full name" 
-                  className="w-full bg-transparent border-b border-gray-300 py-2.5 md:py-3 text-[15px] text-black placeholder:text-gray-400 focus:outline-none focus:border-black transition-colors"
-                />
-              </div>
-
-              <div className="relative">
-                <input 
-                  type="email" 
-                  placeholder="Email" 
-                  className="w-full bg-transparent border-b border-gray-300 py-2.5 md:py-3 text-[15px] text-black placeholder:text-gray-400 focus:outline-none focus:border-black transition-colors"
-                />
-              </div>
-
-              <div className="relative">
-                <input 
-                  type="text" 
-                  placeholder="Subject" 
-                  className="w-full bg-transparent border-b border-gray-300 py-2.5 md:py-3 text-[15px] text-black placeholder:text-gray-400 focus:outline-none focus:border-black transition-colors"
-                />
-              </div>
-
-              <div className="relative mt-2 mb-2 md:mb-4">
-                <textarea 
-                  placeholder="Message" 
-                  rows={4}
-                  className="w-full bg-transparent border-b border-gray-300 py-2.5 md:py-3 text-[15px] text-black placeholder:text-gray-400 focus:outline-none focus:border-black transition-colors resize-none"
-                />
-              </div>
-
-              {/* Submit Button - Full width on mobile for easy tapping */}
-              <div className="flex">
+            
+            {status.type === 'success' ? (
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="flex flex-col items-center justify-center text-center py-10"
+              >
+                <CheckCircle size={48} className="text-[#333333] mb-4" />
+                <h3 className="text-2xl md:text-3xl font-normal text-black mb-2">Thank You!</h3>
+                <p className="text-gray-500">Your message has been sent successfully.</p>
                 <button 
-                  type="submit" 
-                  className="w-full sm:w-auto flex justify-center items-center gap-3 bg-[#333333] text-white px-8 py-4 rounded-full text-[14px] font-semibold hover:bg-black transition-all active:scale-[0.98] group"
+                  onClick={() => setStatus({ type: '', message: '' })}
+                  className="mt-8 text-sm font-semibold text-gray-500 hover:text-black transition-colors"
                 >
-                  <ChevronRight size={18} strokeWidth={3} className="text-white group-hover:translate-x-1 transition-transform" />
-                  Send a message
+                  Send another message
                 </button>
-              </div>
-            </form>
+              </motion.div>
+            ) : (
+              <>
+                <h3 className="text-2xl md:text-3xl font-normal text-black tracking-tight mb-3 md:mb-4">
+                  Get in Touch
+                </h3>
+                <p className="text-gray-500 text-sm md:text-[15px] mb-8 md:mb-12 max-w-sm">
+                  Define your goals and identify areas where AI can add value to your business
+                </p>
+
+                <form onSubmit={handleSubmit} className="flex flex-col gap-6 md:gap-8">
+                  <div className="relative">
+                    <input 
+                      type="text" 
+                      name="name"
+                      required
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="Full name" 
+                      className="w-full bg-transparent border-b border-gray-300 py-2.5 md:py-3 text-[15px] text-black placeholder:text-gray-400 focus:outline-none focus:border-black transition-colors"
+                    />
+                  </div>
+
+                  <div className="relative">
+                    <input 
+                      type="email" 
+                      name="email"
+                      required
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="Email" 
+                      className="w-full bg-transparent border-b border-gray-300 py-2.5 md:py-3 text-[15px] text-black placeholder:text-gray-400 focus:outline-none focus:border-black transition-colors"
+                    />
+                  </div>
+
+                  <div className="relative">
+                    <input 
+                      type="text" 
+                      name="subject"
+                      required
+                      value={formData.subject}
+                      onChange={handleChange}
+                      placeholder="Subject" 
+                      className="w-full bg-transparent border-b border-gray-300 py-2.5 md:py-3 text-[15px] text-black placeholder:text-gray-400 focus:outline-none focus:border-black transition-colors"
+                    />
+                  </div>
+
+                  <div className="relative mt-2 mb-2 md:mb-4">
+                    <textarea 
+                      name="message"
+                      required
+                      value={formData.message}
+                      onChange={handleChange}
+                      placeholder="Message" 
+                      rows={4}
+                      className="w-full bg-transparent border-b border-gray-300 py-2.5 md:py-3 text-[15px] text-black placeholder:text-gray-400 focus:outline-none focus:border-black transition-colors resize-none"
+                    />
+                  </div>
+
+                  {status.type === 'error' && (
+                    <p className="text-red-500 text-sm">{status.message}</p>
+                  )}
+
+                  <div className="flex">
+                    <button 
+                      type="submit" 
+                      disabled={isSubmitting}
+                      className="w-full sm:w-auto flex justify-center items-center gap-3 bg-[#333333] text-white px-8 py-4 rounded-full text-[14px] font-semibold hover:bg-black transition-all active:scale-[0.98] group disabled:opacity-70 disabled:cursor-not-allowed"
+                    >
+                      {isSubmitting ? (
+                        "Sending..."
+                      ) : (
+                        <>
+                          <ChevronRight size={18} strokeWidth={3} className="text-white group-hover:translate-x-1 transition-transform" />
+                          Send a message
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </form>
+              </>
+            )}
           </div>
         </motion.div>
 

@@ -1,34 +1,18 @@
-import express from 'express';
-import cors from 'cors';
-import nodemailer from 'nodemailer';
-import dotenv from 'dotenv';
-
-// Load variables from .env.local
-dotenv.config({ path: '.env.local' }); 
-
-const app = express();
-const PORT = 3001;
-
-// Middleware
-app.use(cors()); // Allows Vite (port 5173) to talk to this server
-app.use(express.json()); // Parses incoming JSON from the form
-
 app.post('/api/contact', async (req, res) => {
   try {
-    const { name, email, message } = req.body;
+    // 1. Added 'subject' to the desctructuring
+    const { name, email, subject, message } = req.body;
 
-    // 1. Verify environment variables exist
     if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
       console.error("Missing email environment variables!");
       return res.status(500).json({ error: "Server configuration error." });
     }
 
-    // 2. Validate form data
-    if (!name || !email || !message) {
+    // 2. Added 'subject' to validation
+    if (!name || !email || !subject || !message) {
       return res.status(400).json({ error: "Missing required fields." });
     }
 
-    // 3. Configure the email transport (WITH ANTIVIRUS BYPASS)
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -36,26 +20,26 @@ app.post('/api/contact', async (req, res) => {
         pass: process.env.EMAIL_PASS,
       },
       tls: {
-        rejectUnauthorized: false // Bypasses the "self-signed certificate" error
+        rejectUnauthorized: false 
       }
     });
 
-    // 4. Set up email details
+    // 3. Updated the subject line and body to include the user's custom subject
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: process.env.EMAIL_USER,
       replyTo: email,
-      subject: `New Netxium Contact Form Submission from ${name}`,
+      subject: `New Netxium Message: ${subject}`,
       text: `
         Name: ${name}
         Email: ${email}
+        Subject: ${subject}
         
         Message:
         ${message}
       `,
     };
 
-    // 5. Send it
     await transporter.sendMail(mailOptions);
     res.status(200).json({ message: "Email sent successfully!" });
 
@@ -63,8 +47,4 @@ app.post('/api/contact', async (req, res) => {
     console.error("Failed to send email:", error);
     res.status(500).json({ error: "Failed to send email. Check backend logs." });
   }
-});
-
-app.listen(PORT, () => {
-  console.log(`Backend server running on http://localhost:${PORT}`);
 });
