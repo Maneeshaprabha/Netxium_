@@ -122,19 +122,25 @@
 //   );
 // }
 
+
+
+
+
+
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import HeroImageStack from "../Hero/HeroImageStack";
 
+// --- Media Imports ---
 import HeroVideo from "../../assets/smooth.mp4";
+import HeroImageStack from "../Hero/HeroImageStack"; // Restored your component
 
 export default function Hero() {
   const container = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
-      transition: { staggerChildren: 0.2, delayChildren: 0.1 },
+      transition: { staggerChildren: 0.15, delayChildren: 0.1 },
     },
   };
 
@@ -148,7 +154,8 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative w-full min-h-[80vh] overflow-hidden">
+    <section className="relative w-full min-h-[100svh] md:min-h-[80vh] overflow-hidden flex items-center">
+      
       {/* FULL WIDTH VIDEO BACKGROUND */}
       <video
         className="absolute inset-0 w-full h-full object-cover opacity-20"
@@ -160,79 +167,76 @@ export default function Hero() {
         <source src={HeroVideo} type="video/mp4" />
       </video>
 
-      {/* CONTENT */}
-      <header className="relative z-10 mx-auto max-w-[1400px] px-6 pt-40 pb-20 min-h-[80vh] flex items-center">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 w-full">
-          {/* Left Side */}
+      {/* CONTENT WRAPPER */}
+      <div className="relative z-10 mx-auto max-w-[1400px] px-4 sm:px-6 pt-32 pb-16 md:pt-40 md:pb-20 w-full">
+        
+        {/* Changed to flex-col on mobile for better stacking control, grid on large screens */}
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-12 lg:gap-10 w-full items-center">
+          
+          {/* LEFT SIDE: Text & Social Proof */}
           <motion.div
             variants={container}
             initial="hidden"
             animate="show"
-            className="pt-10"
+            className="w-full pt-4 md:pt-10 text-center lg:text-left flex flex-col items-center lg:items-start"
           >
             <motion.h1
               variants={item}
-              className="max-w-[800px] text-5xl font-medium leading-[1.05] md:text-7xl tracking-tight text-black/80"
+              className="max-w-[800px] text-4xl sm:text-5xl md:text-[64px] lg:text-7xl font-medium leading-[1.05] tracking-tight text-black/80"
             >
               Where Advanced Intelligence Meets{" "}
-              <span className="text-neutral-500">
+              <span className="text-neutral-500 block mt-2">
                 Human-Centric Design to Drive Measurable Growth.
               </span>
             </motion.h1>
 
             <motion.p
               variants={item}
-              className="mt-8 max-w-lg text-lg md:text-xl text-neutral-400 leading-relaxed font-light"
+              className="mt-6 md:mt-8 max-w-lg text-base sm:text-lg md:text-xl text-neutral-500 leading-relaxed font-light"
             >
               We design, develop, and deploy AI-powered software solutions
               tailored to your business needs.
             </motion.p>
 
-            {/* RESTORED SOCIAL PROOF & MEDIA LINKS */}
+            {/* RESTORED SOCIAL PROOF */}
             <motion.div
               variants={item}
-              className="mt-12 flex flex-col sm:flex-row sm:items-center gap-8"
+              className="mt-10 md:mt-12 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6 sm:gap-8"
             >
-              {/* Social Proof (Avatars + Stars) */}
+              {/* Avatars + Stars */}
               <div className="flex items-center gap-4">
                 <div className="flex -space-x-3">
-                  {/* Replace bg-neutral-800 with actual image paths using standard HTML img tags if needed */}
-                  {[1, 2, 3, 4].map((i) => (
-                    <div
-                      key={i}
-                      className="h-10 w-10 rounded-full border-2 border-white bg-neutral-800 shadow-sm"
-                    />
-                  ))}
+                  {/* Mock Avatars */}
+                  <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=John" alt="Client" className="h-10 w-10 rounded-full border-2 border-white bg-gray-100 shadow-sm" />
+                  <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah" alt="Client" className="h-10 w-10 rounded-full border-2 border-white bg-gray-200 shadow-sm" />
+                  <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Mike" alt="Client" className="h-10 w-10 rounded-full border-2 border-white bg-gray-300 shadow-sm" />
+                  <div className="h-10 w-10 rounded-full border-2 border-white bg-neutral-800 text-white flex items-center justify-center text-xs font-bold shadow-sm">
+                    12+
+                  </div>
                 </div>
-                <div>
+                
+                <div className="text-left">
                   <div className="flex text-yellow-500 text-sm tracking-widest">
                     ★★★★★
                   </div>
-
-                  <p className="text-sm text-neutral-400 font-medium mt-0.5">
+                  <p className="text-sm text-neutral-500 font-medium mt-0.5">
                     15+ Happy clients
                   </p>
                 </div>
               </div>
-
-              {/* Vertical Divider (Hidden on mobile, visible on desktop) */}
-              {/* <div className="hidden sm:block w-px h-10 bg-neutral-200"></div> */}
-
-              {/* Social Media Links */}
-              {/* <div className="flex items-center gap-5 text-sm font-medium text-neutral-400 uppercase tracking-wider">
-                <a href="#" className="hover:text-black transition-colors duration-300">Twitter</a>
-                <a href="#" className="hover:text-black transition-colors duration-300">LinkedIn</a>
-                <a href="#" className="hover:text-black transition-colors duration-300">Dribbble</a>
-              </div> */}
             </motion.div>
           </motion.div>
 
-          {/* Right Side */}
-          <div className="relative w-full h-full">
+          {/* RIGHT SIDE: HeroImageStack Component */}
+          <div className="relative w-full h-full flex justify-center lg:justify-end mt-4 lg:mt-0 min-h-[400px] lg:min-h-[600px]">
+            {/* Your component is safely back inside the responsive container. 
+              The parent div gives it height on mobile so it doesn't collapse! 
+            */}
             <HeroImageStack />
           </div>
+
         </div>
-      </header>
+      </div>
     </section>
   );
 }

@@ -1,76 +1,4 @@
-// import { useEffect, useState } from "react";
-// import { nav as navData } from "../data/data";
-
-// export default function Header() {
-
-//   // Keep nav in state so active change re-renders
-//   const [nav, setNav] = useState(navData);
-
-//   useEffect(() => {
-//     const hash = window.location.hash;
-
-//     if (hash) {
-//       const element = document.querySelector(hash);
-//       if (element) {
-//         setTimeout(() => {
-//           element.scrollIntoView({ behavior: "smooth" });
-//         }, 100);
-//       }
-//     }
-//   }, []);   // no pathname needed
-
-//   const handleNavClick = (index) => {
-//     const updated = nav.map((item, i) => ({
-//       ...item,
-//       active: i === index,
-//     }));
-
-//     setNav(updated);
-//   };
-
-//   return (
-// <header className="fixed top-0 left-0 w-full z-50 bg-[#F2F6FF]/80 backdrop-blur-md">
-//   <div className="max-w-7xl mx-auto flex justify-between items-center px-6 h-16">
-
-//     {/* Logo */}
-//     <img
-//       src="/src/assets/nexuim.png"
-//       alt="logo"
-//       className="w-24 h-24 object-contain"
-//     />
-
-//     {/* Navigation */}
-//     <nav className="hidden md:flex mr-20">
-//       <ul className="flex items-center space-x-4">
-//         {nav.map((item, index) => (
-//           <li key={index}>
-//             <a
-//               href={item.link}
-//               onClick={() => handleNavClick(index)}
-//               className={`px-4  py-1.5 rounded-full text-m font-normal transition ${
-//                 item.active
-//                   ? "bg-black text-white"
-//                   : "text-gray-900 hover:bg-[#e8efff] hover:text-black"
-//               }`}
-//             >
-//               {item.name}
-//             </a>
-//           </li>
-//         ))}
-//       </ul>
-//     </nav>
-
-//   </div>
-// </header>
-
-//   );
-// }"use client";
-
-
-
-
-
-
+"use client";
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -81,7 +9,7 @@ import logo from "../../assets/NETXIUM_LBOO.webp";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isHovered, setIsHovered] = useState(false); // Hover state restored
+  const [isHovered, setIsHovered] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false); 
   
   const location = useLocation();
@@ -116,7 +44,6 @@ export default function Navbar() {
     return () => window.removeEventListener('resize', handleResize);
   }, [isMobileOpen]);
 
-  // RESTORED: Compact mode now respects the hover state
   const isCompact = isScrolled && !isHovered && !isMobileOpen;
 
   const textColor = isScrolled ? "text-white" : "text-black";
@@ -135,7 +62,6 @@ export default function Navbar() {
   <>
     <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50 flex justify-center w-[95%] max-w-[1200px]">
       <motion.div
-        // Restored mouse events for desktop hover expansion
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         layout
@@ -175,7 +101,8 @@ export default function Navbar() {
 
                 <div className="hidden md:flex items-center gap-1.5 ml-2">
                   <div className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.6)]" />
-                  <span className="text-[10px] uppercase tracking-widest text-neutral-500 font-bold">
+                  
+                  <span className={`text-[10px] uppercase tracking-widest font-bold transition-colors duration-300 ${isScrolled ? 'text-white/80' : 'text-neutral-500'}`}>
                     Available
                   </span>
                 </div>
@@ -186,11 +113,11 @@ export default function Navbar() {
                 <ul className="flex items-center space-x-4">
                   {navData.map((item, index) => {
                     const isActive = pathname === item.link;
-                  const activeClass = isScrolled 
-                      ? "bg-white text-black shadow-md" // Scrolled + Active
+                    const activeClass = isScrolled 
+                      ? "bg-white text-black shadow-md" 
                       : "bg-black text-white shadow-md"; 
-                   const inactiveClass = isScrolled 
-                      ? "text-white hover:bg-neutral-800" // Scrolled + Inactive
+                    const inactiveClass = isScrolled 
+                      ? "text-white hover:bg-neutral-800" 
                       : "text-black hover:bg-gray-200";
 
                     return (
@@ -209,13 +136,13 @@ export default function Navbar() {
 
               {/* Right Side: Desktop CTA & Mobile Toggle */}
               <div className="flex items-center gap-2">
-            <a   href="https://cal.com/netxium-solution-0h0glw/software-discussion" className={`hidden md:block rounded-full px-6 py-2.5 text-sm font-bold transition-all duration-300 active:scale-95 whitespace-nowrap shadow-lg ${
-                isScrolled 
-                  ? "bg-white text-black hover:bg-gray-200" 
-                  : "bg-black text-white hover:bg-gray-900"
-              }`}>
-                Book a call with us
-              </a>
+                <a href="https://cal.com/netxium-solution-0h0glw/software-discussion" className={`hidden md:block rounded-full px-6 py-2.5 text-sm font-bold transition-all duration-300 active:scale-95 whitespace-nowrap shadow-lg ${
+                  isScrolled 
+                    ? "bg-white text-black hover:bg-gray-200" 
+                    : "bg-black text-white hover:bg-gray-900"
+                }`}>
+                  Book a call with us
+                </a>
                 
                 {/* 3 ANIMATED DOTS MENU TOGGLE (MOBILE ONLY AT TOP) */}
                 <button 
@@ -245,7 +172,6 @@ export default function Navbar() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              // Click handler added for mobile devices where hover isn't present
               onClick={() => {
                 if (window.innerWidth < 768) {
                   setIsMobileOpen(true);
@@ -336,9 +262,10 @@ export default function Navbar() {
               transition={{ delay: 0.2 }}
               className="mt-6"
             >
+              {/* FIXED: Removed muddy borders/blur, changed to solid rich black with a nice shadow */}
               <a 
                  href="https://cal.com/netxium-solution-0h0glw/software-discussion"
-                className="w-full bg-black backdrop-blur-md text-white border border-white/80 py-3.5 rounded-2xl text-[15px] font-semibold hover:bg-white active:scale-[0.98] transition-all shadow-sm"
+                className="flex justify-center w-full bg-[#111111] text-white py-4 rounded-2xl text-[15px] font-semibold hover:bg-black active:scale-[0.98] transition-all shadow-[0_8px_30px_rgb(0,0,0,0.12)]"
               >
                 Book a call with us
               </a>
