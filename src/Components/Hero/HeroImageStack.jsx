@@ -6,8 +6,11 @@ import HeroImage from "../../assets/home_01.webp";
 
 export default function HeroImageStack() {
   const { scrollY } = useScroll();
-  const yParallax = useTransform(scrollY, [0, 500], [0, 100]); 
-  const opacityParallax = useTransform(scrollY, [0, 400], [1, 0]);
+  const yParallax = useTransform(scrollY, [0, 500], [0, -50]); 
+  
+  // FIX 2: Extended the fade-out distance so it doesn't disappear immediately. 
+  // It will only slightly fade (to 0.8) after scrolling 600px.
+  const opacityParallax = useTransform(scrollY, [0, 600], [1, 0.8]);
 
   const floatAnimation = {
     y: [0, -20, 0],

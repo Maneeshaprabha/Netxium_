@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <ProjectCard />
+      {/* <ProjectCard /> */}
       {/* <WorkSection/> */}
       <Intro />
       <Services />
