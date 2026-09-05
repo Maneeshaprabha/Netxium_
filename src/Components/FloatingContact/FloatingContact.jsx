@@ -1,203 +1,429 @@
-"use client";
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, X, CheckCircle } from 'lucide-react';
+import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Mail, X, CheckCircle } from "lucide-react";
 
 export default function FloatingContact() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
-  // Form State (Added subject field back for completeness)
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
+  // -----------------------------------------
   // Lock body scroll when modal is open
+  // -----------------------------------------
   useEffect(() => {
     if (isModalOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
-      // Reset form if they close it
-      setTimeout(() => {
+      document.body.style.overflow = "";
+
+      const timer = setTimeout(() => {
         setIsSuccess(false);
-        setError('');
-      }, 500);
+        setError("");
+      }, 300);
+
+      return () => clearTimeout(timer);
     }
-    return () => { document.body.style.overflow = 'unset'; };
+
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isModalOpen]);
 
-  // Handle Input Changes
+  // -----------------------------------------
+  // Handle input changes
+  // -----------------------------------------
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    // Remove error when user starts typing
+    if (error) {
+      setError("");
+    }
   };
 
-  // Handle Form Submission to the Backend
+  // -----------------------------------------
+  // Submit form
+  // -----------------------------------------
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     setIsSubmitting(true);
-    setError('');
+    setError("");
 
     const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
 
+    // Check environment variable
+    if (!accessKey) {
+      console.error(
+        "VITE_WEB3FORMS_ACCESS_KEY is not configured."
+      );
+
+      setError(
+        "Contact form is temporarily unavailable. Please try again later."
+      );
+
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
-      const response = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          access_key: accessKey,
-          name: formData.name,
-          email: formData.email,
-          subject: formData.subject || 'New Contact Message from Floating Widget',
-          message: formData.message,
-        }),
-      });
+      const response = await fetch(
+        "https://api.web3forms.com/submit",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            access_key: accessKey,
+
+            name: formData.name,
+
+            email: formData.email,
+
+            subject:
+              formData.subject ||
+              "New Contact Message from Netxium",
+
+            message: formData.message,
+
+            from_name: "Netxium Website",
+
+            replyto: formData.email,
+          }),
+        }
+      );
 
       const data = await response.json();
 
+      console.log("Web3Forms:", data);
+
       if (response.ok && data.success) {
         setIsSuccess(true);
-        setFormData({ name: '', email: '', subject: '', message: '' }); // Clear form
+
+        setFormData({
+          name: "",
+          email: "",
+          subject: "",
+          message: "",
+        });
       } else {
-        setError(data.message || 'Something went wrong. Please try again.');
+        setError(
+          data.message ||
+            "Something went wrong. Please try again."
+        );
       }
     } catch (err) {
-      setError('Network error. Please try again later.');
+      console.error("Contact form error:", err);
+
+      setError(
+        "Network error. Please check your connection and try again."
+      );
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  // -----------------------------------------
+  // Close modal
+  // -----------------------------------------
+  const closeModal = () => {
+    if (!isSubmitting) {
+      setIsModalOpen(false);
+    }
+  };
+
   return (
     <>
-      {/* Floating Button */}
-      <div className="fixed bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-fit flex justify-center">
-        <motion.button 
+      {/* =====================================================
+          FLOATING CONTACT BUTTON
+      ====================================================== */}
+
+      <div className="fixed bottom-6 left-1/2 z-50 flex w-[90%] max-w-fit -translate-x-1/2 justify-center md:bottom-10">
+        <motion.button
+          type="button"
           onClick={() => setIsModalOpen(true)}
-          initial={{ y: 100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ type: "spring", stiffness: 400, damping: 25, delay: 0.5 }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="group flex items-center gap-3 sm:gap-5 rounded-full bg-black/80 pl-6 sm:pl-8 pr-2 py-2 backdrop-blur-2xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] cursor-pointer max-w-full"
+          initial={{
+            y: 100,
+            opacity: 0,
+          }}
+          animate={{
+            y: 0,
+            opacity: 1,
+          }}
+          transition={{
+            type: "spring",
+            stiffness: 400,
+            damping: 25,
+            delay: 0.5,
+          }}
+          whileHover={{
+            scale: 1.05,
+          }}
+          whileTap={{
+            scale: 0.95,
+          }}
+          className="group flex max-w-full cursor-pointer items-center gap-3 rounded-full border border-white/10 bg-black/80 py-2 pl-6 pr-2 shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-2xl sm:gap-5 sm:pl-8"
         >
-          <div className="flex flex-col text-left py-1 whitespace-nowrap overflow-hidden">
-            <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-neutral-400 font-bold mb-0.5 truncate">
+          {/* Text */}
+
+          <div className="flex min-w-0 flex-col overflow-hidden whitespace-nowrap py-1 text-left">
+            <span className="mb-0.5 truncate text-[9px] font-bold uppercase tracking-[0.2em] text-neutral-400 sm:text-[10px]">
               Speak to us
             </span>
-            <span className="text-xs sm:text-sm font-medium text-white truncate">
+
+            <span className="truncate text-xs font-medium text-white sm:text-sm">
               Email or book a call
             </span>
           </div>
-          <div className="h-10 w-10 sm:h-12 sm:w-12 shrink-0 rounded-full bg-white flex items-center justify-center text-black group-hover:bg-[#0D4DB1] group-hover:text-white transition-colors duration-300 shadow-inner">
-            <Mail size={18} className="sm:w-5 sm:h-5" />
+
+          {/* Mail Icon */}
+
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-black shadow-inner transition-colors duration-300 group-hover:bg-[#0D4DB1] group-hover:text-white sm:h-12 sm:w-12">
+            <Mail
+              size={18}
+              className="sm:h-5 sm:w-5"
+              strokeWidth={2}
+            />
           </div>
         </motion.button>
       </div>
 
-      {/* THE CONTACT POP-UP MODAL */}
+      {/* =====================================================
+          CONTACT MODAL
+      ====================================================== */}
+
       <AnimatePresence>
         {isModalOpen && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 font-sans">
-            
-            {/* Dark Blurred Backdrop */}
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 font-sans sm:p-6">
+            {/* =================================================
+                BACKDROP
+            ================================================== */}
+
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsModalOpen(false)}
-              className="absolute inset-0 bg-black/60 backdrop-blur-sm cursor-pointer"
+              initial={{
+                opacity: 0,
+              }}
+              animate={{
+                opacity: 1,
+              }}
+              exit={{
+                opacity: 0,
+              }}
+              onClick={closeModal}
+              className="absolute inset-0 cursor-pointer bg-black/60 backdrop-blur-sm"
             />
 
-            {/* Modal Content Box */}
+            {/* =================================================
+                MODAL
+            ================================================== */}
+
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="relative w-full max-w-lg bg-[#0a0a0a] border border-white/10 rounded-3xl sm:rounded-[2rem] p-6 sm:p-8 md:p-10 shadow-2xl z-10 max-h-[90vh] overflow-y-auto"
+              initial={{
+                opacity: 0,
+                scale: 0.95,
+                y: 20,
+              }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+                y: 0,
+              }}
+              exit={{
+                opacity: 0,
+                scale: 0.95,
+                y: 20,
+              }}
+              transition={{
+                type: "spring",
+                stiffness: 300,
+                damping: 30,
+              }}
+              className="relative z-10 max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-3xl border border-white/10 bg-[#0a0a0a] p-6 shadow-2xl sm:rounded-[2rem] sm:p-8 md:p-10"
             >
-              {/* Close Button */}
-              <button 
-                onClick={() => setIsModalOpen(false)}
-                className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2 rounded-full bg-white/5 hover:bg-white/10 text-neutral-400 hover:text-white transition-colors"
+              {/* =================================================
+                  CLOSE BUTTON
+              ================================================== */}
+
+              <button
+                type="button"
+                onClick={closeModal}
+                disabled={isSubmitting}
+                aria-label="Close contact form"
+                className="absolute right-4 top-4 rounded-full bg-white/5 p-2 text-neutral-400 transition-colors hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-50 sm:right-6 sm:top-6"
               >
-                <X size={20} strokeWidth={2} />
+                <X
+                  size={20}
+                  strokeWidth={2}
+                />
               </button>
 
+              {/* =================================================
+                  SUCCESS STATE
+              ================================================== */}
+
               {isSuccess ? (
-                /* --- SUCCESS STATE --- */
-                <motion.div 
-                  initial={{ opacity: 0, scale: 0.9 }} 
-                  animate={{ opacity: 1, scale: 1 }} 
-                  className="flex flex-col items-center justify-center text-center py-10"
+                <motion.div
+                  initial={{
+                    opacity: 0,
+                    scale: 0.9,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    scale: 1,
+                  }}
+                  className="flex flex-col items-center justify-center py-10 text-center"
                 >
-                  <div className="w-16 h-16 bg-[#29AAE3]/20 text-[#29AAE3] rounded-full flex items-center justify-center mb-6">
-                    <CheckCircle size={32} />
+                  {/* Success Icon */}
+
+                  <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-[#29AAE3]/20 text-[#29AAE3]">
+                    <CheckCircle
+                      size={32}
+                      strokeWidth={2}
+                    />
                   </div>
-                  <h3 className="text-2xl sm:text-3xl font-medium text-white tracking-tight mb-3">Message Sent!</h3>
-                  <p className="text-neutral-400">Thank you for reaching out. We will get back to you shortly.</p>
-                  <button 
+
+                  <h3 className="mb-3 text-2xl font-medium tracking-tight text-white sm:text-3xl">
+                    Message Sent!
+                  </h3>
+
+                  <p className="max-w-sm text-sm leading-relaxed text-neutral-400 sm:text-base">
+                    Thank you for reaching out. We will get
+                    back to you shortly.
+                  </p>
+
+                  <button
+                    type="button"
                     onClick={() => setIsModalOpen(false)}
-                    className="mt-8 bg-white/10 text-white px-8 py-3 rounded-xl hover:bg-white/20 transition-colors font-medium"
+                    className="mt-8 rounded-xl bg-white/10 px-8 py-3 font-medium text-white transition-colors hover:bg-white/20"
                   >
                     Close
                   </button>
                 </motion.div>
               ) : (
-                /* --- FORM STATE --- */
                 <>
-                  <h3 className="text-2xl sm:text-3xl font-medium text-white tracking-tight mb-2 pr-8">Let's talk.</h3>
-                  <p className="text-sm sm:text-base text-neutral-400 mb-6 sm:mb-8">Fill out the form and we will get back to you within 24 hours.</p>
+                  {/* =================================================
+                      FORM HEADER
+                  ================================================== */}
 
-                  <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:gap-4">
-                    <input 
-                      type="text" 
+                  <h3 className="mb-2 pr-8 text-2xl font-medium tracking-tight text-white sm:text-3xl">
+                    Let's talk.
+                  </h3>
+
+                  <p className="mb-6 text-sm leading-relaxed text-neutral-400 sm:mb-8 sm:text-base">
+                    Fill out the form and we will get back to
+                    you within 24 hours.
+                  </p>
+
+                  {/* =================================================
+                      CONTACT FORM
+                  ================================================== */}
+
+                  <form
+                    onSubmit={handleSubmit}
+                    className="flex flex-col gap-3 sm:gap-4"
+                  >
+                    {/* Name */}
+
+                    <input
+                      type="text"
                       name="name"
-                      required
                       value={formData.name}
                       onChange={handleChange}
-                      placeholder="Your Name" 
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 sm:px-5 py-3 sm:py-4 text-white placeholder-neutral-500 focus:outline-none focus:border-white/30 focus:bg-white/10 transition-all text-sm sm:text-base"
-                    />
-                    <input 
-                      type="email" 
-                      name="email"
+                      placeholder="Your Name"
+                      autoComplete="name"
                       required
+                      disabled={isSubmitting}
+                      className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition-all placeholder:text-neutral-500 focus:border-white/30 focus:bg-white/10 disabled:cursor-not-allowed disabled:opacity-60 sm:px-5 sm:py-4 sm:text-base"
+                    />
+
+                    {/* Email */}
+
+                    <input
+                      type="email"
+                      name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      placeholder="Email Address" 
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 sm:px-5 py-3 sm:py-4 text-white placeholder-neutral-500 focus:outline-none focus:border-white/30 focus:bg-white/10 transition-all text-sm sm:text-base"
+                      placeholder="Email Address"
+                      autoComplete="email"
+                      required
+                      disabled={isSubmitting}
+                      className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition-all placeholder:text-neutral-500 focus:border-white/30 focus:bg-white/10 disabled:cursor-not-allowed disabled:opacity-60 sm:px-5 sm:py-4 sm:text-base"
                     />
-                    <input 
-                      type="text" 
+
+                    {/* Subject */}
+
+                    <input
+                      type="text"
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      placeholder="Subject (Optional)" 
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 sm:px-5 py-3 sm:py-4 text-white placeholder-neutral-500 focus:outline-none focus:border-white/30 focus:bg-white/10 transition-all text-sm sm:text-base"
+                      placeholder="Subject (Optional)"
+                      disabled={isSubmitting}
+                      className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition-all placeholder:text-neutral-500 focus:border-white/30 focus:bg-white/10 disabled:cursor-not-allowed disabled:opacity-60 sm:px-5 sm:py-4 sm:text-base"
                     />
-                    <textarea 
+
+                    {/* Message */}
+
+                    <textarea
                       name="message"
-                      required
                       value={formData.message}
                       onChange={handleChange}
-                      placeholder="Tell me about your project..." 
-                      rows="4"
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 sm:px-5 py-3 sm:py-4 text-white placeholder-neutral-500 focus:outline-none focus:border-white/30 focus:bg-white/10 transition-all resize-none text-sm sm:text-base"
-                    ></textarea>
+                      placeholder="Tell me about your project..."
+                      rows={4}
+                      required
+                      disabled={isSubmitting}
+                      className="w-full resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition-all placeholder:text-neutral-500 focus:border-white/30 focus:bg-white/10 disabled:cursor-not-allowed disabled:opacity-60 sm:px-5 sm:py-4 sm:text-base"
+                    />
 
-                    {error && <p className="text-red-400 text-sm mt-1">{error}</p>}
+                    {/* =================================================
+                        ERROR
+                    ================================================== */}
 
-                    {/* Submit Button */}
-                    <button 
+                    {error && (
+                      <motion.p
+                        initial={{
+                          opacity: 0,
+                          y: -5,
+                        }}
+                        animate={{
+                          opacity: 1,
+                          y: 0,
+                        }}
+                        className="mt-1 text-sm leading-relaxed text-red-400"
+                      >
+                        {error}
+                      </motion.p>
+                    )}
+
+                    {/* =================================================
+                        SUBMIT BUTTON
+                    ================================================== */}
+
+                    <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full mt-2 sm:mt-4 bg-white text-black font-medium py-3.5 sm:py-4 rounded-xl hover:bg-gray-200 active:scale-[0.98] transition-all text-sm sm:text-base shadow-lg disabled:opacity-70 disabled:cursor-not-allowed flex justify-center items-center gap-2"
+                      className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-white py-3.5 text-sm font-medium text-black shadow-lg transition-all hover:bg-gray-200 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70 sm:mt-4 sm:py-4 sm:text-base"
                     >
                       {isSubmitting ? (
                         <>
-                          <div className="w-4 h-4 border-2 border-black/20 border-t-black rounded-full animate-spin" />
+                          <span className="h-4 w-4 animate-spin rounded-full border-2 border-black/20 border-t-black" />
+
                           Sending...
                         </>
                       ) : (
