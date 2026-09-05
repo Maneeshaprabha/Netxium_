@@ -14,7 +14,7 @@ export default function Contact() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle Form Submission with Web3Forms using .env
+  // Handle Form Submissihhhhhhhhhhhon with Web3Forms using .env
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
