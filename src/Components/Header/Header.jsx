@@ -3,13 +3,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { X } from 'lucide-react'; 
+import { X, Menu } from 'lucide-react'; // Menu icon එක අලුතින් import කළා
 import { nav as navData } from "../data/data";
 import logo from "../../assets/NETXIUM_LBOO.webp";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false); 
   
   const location = useLocation();
@@ -44,10 +43,6 @@ export default function Navbar() {
     return () => window.removeEventListener('resize', handleResize);
   }, [isMobileOpen]);
 
-  const isCompact = isScrolled && !isHovered && !isMobileOpen;
-
-  const textColor = isScrolled ? "text-white" : "text-black";
-  
   // Mobile Animation Variants
   const menuVariants = {
     hidden: { opacity: 0 },
@@ -62,15 +57,13 @@ export default function Navbar() {
   <>
     <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50 flex justify-center w-[95%] max-w-[1200px]">
       <motion.div
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
         layout
         initial={{ borderRadius: 9999 }}
         animate={{
-          width: isCompact ? "100px" : "100%",
-          padding: isCompact ? "0.75rem" : "0.5rem",
+          width: "100%", // දැන් හැමතිස්සෙම 100% width එක තියෙනවා
+          padding: "0.5rem",
           backgroundColor: isScrolled
-            ? "rgba(10, 10, 10, 0.75)" 
+            ? "rgba(10, 10, 10, 0.85)" // Scroll කරාම ටිකක් dark වෙනවා
             : "rgba(255, 255, 255, 0.4)", 
           borderColor: isScrolled ? "rgba(255,255,255,0.15)" : "rgba(255,255,255,0.4)"
         }}
@@ -78,13 +71,11 @@ export default function Navbar() {
         className="flex items-center backdrop-blur-xl backdrop-saturate-[150%] border shadow-xl overflow-hidden rounded-full"
       >
         <AnimatePresence mode="wait">
-          {!isCompact ? (
-            /* --- FULL NAVBAR STATE --- */
             <motion.div
               key="full-nav"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               className="flex items-center justify-between w-full px-2"
             >
               {/* Left Side: Profile & Status */}
@@ -98,14 +89,6 @@ export default function Navbar() {
                 <span className={`font-medium tracking-tight text-sm whitespace-nowrap transition-colors duration-300 ${isScrolled ? 'text-white' : 'text-black'}`}>
                   Netxium
                 </span>
-
-                {/* <div className="hidden md:flex items-center gap-1.5 ml-2">
-                  <div className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.6)]" />
-                  
-                  <span className={`text-[10px] uppercase tracking-widest font-bold transition-colors duration-300 ${isScrolled ? 'text-white/80' : 'text-neutral-500'}`}>
-                    Available
-                  </span>
-                </div> */}
               </div>
 
               {/* Center Nav Links */}
@@ -144,56 +127,15 @@ export default function Navbar() {
                   Book a call with us
                 </a>
                 
-                {/* 3 ANIMATED DOTS MENU TOGGLE (MOBILE ONLY AT TOP) */}
+                {/* STANDARD MOBILE MENU ICON (Hamburger) */}
                 <button 
                   onClick={() => setIsMobileOpen(true)}
-                  className="md:hidden p-2 -mr-1 rounded-full hover:bg-black/5 transition-colors flex items-center gap-1 w-10 h-10 justify-center"
+                  className={`md:hidden p-2 -mr-1 rounded-full transition-colors flex items-center justify-center ${isScrolled ? 'hover:bg-white/10 text-white' : 'hover:bg-black/5 text-black'}`}
                 >
-                  {[0, 1, 2].map((index) => (
-                    <motion.div
-                      key={index}
-                      animate={{ opacity: [0.5, 1, 0.5], scale: [0.85, 1.15, 0.85] }}
-                      transition={{
-                        duration: 1.5,
-                        repeat: Infinity,
-                        delay: index * 0.2,
-                        ease: "easeInOut",
-                      }}
-                      className={`w-1.5 h-1.5 rounded-full ${isScrolled ? 'bg-white' : 'bg-black'}`}
-                    />
-                  ))}
+                  <Menu size={24} strokeWidth={2.5} />
                 </button>
               </div>
             </motion.div>
-          ) : (
-            /* --- COMPACT SCROLLED STATE (3 DOTS) --- */
-            <motion.div
-              key="compact-nav"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => {
-                if (window.innerWidth < 768) {
-                  setIsMobileOpen(true);
-                }
-              }}
-              className="flex items-center justify-center gap-1.5 w-full h-[38px] cursor-pointer"
-            >
-              {[0, 1, 2].map((index) => (
-                <motion.div
-                  key={index}
-                  animate={{ y: [0, -4, 0] }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    delay: index * 0.2,
-                    ease: "easeInOut",
-                  }}
-                  className={`w-1.5 h-1.5 rounded-full ${isScrolled ? 'bg-white' : 'bg-black'}`}
-                />
-              ))}
-            </motion.div>
-          )}
         </AnimatePresence>
       </motion.div>
     </nav>
@@ -262,7 +204,6 @@ export default function Navbar() {
               transition={{ delay: 0.2 }}
               className="mt-6"
             >
-              {/* FIXED: Removed muddy borders/blur, changed to solid rich black with a nice shadow */}
               <a 
                  href="https://cal.com/netxium-solution-0h0glw/software-discussion"
                 className="flex justify-center w-full bg-[#111111] text-white py-4 rounded-2xl text-[15px] font-semibold hover:bg-black active:scale-[0.98] transition-all shadow-[0_8px_30px_rgb(0,0,0,0.12)]"
