@@ -32,10 +32,10 @@ export default function ProjectShowcase() {
 
   return (
     // 1. FULL-WIDTH WRAPPER
-    <div className="max-w-7xl mx-auto px-6 py-20 md:py-24 border-x border-gray-200 font-sans">
+    <div className="max-w-7xl mx-auto px-6 py-20 md:py-24 border-x border-gray-200 font-sans w-full relative overflow-visible">
       
       {/* 2. MAIN CONTENT WRAPPER */}
-      <section className="max-w-7xl mx-auto overflow-hidden">
+      <section className="max-w-7xl mx-auto overflow-visible">
         
         {/* Header */}
         <motion.div 
@@ -43,15 +43,16 @@ export default function ProjectShowcase() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-10 md:mb-16 text-center space-y-4 md:space-y-6"
+          // FIX: අලුතින් mt-8 (Margin Top) එකතු කළා මුළු කොටසම තව ටිකක් පල්ලෙහාට ගන්න
+          className="mb-10 md:mb-16 mt-8 md:mt-4 text-center space-y-4 md:space-y-6 overflow-visible"
         >
-          <h2  className="text-[40px] md:text-[64px] leading-tight font-normal text-black tracking-tight mb-6">
+          {/* FIX: pt-4 (Padding Top) එකකුත් දුන්නා අකුරු වලට උඩින් තව ටිකක් ඉඩ හැදෙන්න */}
+          <h2 className="text-[42px] sm:text-[48px] md:text-[64px] leading-normal md:leading-[1.1] font-normal text-black tracking-tight mb-6 pb-4 pt-4">
             Our Projects
           </h2>
         </motion.div>
 
         {/* 3. SHOWCASE CONTAINER */}
-        {/* FIXED FOR MOBILE: Swapped aspect-[4/3] for min-h-[520px] so the card always fits on narrow screens */}
         <div className="relative w-full min-h-[520px] md:min-h-0 md:aspect-[21/9] rounded-3xl md:rounded-[44px] overflow-hidden bg-[#F2F6FF] shadow-sm">
           
           {/* ANIMATED BLURRED IMAGE BACKGROUND */}
@@ -76,7 +77,6 @@ export default function ProjectShowcase() {
           <div className="absolute inset-0 bg-black/10 md:bg-black/5" />
 
           {/* THE FLOATING CENTRAL CARD */}
-          {/* FIXED FOR MOBILE: Added max-w-[90%] to ensure it doesn't touch the phone edges */}
           <div className="absolute inset-0 flex items-center justify-center p-4">
             <motion.div 
               initial={{ opacity: 0, y: 20 }}

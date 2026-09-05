@@ -55,10 +55,10 @@ export default function BlogGridStyle() {
   };
 
   return (
-    // 1. FULL-WIDTH WRAPPER: Top border & white background
-    <div className="relative w-full border-t border-gray-200 bg-white font-sans pt-20 pb-24 md:pt-32">
+    // 1. FULL-WIDTH WRAPPER
+    <div className="relative w-full border-t border-gray-200 bg-white font-sans pt-20 pb-24 md:pt-32 overflow-x-hidden">
       
-      {/* 2. BACKGROUND WIREFRAME GRID (Matches your Projects section) */}
+      {/* 2. BACKGROUND WIREFRAME GRID */}
       <div className="absolute inset-0 z-0 pointer-events-none flex justify-center hidden lg:flex">
         <div className="w-full max-w-7xl h-full border-x border-gray-100 relative">
           <div className="absolute left-1/4 top-0 bottom-0 border-l border-gray-100" />
@@ -67,10 +67,10 @@ export default function BlogGridStyle() {
         </div>
       </div>
 
-      {/* 3. MAIN CONTENT WRAPPER: Vertical side lines constrained to max-w-7xl */}
-      <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:border-x md:border-gray-200 overflow-hidden">
+      {/* 3. MAIN CONTENT WRAPPER */}
+      <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:border-x md:border-gray-200">
         
-        {/* --- Header Section (Flush against bottom grid line) --- */}
+        {/* --- Header Section --- */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -78,8 +78,8 @@ export default function BlogGridStyle() {
           transition={{ duration: 0.6 }}
           className="grid md:grid-cols-2 gap-8 md:gap-12 pb-12 mb-12 items-end border-b border-gray-200"
         >
-          <h2 className="text-4xl md:text-[56px] lg:text-[64px] leading-[1.05] tracking-tight">
-           
+          {/* FIX: Added mt-10 (Margin Top) on mobile to push the text further down */}
+          <h2 className="text-4xl md:text-[56px] lg:text-[64px] leading-[1.2] md:leading-[1.05] tracking-tight py-2 mt-10 md:mt-0">
             <span className="text-gray-400 font-normal block mb-2">
               Ideas that shape
             </span>
@@ -93,7 +93,8 @@ export default function BlogGridStyle() {
           </p>
         </motion.div>
 
-   <motion.div
+        {/* Featured Post */}
+        <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
@@ -102,10 +103,8 @@ export default function BlogGridStyle() {
           <Link to={`/blog/${featuredPost.id}`} className="group block relative w-full h-[500px] md:h-[650px] rounded-[2rem] md:rounded-[3rem] overflow-hidden bg-gray-100">
             <img src={featuredPost.image} alt={featuredPost.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105" />
             
-            {/* Soft dark gradient just at the bottom */}
             <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-            {/* Floating Glassmorphic Content Card */}
             <div className="absolute bottom-4 left-4 right-4 md:bottom-8 md:left-8 md:max-w-2xl bg-white/10 backdrop-blur-2xl border border-white/20 rounded-[2rem] p-6 md:p-10 transition-transform duration-500 group-hover:-translate-y-2">
               <div className="flex items-center gap-4 mb-4">
                 <span className="px-3 py-1 rounded-full bg-white text-black text-[10px] md:text-xs font-bold tracking-widest uppercase">
@@ -147,7 +146,6 @@ export default function BlogGridStyle() {
               >
                 <Link to={`/blog/${post.id}`} className="group flex flex-col h-full bg-white border border-gray-200 rounded-[2rem] overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                   
-                  {/* Image Container (Strict Border Bottom) */}
                   <div className="relative w-full h-56 border-b border-gray-200 overflow-hidden bg-gray-100">
                     <img 
                       src={post.image} 
@@ -156,7 +154,6 @@ export default function BlogGridStyle() {
                     />
                   </div>
 
-                  {/* Text Content */}
                   <div className="p-6 md:p-8 flex flex-col flex-grow">
                     <div className="flex items-center gap-3 mb-4 text-xs font-semibold uppercase tracking-widest text-gray-500">
                       <span className="text-[#29AAE3]">{post.category}</span>
@@ -177,7 +174,6 @@ export default function BlogGridStyle() {
                         <span>{post.readTime}</span>
                       </div>
                       
-                      {/* Animated Arrow Button */}
                       <div className="w-10 h-10 rounded-full bg-gray-50 border border-gray-200 flex items-center justify-center text-gray-500 group-hover:bg-black group-hover:text-white group-hover:border-black transition-all duration-300">
                         <ArrowUpRight size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
                       </div>

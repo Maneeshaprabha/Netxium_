@@ -1,329 +1,497 @@
 "use client";
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { useNavigate } from "react-router-dom";
-import mlImage from "../../../assets/roboservice.webp";
-import softwareDevImage from "../../../assets/softwaredev.webp";
-import mobileAppImage from "../../../assets/mobileapp.webp";
-import uiuxImage from "../../../assets/uiux.webp";
-import strategyImage from "../../../assets/DigitalStrategy&Consulting.webp";
+import React, { useEffect, useState } from "react";
+import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
+import { ArrowLeft, Twitter, Linkedin, Link2, Calendar, Clock, ArrowUpRight, ArrowRight } from "lucide-react";
+import { Link, useParams, Navigate } from "react-router-dom";
 
-// --- COMPLETE SERVICES DATA ---
-const servicesData = {
-  "AI and ML": {
-    category: "// Project overview",
-    title: "We serve quality services fundamental component of Artificial Intelligence (AI) systems",
-    description: [
-      "At Netxium, we harness the power of Artificial Intelligence (AI) and Machine Learning (ML) to transform data into strategic business intelligence.",
-      "Our AI systems are built to analyze complex datasets, detect patterns, and make predictions—helping organizations automate decisions, increase efficiency, and innovate faster. We design adaptive AI models that grow smarter over time, integrating seamlessly with your existing systems. Whether it's automating operations, improving customer experience, or unlocking new insights, Netxium's AI & ML solutions bring intelligence to every layer of your business.",
-      "We don't just deploy algorithms—we deliver intelligent ecosystems that continuously learn, optimize, and create measurable impact."
-    ],
-    image: mlImage,
-    postImageText: "We design AI-powered features that solve real problems—no bloat, just smart tools that make work faster, decisions clearer, and operations smoother. From automation to insights, every solution is built for performance, scalability, and ease of use.",
-    bullets: [
-      "Pacific hake false trevally queen parrotfish black",
-      "Prickleback mora modify-queen parrotfish black",
-      "Queen parrotfish black prickleback mora pacific",
-      "Hake false trevally queen"
-    ],
-    keyServices: [
-      { id: 1, label: "Predictive Analytics", text: "Use data-driven forecasting to identify trends, customer behavior, and business opportunities before they happen." },
-      { id: 2, label: "Intelligent Automation", text: "Automate repetitive, rule-based processes using smart algorithms that enhance accuracy and efficiency." },
-      { id: 3, label: "Natural Language Processing (NLP)", text: "Enable systems to understand and communicate in human language—through chatbots, voice assistants, and smart interfaces." },
-      { id: 4, label: "Computer Vision Solutions", text: "Empower your systems to analyze images and videos for object detection, facial recognition, and quality control." },
-      { id: 5, label: "Recommendation Systems", text: "Deliver personalized user experiences with intelligent recommendation engines that learn and adapt over time." },
-      { id: 6, label: "AI Strategy & Consultation", text: "Get expert guidance on how to implement AI effectively—aligning your technology roadmap with your business goals." }
-    ],
-    highlight: {
-      title: "Smart Analytics Platform",
-      client: "Portdge Analytics",
-      industry: "Financial Services",
-      goal: "Automate data analysis and generate actionable insights using AI.",
-      solution: "We developed a machine learning-powered analytics engine that processes large financial datasets, predicts market trends, and delivers real-time performance dashboards.",
-      results: [
-        "Reduced manual reporting time by 70%",
-        "Increased forecast accuracy by 35%",
-        "Enabled data-driven decision-making across departments"
-      ]
-    }
+// --- FULL BLOG DATABASE ---
+const allBlogPosts = [
+  {
+    id: 1,
+    title: "The Future of AI in Enterprise Workflows: A 2026 Perspective",
+    category: "Artificial Intelligence",
+    date: "May 24, 2026",
+    readTime: "8 min read",
+    author: {
+      name: "Elena Rodriguez",
+      role: "Head of AI Strategy",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Elena",
+    },
+    heroImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2000&auto=format&fit=crop",
+    excerpt: "Discover how intelligent automation and large language models are fundamentally restructuring how modern agencies and enterprises handle complex daily operations.",
+    content: (
+      <>
+        <p className="text-xl md:text-[22px] leading-relaxed text-gray-600 mb-10 font-light">
+          The integration of artificial intelligence into enterprise workflows is no longer a speculative future; it is the definitive present. As we look toward the end of 2026, the question is no longer <em className="text-black font-medium">whether</em> AI will disrupt operations, but <em className="text-black font-medium">how rapidly</em> organizations can adapt their architecture to support it.
+        </p>
+        <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-black mt-16 mb-6">
+          The Shift from Passive Tools to Active Agents
+        </h2>
+        <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-8">
+          Historically, software has been passive. You click a button, and the software executes a predefined function. The next generation of enterprise tools—powered by Large Language Models (LLMs)—are active agents. They anticipate needs, draft preliminary responses, and orchestrate complex multi-step workflows without explicit human triggers.
+        </p>
+        <blockquote className="border-l-4 border-black bg-gray-50 rounded-r-2xl p-6 md:p-8 my-12 shadow-sm border-y border-r border-y-gray-200 border-r-gray-200">
+          <p className="text-2xl md:text-3xl font-medium leading-snug text-black m-0">
+            "By 2026, over 60% of routine knowledge work will be initiated by AI agents, requiring human intervention only for strategic approvals and creative deviations."
+          </p>
+        </blockquote>
+        <h3 className="text-2xl md:text-3xl font-medium tracking-tight text-black mt-12 mb-6">
+          Restructuring Data Architecture
+        </h3>
+        <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-8">
+          To enable this future, companies must fundamentally restructure how they store data. AI models require unstructured data lakes combined with vector databases to perform semantic search. Siloed data in legacy CRMs or ERPs becomes a bottleneck. 
+        </p>
+        <div className="my-14">
+          <div className="rounded-[2rem] overflow-hidden bg-gray-50 border border-gray-200 aspect-[4/3] sm:aspect-[21/9] mb-4 shadow-sm p-2">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop" alt="Data Architecture" className="w-full h-full object-cover rounded-3xl" />
+          </div>
+          <p className="text-sm text-center text-gray-500 font-medium">Fig 1. A modern vector database architecture supporting LLM queries.</p>
+        </div>
+        <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-8">
+          The agencies and enterprises that win this decade will be those that view AI not as a feature to bolt onto existing products, but as the foundational layer upon which all new products are built.
+        </p>
+      </>
+    )
   },
-  "Software Development": {
-    category: "// Engineering",
-    title: "Engineering robust software architectures for modern digital growth",
-    description: [
-      "Our software development team focuses on building scalable, secure, and high-performance applications that serve as the backbone of your business operations.",
-      "We utilize agile methodologies to ensure rapid delivery and constant iteration. Whether it's a custom ERP, a SaaS platform, or internal tools, we prioritize clean code and future-proof scalability.",
-      "Beyond just writing code, we focus on the entire lifecycle—from discovery and architecture to deployment and long-term maintenance."
-    ],
-    image: softwareDevImage,
-    postImageText: "Our solutions are engineered to handle high traffic and complex data workflows without compromising on speed or security.",
-    bullets: [
-      "Custom enterprise solutions",
-      "Legacy system modernization",
-      "Scalable backend architectures",
-      "Cloud-native development"
-    ],
-    keyServices: [
-      { id: 1, label: "Custom Web Applications", text: "Responsive and feature-rich web applications built with React, Node.js, and modern tech stacks." },
-      { id: 2, label: "API Development & Integration", text: "Developing secure REST and GraphQL APIs to connect your services seamlessly." },
-      { id: 3, label: "Database Design", text: "Optimizing data storage and retrieval with high-performance SQL and NoSQL solutions." },
-      { id: 4, label: "DevOps & Cloud", text: "Automating deployments and ensuring 99.9% uptime with AWS and Azure infrastructure." }
-    ],
-    highlight: {
-      title: "E-Commerce Infrastructure",
-      client: "Global Retail Inc.",
-      industry: "Retail",
-      goal: "Handle 10x traffic spikes during holiday seasons.",
-      solution: "Implemented a microservices architecture with auto-scaling capabilities and a global CDN integration.",
-      results: [
-        "0% downtime during Black Friday",
-        "Page load speeds improved by 45%",
-        "Increased conversion rate by 12%"
-      ]
-    }
+  {
+    id: 2,
+    title: "Designing for the Next Generation of Spatial Computing",
+    category: "UI/UX Design",
+    date: "May 18, 2026",
+    readTime: "5 min read",
+    author: {
+      name: "Marcus Chen",
+      role: "Lead Product Designer",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus",
+    },
+    heroImage: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2000&auto=format&fit=crop",
+    excerpt: "Why traditional 2D UI principles fall short in AR/VR environments and how to adapt your design system.",
+    content: (
+      <>
+        <p className="text-xl md:text-[22px] leading-relaxed text-gray-600 mb-10 font-light">
+          With the explosion of AR and VR hardware, traditional flat 2D interfaces are becoming obsolete. Spatial computing requires a completely new design language focused on depth, light, and physical interaction.
+        </p>
+        <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-black mt-16 mb-6">Embracing the Z-Axis</h2>
+        <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-8">
+          When designing for spatial environments, typography and buttons must exist in 3D space. We must consider user fatigue, focal points, and immersive feedback. Z-axis positioning becomes just as critical as X and Y.
+        </p>
+        <blockquote className="border-l-4 border-black bg-gray-50 rounded-r-2xl p-6 md:p-8 my-12 shadow-sm border-y border-r border-y-gray-200 border-r-gray-200">
+          <p className="text-2xl md:text-3xl font-medium leading-snug text-black m-0">
+            "In spatial design, you are no longer designing a screen; you are designing a room. Shadows and depth cues are not aesthetic choices, they are functional necessities."
+          </p>
+        </blockquote>
+      </>
+    )
   },
-  "Mobile App Development": {
-    category: "// Mobile First",
-    title: "Intuitive mobile experiences for iOS and Android platforms",
-    description: [
-      "We design and develop premium mobile applications that put your business directly in your customers' pockets.",
-      "Using both native and cross-platform technologies, we ensure your app feels responsive, looks stunning, and functions flawlessly across all device types."
-    ],
-    image: mobileAppImage,
-    postImageText: "Focusing on performance and accessibility, we build apps that users actually want to keep on their home screens.",
-    bullets: ["iOS (Swift) Development", "Android (Kotlin) Development", "React Native Solutions", "App Store Optimization"],
-    keyServices: [
-      { id: 1, label: "Native App Development", text: "High-performance apps built specifically for iOS and Android hardware." },
-      { id: 2, label: "Cross-Platform Build", text: "Reach both platforms with a single codebase using React Native or Flutter." },
-      { id: 3, label: "Mobile UI/UX", text: "Interfaces designed specifically for touch interactions and small screen ergonomics." }
-    ],
-    highlight: {
-      title: "FinTech Wallet",
-      client: "NeoBank",
-      industry: "FinTech",
-      goal: "Simplify peer-to-peer transfers for Gen Z users.",
-      solution: "Developed a native iOS app with biometric security and a 3-tap transfer flow.",
-      results: ["4.9/5 stars on App Store", "500k+ downloads in first quarter", "User retention increased by 30%"]
-    }
+  {
+    id: 3,
+    title: "Scaling Next.js Applications for High Traffic Events",
+    category: "Engineering",
+    date: "May 12, 2026",
+    readTime: "12 min read",
+    author: { name: "Sarah Jenkins", role: "Senior Systems Architect", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah" },
+    heroImage: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2000&auto=format&fit=crop",
+    excerpt: "A deep dive into caching strategies, edge computing, and database optimization for million-user spikes.",
+    content: (
+      <>
+        <p className="text-xl md:text-[22px] leading-relaxed text-gray-600 mb-10 font-light">
+          Handling a million concurrent users during a product launch requires more than just scaling up servers. It requires intelligent edge caching, strict database connection pooling, and a deep understanding of Next.js rendering strategies.
+        </p>
+        <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-black mt-16 mb-6">The Magic of ISR and Edge Computing</h2>
+        <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-8">
+          By utilizing Incremental Static Regeneration (ISR), you can serve static pages to 99% of your users while regenerating them in the background. Pushing middleware to the Edge ensures that authentication and redirects happen closer to the user, saving precious milliseconds.
+        </p>
+      </>
+    )
   },
-  "UI/UX Design": {
-    category: "// User Experience",
-    title: "Design that bridges the gap between complex tech and human needs",
-    description: [
-      "Design is more than just aesthetics; it's about how it works. We create interfaces that are intuitive, accessible, and aligned with your business goals.",
-      "Our research-driven approach ensures that every design decision is backed by user data and psychological principles."
-    ],
-    image: uiuxImage,
-    postImageText: "We turn complex architectural problems into simple, beautiful, and high-converting visual interfaces.",
-    bullets: ["User Research & Personas", "Wireframing & Prototyping", "Design System Creation", "Accessibility (WCAG) Audits"],
-    keyServices: [
-      { id: 1, label: "Interactive Prototyping", text: "Validate ideas with clickable models before moving to full development." },
-      { id: 2, label: "Visual Identity", text: "Defining the colors, typography, and mood that represent your digital brand." },
-      { id: 3, label: "Usability Testing", text: "Observing real users to identify and fix friction points in the interface." }
-    ],
-    highlight: {
-      title: "SaaS Dashboard Redesign",
-      client: "CloudOps",
-      industry: "SaaS",
-      goal: "Reduce onboarding time for new enterprise users.",
-      solution: "Streamlined the navigation and created a unified design system for all 50+ internal modules.",
-      results: ["Support tickets reduced by 40%", "Onboarding time cut from 5 days to 2 hours", "Task completion rate up by 85%"]
-    }
+  {
+    id: 4,
+    title: "The Micro-Interaction Audit",
+    category: "Design Systems",
+    date: "May 05, 2026",
+    readTime: "6 min read",
+    author: { name: "David Kim", role: "UX Engineer", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=David" },
+    heroImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop",
+    excerpt: "How tiny, almost invisible animations can drastically improve user retention and perceived performance.",
+    content: (
+      <>
+        <p className="text-xl md:text-[22px] leading-relaxed text-gray-600 mb-10 font-light">
+          Micro-interactions are the subtle moments in a product that users barely notice, yet they fundamentally shape the experience. A button that compresses slightly when clicked, a skeleton loader that shimmers organically, or a success state that springs into place.
+        </p>
+        <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-black mt-16 mb-6">The Psychology of Feedback</h2>
+        <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-8">
+          When humans interact with the physical world, there is immediate sensory feedback. Digital interfaces often lack this. Micro-interactions bridge the gap between digital and physical, reassuring the user that their action was acknowledged by the system.
+        </p>
+        <blockquote className="border-l-4 border-black bg-gray-50 rounded-r-2xl p-6 md:p-8 my-12 shadow-sm border-y border-r border-y-gray-200 border-r-gray-200">
+          <p className="text-2xl md:text-3xl font-medium leading-snug text-black m-0">
+            "Good design is invisible, but great design feels alive. Animation shouldn't just be decoration; it should be communication."
+          </p>
+        </blockquote>
+      </>
+    )
   },
-  "Digital Strategy & Consulting": {
-    category: "// Digital Strategy & Consulting",
-    title: "Navigating the digital landscape with data-driven strategy",
-    description: [
-      "We act as your technology partners, helping you choose the right tools and strategies to outpace your competition.",
-      "From AI readiness audits to omnichannel roadmaps, we provide the clarity you need to invest your budget effectively."
-    ],
-    image: strategyImage,
-    postImageText: "Strategy isn't just a document; it's a blueprint for measurable business growth.",
-    bullets: ["AI Readiness Assessments", "Tech Stack Audits", "Omnichannel Roadmaps", "Growth Consulting"],
-    keyServices: [
-      { id: 1, label: "Digital Transformation", text: "Modernizing legacy business models for the 21st-century digital economy." },
-      { id: 2, label: "CTO Advisory", text: "Fractional leadership for startups and enterprises needing high-level technical guidance." },
-      { id: 3, label: "ROI Analysis", text: "Calculating the impact of tech investments before you commit to development." }
-    ],
-    highlight: {
-      title: "Transformation Roadmap",
-      client: "Vertex Logistics",
-      industry: "Manufacturing",
-      goal: "Identify bottlenecks in the supply chain.",
-      solution: "Conducted a 4-week audit and proposed a 12-month digital overhaul strategy.",
-      results: ["Projected $2M savings in year 1", "Unified 3 legacy systems", "Approved for full-scale rollout"]
-    }
+  {
+    id: 5,
+    title: "Death of the Traditional Dashboard",
+    category: "Product Strategy",
+    date: "April 28, 2026",
+    readTime: "7 min read",
+    author: { name: "Amara Singh", role: "Product Manager", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Amara" },
+    heroImage: "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1000&auto=format&fit=crop",
+    excerpt: "Moving from static charts to generative, conversational data interfaces that actually answer questions.",
+    content: (
+      <>
+        <p className="text-xl md:text-[22px] leading-relaxed text-gray-600 mb-10 font-light">
+          For the past decade, B2B software has been defined by the dashboard: a grid of pie charts, line graphs, and data tables. But users don't want to look at charts; they want answers to business questions.
+        </p>
+        <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-black mt-16 mb-6">The Rise of Conversational UI</h2>
+        <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-8">
+          Instead of forcing users to filter through complex datasets to figure out why revenue dropped in Q3, modern interfaces allow them to simply ask. Powered by LLMs and Generative UI, the system dynamically renders the exact chart needed for that specific question.
+        </p>
+      </>
+    )
+  },
+  {
+    id: 6,
+    title: "Serverless vs Edge in 2026",
+    category: "Cloud Architecture",
+    date: "April 20, 2026",
+    readTime: "9 min read",
+    author: { name: "Tom Baker", role: "DevOps Lead", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Tom" },
+    heroImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop",
+    excerpt: "Analyzing the cost-to-performance ratio of modern deployment architectures for global applications.",
+    content: (
+      <>
+        <p className="text-xl md:text-[22px] leading-relaxed text-gray-600 mb-10 font-light">
+          The debate between traditional Serverless functions (like AWS Lambda) and Edge functions (like Cloudflare Workers) has matured. In 2026, the choice isn't just about cold starts anymore; it's about global data distribution and compliance.
+        </p>
+        <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-black mt-16 mb-6">Latency is the New Currency</h2>
+        <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-8">
+          Edge computing executes code physically closer to the user. For personalization engines, A/B testing, and AI middleware, those saved 50 milliseconds per request translate directly into higher conversion rates and better UX.
+        </p>
+      </>
+    )
+  },
+  {
+    id: 7,
+    title: "Mastering Framer Motion",
+    category: "Frontend Dev",
+    date: "April 15, 2026",
+    readTime: "11 min read",
+    author: { name: "Lisa Wong", role: "Frontend Architect", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Lisa" },
+    heroImage: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000&auto=format&fit=crop",
+    excerpt: "A comprehensive guide to orchestrating complex, performant layout animations without sacrificing load times.",
+    content: (
+      <>
+        <p className="text-xl md:text-[22px] leading-relaxed text-gray-600 mb-10 font-light">
+          React developers have long struggled with complex animations, especially when elements enter, exit, or change their layout in the DOM. Framer Motion revolutionized this space, making 60fps animations declarative and accessible.
+        </p>
+        <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-black mt-16 mb-6">The Magic of Layout Animations</h2>
+        <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-8">
+          The `layout` prop in Framer Motion is arguably its most powerful feature. By simply adding it to a component, the library automatically calculates the transform differences between re-renders, creating buttery smooth transitions without CSS headaches.
+        </p>
+      </>
+    )
   }
-};
+];
 
-export default function ServicesSection() {
-  const [activeTab, setActiveTab] = useState("AI and ML");
-  const current = servicesData[activeTab];
-  const navigate = useNavigate();
+export default function BlogPostGridStyle() {
+  const { id } = useParams();
+  const [visibleCount, setVisibleCount] = useState(6);
+  
+  const article = id ? allBlogPosts.find((post) => post.id === parseInt(id)) : null;
 
-  return (
-    <div className="w-full bg-white border-t border-gray-200">
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12 md:py-20 lg:py-32 md:border-x border-gray-200 font-sans flex flex-col lg:flex-row gap-8 lg:gap-16 items-start relative">
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
+
+  const handleLoadMore = () => {
+    setVisibleCount((prevCount) => prevCount + 3);
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1, transition: { staggerChildren: 0.1 } },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } },
+  };
+
+  // --- SINGLE ARTICLE VIEW ---
+  if (article) {
+
+    // 1. AUTHOR BOX COMPONENT (Reusable)
+    const AuthorBox = (
+      <div className="p-6 rounded-3xl bg-gray-50 border border-gray-200 shadow-sm w-full">
+        <span className="text-xs font-bold tracking-widest uppercase text-gray-400 mb-4 block">Author</span>
+        <div className="flex items-center gap-4">
+          <div className="w-14 h-14 rounded-full border-2 border-white shadow-sm overflow-hidden bg-gray-200">
+            <img src={article.author.avatar} alt={article.author.name} className="w-full h-full object-cover" />
+          </div>
+          <div>
+            <p className="text-base font-semibold text-black leading-tight">{article.author.name}</p>
+            <p className="text-sm text-[#29AAE3] font-medium mt-0.5">{article.author.role}</p>
+          </div>
+        </div>
+      </div>
+    );
+
+    // 2. SHARE BOX COMPONENT (Reusable)
+    const ShareBox = (
+      <div className="p-6 rounded-3xl bg-white border border-gray-200 shadow-sm w-full">
+        <span className="text-xs font-bold tracking-widest uppercase text-gray-400 mb-4 block">Share Article</span>
+        <div className="flex items-center gap-3">
+          <button className="flex-1 h-12 rounded-2xl flex items-center justify-center text-gray-600 bg-gray-50 border border-gray-200 hover:bg-[#1DA1F2] hover:text-white hover:border-[#1DA1F2] transition-all">
+            <Twitter size={18} />
+          </button>
+          <button className="flex-1 h-12 rounded-2xl flex items-center justify-center text-gray-600 bg-gray-50 border border-gray-200 hover:bg-[#0A66C2] hover:text-white hover:border-[#0A66C2] transition-all">
+            <Linkedin size={18} />
+          </button>
+          <button className="flex-1 h-12 rounded-2xl flex items-center justify-center text-gray-600 bg-gray-50 border border-gray-200 hover:bg-black hover:text-white hover:border-black transition-all">
+            <Link2 size={18} />
+          </button>
+        </div>
+      </div>
+    );
+
+    return (
+      <div className="relative w-full border-t border-gray-200 bg-white font-sans pb-24 overflow-x-hidden">
         
-        {/* LEFT COLUMN: Sidebar (Modified for mobile re-ordering) */}
-        {/* display: contents on mobile allows us to reorder its children independently */}
-        <div className="contents lg:flex lg:flex-col lg:w-[380px] lg:flex-shrink-0 lg:gap-6 lg:sticky lg:top-32 z-10 lg:h-fit">
+        {/* Top Reading Progress Bar */}
+        <motion.div
+          style={{ scaleX }}
+          className="fixed top-0 left-0 right-0 h-1.5 bg-[#29AAE3] origin-left z-50"
+        />
+
+        <div className="absolute inset-0 z-0 pointer-events-none flex justify-center hidden lg:flex">
+          <div className="w-full max-w-7xl h-full border-x border-gray-100 relative">
+            <div className="absolute left-1/4 top-0 bottom-0 border-l border-gray-100" />
+            <div className="absolute left-1/2 top-0 bottom-0 border-l border-gray-100" />
+            <div className="absolute left-3/4 top-0 bottom-0 border-l border-gray-100" />
+          </div>
+        </div>
+
+        <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:border-x md:border-gray-200 pt-32 md:pt-40">
           
-          {/* TABS CONTAINER (Stays at the top on Mobile) */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="order-1 lg:order-none w-full bg-[#F4F7FB] rounded-3xl md:rounded-[2.5rem] p-6 sm:p-8 md:p-10 shadow-sm"
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="pb-10 border-b border-gray-200 mb-10"
           >
-            <h3 className="text-2xl md:text-[28px] font-semibold text-black mb-6 md:mb-8">Our Service</h3>
-            <div className="flex flex-col gap-3 md:gap-4">
-              {Object.keys(servicesData).map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`w-full py-3 md:py-4 px-5 md:px-6 rounded-full text-sm md:text-[15px] font-semibold transition-all duration-300 text-left md:text-center ${
-                    activeTab === tab
-                      ? "bg-[#1A1A1A] text-white shadow-lg lg:scale-[1.02]"
-                      : "bg-white text-[#4A5568] hover:bg-gray-50 border border-gray-100 shadow-sm"
-                  }`}
-                >
-                  {tab}
-                </button>
-              ))}
+            <Link to="/blogs" className="inline-flex items-center gap-2 text-gray-500 hover:text-black transition-colors mb-8 group font-medium text-sm">
+              <div className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center group-hover:bg-gray-50 transition-colors">
+                <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
+              </div>
+              Back to Insights
+            </Link>
+
+            <div className="flex flex-wrap items-center gap-4 mb-6">
+              <span className="px-3 py-1 rounded-full border border-[#29AAE3]/30 bg-[#29AAE3]/5 text-[#29AAE3] text-xs font-bold tracking-widest uppercase">
+                {article.category}
+              </span>
+              <span className="text-gray-500 text-sm font-medium flex items-center gap-2">
+                <Calendar size={14} /> {article.date}
+              </span>
+              <span className="text-gray-500 text-sm font-medium flex items-center gap-2">
+                <Clock size={14} /> {article.readTime}
+              </span>
             </div>
+
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[72px] leading-[1.05] font-medium tracking-tight text-black max-w-5xl">
+              {article.title}
+            </h1>
           </motion.div>
 
-          {/* BLACK CTA BOX (Moves to the bottom on Mobile) */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="order-3 lg:order-none w-full mt-4 lg:mt-0 bg-[#1A1A1A] rounded-3xl md:rounded-[2.5rem] p-6 sm:p-8 md:p-10 text-white relative overflow-hidden shadow-xl"
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="w-full aspect-video md:aspect-[21/9] rounded-[2rem] md:rounded-[2.5rem] overflow-hidden bg-gray-50 border border-gray-200 shadow-sm mb-16"
           >
-            <h3 className="text-2xl md:text-3xl lg:text-[34px] leading-tight font-bold mb-4 md:mb-6 relative z-10">
-             We Value Innovation, Creativity & Intelligent Solutions !
-            </h3>
-            <p className="text-gray-400 text-sm md:text-[15px] leading-relaxed mb-8 md:mb-10 relative z-10">
-              Transforming complex challenges into smart digital experiences through AI, software, and modern technology.
-            </p>
+            <img src={article.heroImage} alt="Article Hero" className="w-full h-full object-cover" />
+          </motion.div>
+
+          {/* CONTENT LAYOUT */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start relative">
             
-            <button  
-              onClick={() => navigate("/contact")}  
-              className="flex items-center justify-between w-full bg-white text-black px-6 md:px-8 py-4 md:py-5 rounded-full font-bold transition-all hover:bg-gray-100 group relative z-10 shadow-xl"
+            {/* === MOBILE ONLY: AUTHOR BOX AT THE TOP === */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="w-full lg:hidden block mb-2"
             >
-              <span className="text-base md:text-lg">Work with me</span>
-              <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gray-100 flex items-center justify-center transition-transform group-hover:translate-x-1">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
+              {AuthorBox}
+            </motion.div>
+
+            {/* === DESKTOP ONLY: STICKY SIDEBAR (Author + Share) === */}
+            <motion.aside 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="hidden lg:flex flex-col lg:col-span-4 xl:col-span-3 gap-6 sticky top-32 self-start h-fit z-20"
+            >
+              {AuthorBox}
+              {ShareBox}
+            </motion.aside>
+
+            {/* SCROLLING ARTICLE BODY */}
+            <motion.article 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="lg:col-span-8 xl:col-span-9 prose prose-lg md:prose-xl prose-gray max-w-none lg:pr-8"
+            >
+              {article.content}
+            </motion.article>
+
+            {/* === MOBILE ONLY: SHARE BOX AT THE BOTTOM === */}
+            <div className="w-full lg:hidden block mt-8 pb-12">
+              {ShareBox}
+            </div>
+
+          </div>
+        </section>
+      </div>
+    );
+  }
+
+  // --- MAIN BLOG GRID VIEW (/blogs) ---
+  const featuredPostObj = allBlogPosts[0];
+  
+  return (
+    <div className="relative w-full border-t border-gray-200 bg-white font-sans pt-20 pb-24 md:pt-32 overflow-x-hidden">
+      <div className="absolute inset-0 z-0 pointer-events-none flex justify-center hidden lg:flex">
+        <div className="w-full max-w-7xl h-full border-x border-gray-100 relative">
+          <div className="absolute left-1/4 top-0 bottom-0 border-l border-gray-100" />
+          <div className="absolute left-1/2 top-0 bottom-0 border-l border-gray-100" />
+          <div className="absolute left-3/4 top-0 bottom-0 border-l border-gray-100" />
+        </div>
+      </div>
+
+      <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:border-x md:border-gray-200">
+        
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6 }}
+          className="grid md:grid-cols-2 gap-8 md:gap-12 pb-12 mb-12 items-end border-b border-gray-200"
+        >
+          <h2 className="text-4xl md:text-[56px] lg:text-[64px] leading-[1.2] md:leading-[1.05] tracking-tight py-2 mt-10 md:mt-0">
+            <span className="text-gray-400 font-normal block mb-2">Ideas that shape</span>
+            <span className="text-black font-normal block">The digital future.</span>
+          </h2>
+          <p className="text-gray-500 text-[15px] md:text-lg md:text-right max-w-md ml-auto leading-relaxed mb-2">
+            Thoughts, technical deep dives, and industry perspectives from the team building the next generation of software and AI.
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          className="mb-16 md:mb-24"
+        >
+          <Link to={`/blog/${featuredPostObj.id}`} className="group block relative w-full h-[500px] md:h-[650px] rounded-[2rem] md:rounded-[3rem] overflow-hidden bg-gray-100">
+            <img src={featuredPostObj.heroImage} alt={featuredPostObj.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105" />
+            <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+            <div className="absolute bottom-4 left-4 right-4 md:bottom-8 md:left-8 md:max-w-2xl bg-white/10 backdrop-blur-2xl border border-white/20 rounded-[2rem] p-6 md:p-10 transition-transform duration-500 group-hover:-translate-y-2">
+              <div className="flex items-center gap-4 mb-4">
+                <span className="px-3 py-1 rounded-full bg-white text-black text-[10px] md:text-xs font-bold tracking-widest uppercase">
+                  {featuredPostObj.category}
+                </span>
+                <span className="text-white/80 text-xs md:text-sm font-medium">{featuredPostObj.readTime}</span>
               </div>
+              <h2 className="text-2xl md:text-4xl lg:text-5xl font-medium text-white leading-[1.1] tracking-tight mb-4">
+                {featuredPostObj.title}
+              </h2>
+              <p className="text-gray-300 text-sm md:text-base leading-relaxed hidden md:block">
+                {featuredPostObj.excerpt}
+              </p>
+            </div>
+          </Link>
+        </motion.div>
+
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
+          layout 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
+          <AnimatePresence>
+            {allBlogPosts.slice(1, visibleCount + 1).map((post) => (
+              <motion.div 
+                key={post.id}
+                variants={itemVariants}
+                layout
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+              >
+                <Link to={`/blog/${post.id}`} className="group flex flex-col h-full bg-white border border-gray-200 rounded-[2rem] overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                  <div className="relative w-full h-56 border-b border-gray-200 overflow-hidden bg-gray-100">
+                    <img src={post.heroImage} alt={post.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  </div>
+                  <div className="p-6 md:p-8 flex flex-col flex-grow">
+                    <div className="flex items-center gap-3 mb-4 text-xs font-semibold uppercase tracking-widest text-gray-500">
+                      <span className="text-[#29AAE3]">{post.category}</span>
+                    </div>
+                    <h4 className="text-xl md:text-2xl font-medium leading-[1.2] tracking-tight text-black mb-4 group-hover:text-[#29AAE3] transition-colors line-clamp-2">
+                      {post.title}
+                    </h4>
+                    <p className="text-gray-500 text-sm leading-relaxed mb-8 flex-grow line-clamp-2">
+                      {post.excerpt}
+                    </p>
+                    <div className="flex items-center justify-between mt-auto pt-5 border-t border-gray-100">
+                      <div className="flex items-center gap-3 text-xs text-gray-400 font-medium">
+                        <span>{post.date}</span>
+                        <span className="w-1 h-1 rounded-full bg-gray-300" />
+                        <span>{post.readTime}</span>
+                      </div>
+                      <div className="w-10 h-10 rounded-full bg-gray-50 border border-gray-200 flex items-center justify-center text-gray-500 group-hover:bg-black group-hover:text-white group-hover:border-black transition-all duration-300">
+                        <ArrowUpRight size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+
+        {visibleCount < allBlogPosts.length - 1 && (
+          <motion.div 
+            layout
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="mt-12 md:mt-16 flex justify-center"
+          >
+            <button 
+              onClick={handleLoadMore}
+              className="group relative inline-flex items-center justify-center px-8 py-4 bg-white border border-gray-200 text-black font-semibold rounded-full overflow-hidden transition-all duration-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] active:scale-[0.98]"
+            >
+              <div className="absolute inset-0 w-full h-full bg-black translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[0.22,1,0.36,1]" />
+              <span className="relative flex items-center gap-2 group-hover:text-white transition-colors duration-300">
+                <span>Load More Articles</span>
+                <ArrowRight size={18} strokeWidth={2.5} className="opacity-60 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300" />
+              </span>
             </button>
           </motion.div>
-        </div>
-
-        {/* RIGHT COLUMN: Long-form Content (Shows in the middle on Mobile) */}
-        <div className="order-2 lg:order-none w-full lg:flex-1 relative lg:min-h-[1000px]">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeTab}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
-              className="flex flex-col gap-6 md:gap-10 text-gray-600 leading-relaxed"
-            >
-              <div className="space-y-2 md:space-y-4 mt-2 lg:mt-0">
-                <span className="text-[10px] md:text-xs uppercase tracking-[0.2em] text-gray-400 font-bold block">
-                  {current.category}
-                </span>
-                <h2 className="text-3xl md:text-4xl lg:text-[52px] leading-[1.2] lg:leading-[1.1] font-bold text-black tracking-tighter">
-                  {current.title}
-                </h2>
-              </div>
-
-              <div className="space-y-4 md:space-y-6">
-                {current.description.map((p, i) => (
-                  <p key={i} className="text-base md:text-lg lg:text-xl text-gray-600">
-                    {p}
-                  </p>
-                ))}
-              </div>
-
-              {/* Large Content Image */}
-              <motion.div 
-                initial={{ scale: 0.95, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                className="w-full my-2 md:my-4 rounded-2xl md:rounded-[3rem] overflow-hidden border border-gray-100 shadow-sm aspect-[16/9]"
-              >
-                <img 
-                  src={current.image} 
-                  alt={activeTab} 
-                  className="w-full h-full object-cover"
-                />
-              </motion.div>
-
-              <p className="text-base md:text-lg">{current.postImageText}</p>
-
-              {/* Bulleted List */}
-              <ul className="list-disc pl-5 space-y-2 text-base md:text-lg text-gray-600 marker:text-gray-400">
-                {current.bullets.map((bullet, i) => (
-                  <li key={i}>{bullet}</li>
-                ))}
-              </ul>
-
-              {/* Key Services Section */}
-              <div className="mt-2 md:mt-4">
-                <h3 className="text-lg md:text-xl text-black font-semibold mb-4 md:mb-6">Key Services</h3>
-                <div className="space-y-4 md:space-y-5">
-                  {current.keyServices.map((service) => (
-                    <div key={service.id} className="text-base md:text-lg">
-                      <span className="text-black font-bold">{service.id}. {service.label}:</span> {service.text}
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Project Highlight Section */}
-              <div className="mt-2 md:mt-4 bg-gray-50 rounded-3xl md:rounded-[2.5rem] p-6 sm:p-8 md:p-12 border border-gray-100 shadow-inner">
-                <h3 className="text-xl md:text-2xl text-black font-bold mb-6 md:mb-8 uppercase tracking-tight">
-                  Project Highlight: {current.highlight.title}
-                </h3>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 mb-6 md:mb-8 border-b border-gray-200 pb-6 md:pb-8">
-                  <div className="space-y-3 md:space-y-4">
-                    <p><span className="text-gray-400 font-bold text-[10px] md:text-xs uppercase block mb-1">Client</span> <span className="text-black font-semibold text-base md:text-lg">{current.highlight.client}</span></p>
-                    <p><span className="text-gray-400 font-bold text-[10px] md:text-xs uppercase block mb-1">Industry</span> <span className="text-black font-semibold text-base md:text-lg">{current.highlight.industry}</span></p>
-                  </div>
-                  <div className="space-y-3 md:space-y-4">
-                    <p><span className="text-gray-400 font-bold text-[10px] md:text-xs uppercase block mb-1">Goal</span> <span className="text-black font-semibold text-base md:text-lg">{current.highlight.goal}</span></p>
-                  </div>
-                </div>
-
-                <div className="mb-6 md:mb-8">
-                  <span className="text-gray-400 font-bold text-[10px] md:text-xs uppercase block mb-2 md:mb-3">Solution</span>
-                  <p className="text-gray-700 text-base md:text-lg leading-relaxed">{current.highlight.solution}</p>
-                </div>
-
-                <div>
-                  <span className="text-gray-400 font-bold text-[10px] md:text-xs uppercase block mb-3">Results</span>
-                  <ul className="flex flex-col gap-2 md:gap-3">
-                    {current.highlight.results.map((result, i) => (
-                      <li key={i} className="flex items-start md:items-center gap-3 md:gap-4 text-black font-bold text-base md:text-lg">
-                        <div className="w-2 h-2 rounded-full bg-blue-500 mt-2 md:mt-0 flex-shrink-0" />
-                        <span>{result}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
+        )}
       </section>
     </div>
   );

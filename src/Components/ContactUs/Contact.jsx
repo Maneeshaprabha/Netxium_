@@ -42,7 +42,8 @@ export default function Contact() {
   };
 
   return (
-    <div className="relative w-full bg-white font-sans overflow-hidden border-t border-gray-200">
+    // FIX: Changed 'overflow-hidden' to 'overflow-x-hidden' to prevent vertical clipping 
+    <div className="relative w-full bg-white font-sans overflow-x-hidden border-t border-gray-200">
       
       {/* --- BACKGROUND WIREFRAME GRID --- */}
       <div className="absolute inset-0 z-0 pointer-events-none flex justify-center">
@@ -60,7 +61,8 @@ export default function Contact() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="w-full lg:w-1/2 flex flex-col"
         >
-          <h2  className="text-[40px] md:text-[64px] leading-tight font-normal text-black tracking-tight mb-6">
+          {/* FIX: Added mt-10 for mobile spacing, py-2 to prevent clipping, and adjusted line-height */}
+          <h2 className="text-[40px] md:text-[64px] leading-[1.2] md:leading-[1.1] font-normal text-black tracking-tight mb-6 mt-10 md:mt-0 py-2">
             We are always ready to support your business and bring your ideas to life.
           </h2>
           
