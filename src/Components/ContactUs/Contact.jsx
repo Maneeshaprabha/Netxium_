@@ -14,35 +14,44 @@ export default function Contact() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle Form Submission
+  // Handle Form Submission with Web3Forms using .env
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setStatus({ type: '', message: '' });
 
+    // Vite සඳහා (Create React App නම් process.env.REACT_APP_WEB3FORMS_ACCESS_KEY දමන්න)
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+
     try {
-      const response = await fetch('http://localhost:3001/api/contact', {
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          access_key: accessKey,
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        }),
       });
 
-      if (response.ok) {
+      const data = await response.json();
+
+      if (data.success) {
         setStatus({ type: 'success', message: 'Message sent successfully!' });
         setFormData({ name: '', email: '', subject: '', message: '' }); // Clear form
       } else {
-        const errorData = await response.json();
-        setStatus({ type: 'error', message: errorData.error || 'Something went wrong.' });
+        setStatus({ type: 'error', message: data.message || 'Something went wrong.' });
       }
     } catch (err) {
-      setStatus({ type: 'error', message: 'Network error. Is the backend running?' });
+      setStatus({ type: 'error', message: 'Network error. Please try again later.' });
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    // FIX: Changed 'overflow-hidden' to 'overflow-x-hidden' to prevent vertical clipping 
     <div className="relative w-full bg-white font-sans overflow-x-hidden border-t border-gray-200">
       
       {/* --- BACKGROUND WIREFRAME GRID --- */}
@@ -61,7 +70,6 @@ export default function Contact() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="w-full lg:w-1/2 flex flex-col"
         >
-          {/* FIX: Added mt-10 for mobile spacing, py-2 to prevent clipping, and adjusted line-height */}
           <h2 className="text-[40px] md:text-[64px] leading-[1.2] md:leading-[1.1] font-normal text-black tracking-tight mb-6 mt-10 md:mt-0 py-2">
             We are always ready to support your business and bring your ideas to life.
           </h2>

@@ -6,8 +6,8 @@ import { Mail, X, CheckCircle } from 'lucide-react';
 export default function FloatingContact() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   
-  // Form State
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  // Form State (Added subject field back for completeness)
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState('');
@@ -38,21 +38,28 @@ export default function FloatingContact() {
     setIsSubmitting(true);
     setError('');
 
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+
     try {
-      // FIXED: Added leading slash to ensure it always hits the root API
-    const response = await fetch('http://localhost:3001/api/contact', {
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          access_key: accessKey,
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject || 'New Contact Message from Floating Widget',
+          message: formData.message,
+        }),
       });
 
-      if (response.ok) {
+      const data = await response.json();
+
+      if (response.ok && data.success) {
         setIsSuccess(true);
-        setFormData({ name: '', email: '', message: '' }); // Clear form
+        setFormData({ name: '', email: '', subject: '', message: '' }); // Clear form
       } else {
-        // FIXED: Extract the actual error message from the backend
-        const errorData = await response.json();
-        setError(errorData.error || 'Something went wrong. Please try again.');
+        setError(data.message || 'Something went wrong. Please try again.');
       }
     } catch (err) {
       setError('Network error. Please try again later.');
@@ -160,6 +167,14 @@ export default function FloatingContact() {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="Email Address" 
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 sm:px-5 py-3 sm:py-4 text-white placeholder-neutral-500 focus:outline-none focus:border-white/30 focus:bg-white/10 transition-all text-sm sm:text-base"
+                    />
+                    <input 
+                      type="text" 
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleChange}
+                      placeholder="Subject (Optional)" 
                       className="w-full bg-white/5 border border-white/10 rounded-xl px-4 sm:px-5 py-3 sm:py-4 text-white placeholder-neutral-500 focus:outline-none focus:border-white/30 focus:bg-white/10 transition-all text-sm sm:text-base"
                     />
                     <textarea 
