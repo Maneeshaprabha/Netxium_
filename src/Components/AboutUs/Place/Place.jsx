@@ -4,50 +4,45 @@ import { motion } from "framer-motion";
 import abouImage from "../../../assets/about.webp";
 
 export default function AboutEditorial() {
+  
+  // 1. IMAGE BLOCK (Reusable Variable)
+  const ImageBlock = (
+    <motion.div 
+      initial={{ opacity: 0, scale: 0.95 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 1, ease: "easeOut" }}
+      className="w-full aspect-square lg:aspect-[4/5] relative flex items-center justify-center overflow-hidden "
+    >
+      <div className="absolute inset-0 overflow-hidden ">
+        <img
+          src={abouImage} // Replace with your actual image path
+          alt="About Us Video"
+          className="absolute inset-0 w-full h-full object-cover rounded-3xl"
+        />
+      </div>
+    </motion.div>
+  );
+
   return (
-    <div className="relative w-full min-h-screen bg-white font-sans overflow-hidden flex items-center border-t border-gray-200">
+    // FIX: අලුතින් border-t border-gray-200 අයින් කළා
+    <div className="relative w-full min-h-screen bg-white font-sans overflow-hidden flex items-center">
       
-      {/* 1. BACKGROUND WIREFRAME GRID */}
+      {/* BACKGROUND WIREFRAME GRID */}
       <div className="absolute inset-0 z-0 pointer-events-none flex justify-center">
-        <div className="w-full max-w-7xl h-full border-x border-gray-200 relative">
+        {/* FIX: border-x border-gray-200 අයින් කළා */}
+        <div className="w-full max-w-7xl h-full relative">
         </div>
       </div>
 
-      <section className="relative z-10 w-full max-w-7xl mx-auto px-6 py-24 flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
+      <section className="relative z-10 w-full max-w-7xl mx-auto px-6 py-24 flex flex-col lg:flex-row gap-10 lg:gap-24 items-center">
         
-        {/* LEFT COLUMN: Video Container */}
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="w-full lg:w-1/2 aspect-square lg:aspect-[4/5] relative flex items-center justify-center"
-        >
-          {/* Video Frame */}
-          <div className="absolute inset-0 overflow-hidden ">
-            {/* <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover"
-            > */}
-              {/* Ensure the path to your video is correct */}
-              {/* <source src="../src/assets/about.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video> */}
-            <img
-              src={abouImage} // Replace with your actual image path
-              alt="About Us Video"
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-            
-            {/* Subtle Overlay to maintain editorial look */}
-            {/* <div className="absolute inset-0 bg-black/5 pointer-events-none" /> */}
-          </div>
-        </motion.div>
+        {/* === DESKTOP ONLY: LEFT COLUMN (Image) === */}
+        <div className="hidden lg:flex w-full lg:w-1/2">
+          {ImageBlock}
+        </div>
 
-        {/* RIGHT COLUMN: Editorial Typography */}
+        {/* RIGHT COLUMN (Typography, Mobile Image & Logos) */}
         <div className="w-full lg:w-1/2 flex flex-col justify-center">
           
           <motion.h2 
@@ -55,7 +50,7 @@ export default function AboutEditorial() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-[40px] md:text-[52px] lg:text-[56px] font-normal leading-[1.1] text-black tracking-tight mb-10"
+            className="text-[40px] md:text-[52px] lg:text-[56px] font-normal leading-[1.1] text-black tracking-tight mb-8 lg:mb-10"
           >
             Netxium powers businesses with intelligent digital solutions
           </motion.h2>
@@ -78,13 +73,19 @@ export default function AboutEditorial() {
             </p>
           </motion.div>
 
-          {/* LOGOS / PARTNERS */}
+          {/* === MOBILE ONLY: IMAGE IN THE MIDDLE === */}
+          <div className="flex lg:hidden w-full my-10">
+            {ImageBlock}
+          </div>
+
+          {/* LOGOS / PARTNERS (Always at the bottom of the right column) */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-16 pt-10 border-t border-gray-100 flex flex-wrap items-center gap-8 md:gap-12 opacity-60 grayscale hover:grayscale-0 transition-all duration-500"
+            // FIX: මෙතන තිබුණු 'border-t border-gray-100 pt-10' අයින් කළා. දැන් ඉරක් නෑ.
+            className="lg:mt-8 flex flex-wrap border-gray-100 items-center gap-8 md:gap-12 opacity-60 grayscale hover:grayscale-0 transition-all duration-500"
           >
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-gray-300 rounded-sm flex items-center justify-center font-bold text-white text-xs">ND2</div>
