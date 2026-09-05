@@ -88,8 +88,7 @@ export default function WhoWeAreModern() {
           </motion.p>
         </div>
 
-        {/* 3. CINEMATIC ACCORDION (Vertical on Mobile, Horizontal on Desktop) */}
-        {/* Adjusted container height: Taller on mobile to accommodate vertical stacking */}
+        {/* 3. CINEMATIC ACCORDION */}
         <div className="w-full h-[600px] md:h-[550px] flex flex-col md:flex-row gap-3 md:gap-4">
           {pillars.map((pillar, index) => {
             const isActive = activeIndex === index;
@@ -98,9 +97,9 @@ export default function WhoWeAreModern() {
               <motion.div
                 key={pillar.id}
                 onClick={() => setActiveIndex(index)}
+                onMouseEnter={() => setActiveIndex(index)} // <-- මෙතන තමයි අලුතින් add කලේ
                 layout
                 initial={false}
-                // On mobile, flex dictates height. On desktop, flex dictates width.
                 animate={{ flex: isActive ? "10" : "1" }}
                 whileHover={!isActive ? { scale: 0.98, opacity: 0.8 } : {}}
                 transition={{
@@ -117,7 +116,6 @@ export default function WhoWeAreModern() {
               >
                 {/* INACTIVE STATE */}
                 {!isActive && (
-                  // Centered on mobile (horizontal bar), bottom-aligned on desktop (vertical pillar)
                   <div className="absolute inset-0 md:inset-auto md:bottom-6 md:left-0 md:right-0 flex items-center justify-center opacity-50 font-mono text-sm md:text-base font-bold mix-blend-difference text-white transition-opacity group-hover:opacity-100">
                     {pillar.id}
                   </div>
@@ -179,7 +177,6 @@ export default function WhoWeAreModern() {
                             initial={{ y: 30, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ delay: 0.45, duration: 0.5, ease: "easeOut" }}
-                            // line-clamp-2 prevents text from overflowing on very small mobile screens
                             className="text-white/80 mt-2 md:mt-4 text-xs sm:text-sm md:text-lg font-light max-w-md leading-relaxed line-clamp-2 md:line-clamp-none"
                           >
                             {pillar.topic}
