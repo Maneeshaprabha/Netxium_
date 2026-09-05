@@ -165,14 +165,16 @@ export default function ServicesSection() {
     <div className="w-full bg-white border-t border-gray-200">
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12 md:py-20 lg:py-32 md:border-x border-gray-200 font-sans flex flex-col lg:flex-row gap-8 lg:gap-16 items-start relative">
         
-        {/* LEFT COLUMN: Sidebar */}
-        <div className="w-full lg:w-[380px] flex-shrink-0 flex flex-col gap-4 md:gap-6 lg:sticky lg:top-32 z-10">
+        {/* LEFT COLUMN: Sidebar (Modified for mobile re-ordering) */}
+        {/* display: contents on mobile allows us to reorder its children independently */}
+        <div className="contents lg:flex lg:flex-col lg:w-[380px] lg:flex-shrink-0 lg:gap-6 lg:sticky lg:top-32 z-10 lg:h-fit">
           
+          {/* TABS CONTAINER (Stays at the top on Mobile) */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-[#F4F7FB] rounded-3xl md:rounded-[2.5rem] p-6 sm:p-8 md:p-10 shadow-sm"
+            className="order-1 lg:order-none w-full bg-[#F4F7FB] rounded-3xl md:rounded-[2.5rem] p-6 sm:p-8 md:p-10 shadow-sm"
           >
             <h3 className="text-2xl md:text-[28px] font-semibold text-black mb-6 md:mb-8">Our Service</h3>
             <div className="flex flex-col gap-3 md:gap-4">
@@ -192,12 +194,13 @@ export default function ServicesSection() {
             </div>
           </motion.div>
 
+          {/* BLACK CTA BOX (Moves to the bottom on Mobile) */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="bg-[#1A1A1A] rounded-3xl md:rounded-[2.5rem] p-6 sm:p-8 md:p-10 text-white relative overflow-hidden shadow-xl"
+            className="order-3 lg:order-none w-full mt-4 lg:mt-0 bg-[#1A1A1A] rounded-3xl md:rounded-[2.5rem] p-6 sm:p-8 md:p-10 text-white relative overflow-hidden shadow-xl"
           >
             <h3 className="text-2xl md:text-3xl lg:text-[34px] leading-tight font-bold mb-4 md:mb-6 relative z-10">
              We Value Innovation, Creativity & Intelligent Solutions !
@@ -221,8 +224,8 @@ export default function ServicesSection() {
           </motion.div>
         </div>
 
-        {/* RIGHT COLUMN: Long-form Content */}
-        <div className="w-full lg:flex-1 relative lg:min-h-[1000px]">
+        {/* RIGHT COLUMN: Long-form Content (Shows in the middle on Mobile) */}
+        <div className="order-2 lg:order-none w-full lg:flex-1 relative lg:min-h-[1000px]">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
@@ -232,7 +235,7 @@ export default function ServicesSection() {
               transition={{ duration: 0.5, ease: "easeOut" }}
               className="flex flex-col gap-6 md:gap-10 text-gray-600 leading-relaxed"
             >
-              <div className="space-y-2 md:space-y-4 mt-6 lg:mt-0">
+              <div className="space-y-2 md:space-y-4 mt-2 lg:mt-0">
                 <span className="text-[10px] md:text-xs uppercase tracking-[0.2em] text-gray-400 font-bold block">
                   {current.category}
                 </span>

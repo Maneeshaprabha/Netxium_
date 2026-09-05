@@ -99,13 +99,13 @@ export default function Navbar() {
                   Netxium
                 </span>
 
-                <div className="hidden md:flex items-center gap-1.5 ml-2">
+                {/* <div className="hidden md:flex items-center gap-1.5 ml-2">
                   <div className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.6)]" />
                   
                   <span className={`text-[10px] uppercase tracking-widest font-bold transition-colors duration-300 ${isScrolled ? 'text-white/80' : 'text-neutral-500'}`}>
                     Available
                   </span>
-                </div>
+                </div> */}
               </div>
 
               {/* Center Nav Links */}
