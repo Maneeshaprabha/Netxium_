@@ -15,6 +15,7 @@ import BlogPost from "./Components/Blogs/BlogPost";
 import Careers from "./Components/Careers/Careers";
 import JobDetails from "./Components/Careers/CareersDetails";
 import GeneralApplication from "./Components/Careers/GeneralApplication";
+import ScrollToTopButton from "./Components/ScrollToTopButton/ScrollToTopButton";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
       <Footer/>
 
       <FloatingContact />
+      <ScrollToTopButton />
     </>
   );
 }
