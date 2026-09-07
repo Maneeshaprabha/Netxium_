@@ -12,6 +12,7 @@ import PrivacyPolicy from "./Components/PrivacyPolicy/PrivacyPolicy";
 import ScrollToTop from "./Components/ScrollToTop";
 import Blog from "./Components/Blogs/Blogs";
 import BlogPost from "./Components/Blogs/BlogPost";
+import Careers from "./Components/Careers/Careers";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/services" element={<Services />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/careers" element={<Careers />} />
         <Route path="/blogs" element={<Blog />} />
         <Route path="/blog/:id" element={<BlogPost />} />
         <Route path="/term-of-service" element={<Term/>}/>
