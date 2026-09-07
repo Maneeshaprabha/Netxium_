@@ -115,15 +115,17 @@ const jobDetailsDB = [
       "Ability to work independently in a hybrid environment, balancing client-facing duties with strategic planning."
     ]
   }
-];
-
-export default function JobDetails() {
+];export default function JobDetails() {
   const { id } = useParams();
   
-  // Application Form State
-  const [formData, setFormData] = useState({ name: '', email: '', portfolio: '', coverLetter: '' });
-  const [file, setFile] = useState(null); // File state for CV
-  const fileInputRef = useRef(null); // Reference for hidden file input
+  // ඔයා දුන්න විදිහටම State එක දාලා තියෙනවා
+  const [formData, setFormData] = useState({ 
+    name: '', 
+    email: '', 
+    portfolio: '', 
+    resumeLink: '', // අලුතින් දැම්මේ මේක
+    coverLetter: '' 
+  });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState({ type: '', message: '' });
@@ -142,18 +144,7 @@ export default function JobDetails() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleFileChange = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      setFile(e.target.files[0]);
-    }
-  };
-
-  const removeFile = () => {
-    setFile(null);
-    if (fileInputRef.current) fileInputRef.current.value = "";
-  };
-
-  // --- SUBMIT FUNCTION WITH FILE UPLOAD ---
+  // --- SUBMIT FUNCTION USING SIMPLE JSON (NO FILES) ---
   const handleApply = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -161,34 +152,27 @@ export default function JobDetails() {
 
     const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
 
-    // Use FormData instead of JSON to support File Uploads
-    const formSubmissionData = new FormData();
-    formSubmissionData.append('access_key', accessKey);
-    formSubmissionData.append('subject', `New Job Application: ${job.title}`);
-    formSubmissionData.append('name', formData.name);
-    formSubmissionData.append('email', formData.email);
-    formSubmissionData.append('portfolio_or_linkedin', formData.portfolio);
-    formSubmissionData.append('cover_letter', formData.coverLetter);
-    formSubmissionData.append('applied_for', job.title);
-
-    // If CV exists, append it as an attachment
-    if (file) {
-      formSubmissionData.append('attachment', file);
-    }
-
     try {
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        // IMPORTANT: When using FormData, DO NOT set 'Content-Type' header. The browser will set it automatically.
-        body: formSubmissionData,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: accessKey,
+          subject: `New Job Application: ${job.title}`,
+          name: formData.name,
+          email: formData.email,
+          resume_link: formData.resumeLink, // CV Link එක මෙතනින් යනවා
+          portfolio_or_linkedin: formData.portfolio,
+          cover_letter: formData.coverLetter,
+          applied_for: job.title,
+        }),
       });
 
       const data = await response.json();
 
       if (response.ok && data.success) {
         setStatus({ type: 'success', message: 'Application submitted successfully! We will be in touch.' });
-        setFormData({ name: '', email: '', portfolio: '', coverLetter: '' });
-        setFile(null);
+        setFormData({ name: '', email: '', portfolio: '', resumeLink: '', coverLetter: '' });
       } else {
         setStatus({ type: 'error', message: data.message || 'Something went wrong.' });
       }
@@ -283,7 +267,7 @@ export default function JobDetails() {
               </ul>
             </section>
 
-            {/* APPLICATION FORM WITH CV UPLOAD */}
+            {/* APPLICATION FORM (URL Links instead of Files) */}
             <section id="apply-form" className="mt-8 pt-12 border-t border-gray-200">
               <h3 className="text-3xl md:text-4xl font-medium text-black tracking-tight mb-4">Apply for this position</h3>
               <p className="text-gray-500 mb-8 md:mb-10 text-sm md:text-base">Please complete the form below. We usually respond within 48 hours.</p>
@@ -312,52 +296,23 @@ export default function JobDetails() {
                       />
                     </div>
                     
-                    <input 
-                      type="url" name="portfolio" value={formData.portfolio} onChange={handleInputChange}
-                      placeholder="LinkedIn or Portfolio URL" 
-                      className="w-full bg-white border border-gray-200 rounded-xl px-5 py-4 text-black placeholder-gray-400 focus:outline-none focus:border-black transition-colors"
-                    />
-
-                    {/* CUSTOM CV UPLOAD FIELD */}
+                    {/* CV / Resume Link Field */}
                     <div className="w-full">
                       <input 
-                        type="file" 
-                        accept=".pdf,.doc,.docx" 
-                        onChange={handleFileChange} 
-                        ref={fileInputRef} 
-                        className="hidden" 
+                        type="url" name="resumeLink" required value={formData.resumeLink} onChange={handleInputChange}
+                        placeholder="Resume / CV Link (Google Drive, Notion, etc.)" 
+                        className="w-full bg-white border border-gray-200 rounded-xl px-5 py-4 text-black placeholder-gray-400 focus:outline-none focus:border-black transition-colors"
                       />
-                      
-                      {!file ? (
-                        <div 
-                          onClick={() => fileInputRef.current.click()}
-                          className="w-full bg-white border-2 border-dashed border-gray-300 rounded-xl px-5 py-8 flex flex-col items-center justify-center cursor-pointer hover:border-black hover:bg-gray-50 transition-colors group"
-                        >
-                          <UploadCloud size={32} className="text-gray-400 group-hover:text-black mb-3 transition-colors" />
-                          <p className="text-black font-medium mb-1">Click to upload your CV</p>
-                          <p className="text-xs text-gray-500">PDF, DOC, or DOCX (Max 5MB)</p>
-                        </div>
-                      ) : (
-                        <div className="w-full bg-white border border-[#29AAE3] rounded-xl px-5 py-4 flex items-center justify-between shadow-[0_0_15px_rgba(41,170,227,0.1)]">
-                          <div className="flex items-center gap-3 overflow-hidden">
-                            <div className="w-10 h-10 rounded-full bg-[#29AAE3]/10 flex items-center justify-center shrink-0">
-                              <FileText size={18} className="text-[#29AAE3]" />
-                            </div>
-                            <div className="flex flex-col truncate">
-                              <span className="text-black font-medium text-sm truncate">{file.name}</span>
-                              <span className="text-gray-500 text-xs">{(file.size / 1024 / 1024).toFixed(2)} MB</span>
-                            </div>
-                          </div>
-                          <button 
-                            type="button" 
-                            onClick={removeFile}
-                            className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors shrink-0"
-                          >
-                            <X size={18} />
-                          </button>
-                        </div>
-                      )}
+                      <p className="text-[12px] text-gray-400 mt-2 ml-1">
+                        * Please ensure your Google Drive/Notion link is set to "Anyone with the link can view".
+                      </p>
                     </div>
+
+                    <input 
+                      type="url" name="portfolio" value={formData.portfolio} onChange={handleInputChange}
+                      placeholder="LinkedIn or Portfolio URL (Optional)" 
+                      className="w-full bg-white border border-gray-200 rounded-xl px-5 py-4 text-black placeholder-gray-400 focus:outline-none focus:border-black transition-colors"
+                    />
 
                     <textarea 
                       name="coverLetter" required value={formData.coverLetter} onChange={handleInputChange}

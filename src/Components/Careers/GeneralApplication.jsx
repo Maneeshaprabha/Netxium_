@@ -1,7 +1,7 @@
 "use client";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft, CheckCircle2, ArrowRight, UploadCloud, FileText, X, Sparkles, Clock, Mail } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Sparkles, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function GeneralApplication() {
@@ -10,11 +10,10 @@ export default function GeneralApplication() {
     name: '', 
     email: '', 
     interest: '',
+    resumeLink: '', // CV / Resume URL
     portfolio: '', 
     coverLetter: '' 
   });
-  const [file, setFile] = useState(null);
-  const fileInputRef = useRef(null);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState({ type: '', message: '' });
@@ -28,18 +27,7 @@ export default function GeneralApplication() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleFileChange = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      setFile(e.target.files[0]);
-    }
-  };
-
-  const removeFile = () => {
-    setFile(null);
-    if (fileInputRef.current) fileInputRef.current.value = "";
-  };
-
-  // --- SUBMIT FUNCTION WITH FILE UPLOAD ---
+  // --- SUBMIT FUNCTION USING SIMPLE JSON (NO FILES) ---
   const handleApply = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -47,32 +35,28 @@ export default function GeneralApplication() {
 
     const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
 
-    const formSubmissionData = new FormData();
-    formSubmissionData.append('access_key', accessKey);
-    formSubmissionData.append('subject', `New General Application: ${formData.name}`);
-    formSubmissionData.append('name', formData.name);
-    formSubmissionData.append('email', formData.email);
-    formSubmissionData.append('area_of_interest', formData.interest);
-    formSubmissionData.append('portfolio_or_linkedin', formData.portfolio);
-    formSubmissionData.append('message', formData.coverLetter);
-    formSubmissionData.append('applied_for', 'General Application / Talent Pool');
-
-    if (file) {
-      formSubmissionData.append('attachment', file);
-    }
-
     try {
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        body: formSubmissionData, // No 'Content-Type' header needed for FormData
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: accessKey,
+          subject: `New General Application: ${formData.name}`,
+          name: formData.name,
+          email: formData.email,
+          area_of_interest: formData.interest,
+          resume_link: formData.resumeLink, // URL field for CV
+          portfolio_or_linkedin: formData.portfolio,
+          message: formData.coverLetter,
+          applied_for: 'General Application / Talent Pool',
+        }),
       });
 
       const data = await response.json();
 
       if (response.ok && data.success) {
         setStatus({ type: 'success', message: 'Your profile has been successfully added to our talent pool!' });
-        setFormData({ name: '', email: '', interest: '', portfolio: '', coverLetter: '' });
-        setFile(null);
+        setFormData({ name: '', email: '', interest: '', resumeLink: '', portfolio: '', coverLetter: '' });
       } else {
         setStatus({ type: 'error', message: data.message || 'Something went wrong.' });
       }
@@ -183,52 +167,23 @@ export default function GeneralApplication() {
                       </div>
                     </div>
 
+                    {/* CV / Resume Link Field */}
+                    <div className="w-full">
+                      <input 
+                        type="url" name="resumeLink" required value={formData.resumeLink} onChange={handleInputChange}
+                        placeholder="Resume / CV Link (Google Drive, Notion, etc.)" 
+                        className="w-full bg-white border border-gray-200 rounded-xl px-5 py-4 text-black placeholder-gray-400 focus:outline-none focus:border-black transition-colors"
+                      />
+                      <p className="text-[12px] text-gray-400 mt-2 ml-1">
+                        * Please ensure your Google Drive/Notion link is set to "Anyone with the link can view".
+                      </p>
+                    </div>
+
                     <input 
                       type="url" name="portfolio" value={formData.portfolio} onChange={handleInputChange}
                       placeholder="LinkedIn or Portfolio URL" 
                       className="w-full bg-white border border-gray-200 rounded-xl px-5 py-4 text-black placeholder-gray-400 focus:outline-none focus:border-black transition-colors"
                     />
-
-                    {/* CUSTOM CV UPLOAD FIELD */}
-                    <div className="w-full">
-                      <input 
-                        type="file" 
-                        accept=".pdf,.doc,.docx" 
-                        onChange={handleFileChange} 
-                        ref={fileInputRef} 
-                        className="hidden" 
-                      />
-                      
-                      {!file ? (
-                        <div 
-                          onClick={() => fileInputRef.current.click()}
-                          className="w-full bg-white border-2 border-dashed border-gray-300 rounded-xl px-5 py-8 flex flex-col items-center justify-center cursor-pointer hover:border-black hover:bg-gray-50 transition-colors group"
-                        >
-                          <UploadCloud size={32} className="text-gray-400 group-hover:text-black mb-3 transition-colors" />
-                          <p className="text-black font-medium mb-1">Click to upload your CV</p>
-                          <p className="text-xs text-gray-500">PDF, DOC, or DOCX (Max 5MB)</p>
-                        </div>
-                      ) : (
-                        <div className="w-full bg-white border border-[#29AAE3] rounded-xl px-5 py-4 flex items-center justify-between shadow-[0_0_15px_rgba(41,170,227,0.1)]">
-                          <div className="flex items-center gap-3 overflow-hidden">
-                            <div className="w-10 h-10 rounded-full bg-[#29AAE3]/10 flex items-center justify-center shrink-0">
-                              <FileText size={18} className="text-[#29AAE3]" />
-                            </div>
-                            <div className="flex flex-col truncate">
-                              <span className="text-black font-medium text-sm truncate">{file.name}</span>
-                              <span className="text-gray-500 text-xs">{(file.size / 1024 / 1024).toFixed(2)} MB</span>
-                            </div>
-                          </div>
-                          <button 
-                            type="button" 
-                            onClick={removeFile}
-                            className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors shrink-0"
-                          >
-                            <X size={18} />
-                          </button>
-                        </div>
-                      )}
-                    </div>
 
                     <textarea 
                       name="coverLetter" required value={formData.coverLetter} onChange={handleInputChange}
