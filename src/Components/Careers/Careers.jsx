@@ -219,12 +219,16 @@ export default function Careers() {
             <p className="text-gray-400 text-[15px] md:text-lg mb-10 leading-relaxed">
               We are always on the lookout for talented developers, designers, and strategists. Send us your resume and portfolio, and we’ll reach out if something opens up.
             </p>
-            <button className="group relative inline-flex items-center justify-center px-8 py-4 bg-white text-black font-semibold rounded-full overflow-hidden transition-all duration-300 hover:shadow-[0_8px_30px_rgb(255,255,255,0.15)] active:scale-[0.98]">
+            {/* FIX: Changed <button> to <Link> for correct routing */}
+            <Link 
+              to="/careers/general-application"
+              className="group relative inline-flex items-center justify-center px-8 py-4 bg-white text-black font-semibold rounded-full overflow-hidden transition-all duration-300 hover:shadow-[0_8px_30px_rgb(255,255,255,0.15)] active:scale-[0.98]"
+            >
               <span className="relative flex items-center gap-2 transition-colors duration-300">
                 <span>Submit General Application</span>
                 <ArrowRight size={18} strokeWidth={2.5} className="group-hover:translate-x-1 transition-all duration-300" />
               </span>
-            </button>
+            </Link>
           </div>
         </motion.div>
 

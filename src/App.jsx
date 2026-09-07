@@ -14,6 +14,7 @@ import Blog from "./Components/Blogs/Blogs";
 import BlogPost from "./Components/Blogs/BlogPost";
 import Careers from "./Components/Careers/Careers";
 import JobDetails from "./Components/Careers/CareersDetails";
+import GeneralApplication from "./Components/Careers/GeneralApplication";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/careers" element={<Careers />} />
         <Route path="/careers/:id" element={<JobDetails />} />
+        <Route path="/careers/general-application" element={<GeneralApplication />} />
         <Route path="/blogs" element={<Blog />} />
         <Route path="/blog/:id" element={<BlogPost />} />
         <Route path="/term-of-service" element={<Term/>}/>

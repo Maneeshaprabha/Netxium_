@@ -1,7 +1,7 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft, MapPin, Clock, Briefcase, CheckCircle2, ArrowRight } from "lucide-react";
+import { ArrowLeft, MapPin, Clock, Briefcase, CheckCircle2, ArrowRight, UploadCloud, FileText, X } from "lucide-react";
 import { Link, useParams, Navigate } from "react-router-dom";
 
 // --- FULL JOB DATABASE ---
@@ -12,7 +12,7 @@ const jobDetailsDB = [
     department: "Engineering",
     type: "Full-time",
     location: "Remote / Global",
-    salary: "LKR120k - LKR160k",
+    salary: "$120k - $160k",
     about: "As a Senior AI Engineer at Netxium, you will be at the forefront of building intelligent systems that transform enterprise workflows. You will lead the design, training, and deployment of machine learning models, working closely with product and engineering teams to solve complex, real-world problems.",
     responsibilities: [
       "Design, develop, and deploy scalable machine learning models and NLP applications.",
@@ -35,7 +35,7 @@ const jobDetailsDB = [
     department: "Engineering",
     type: "Full-time",
     location: "Hybrid",
-    salary: "LKR100k - LKR140k",
+    salary: "$100k - $140k",
     about: "We are looking for a visionary Frontend Architect who obsesses over performance, accessibility, and micro-interactions. You will own the frontend architecture for our core products, ensuring they look stunning and run at 60fps.",
     responsibilities: [
       "Architect and build highly interactive web applications using React and Next.js.",
@@ -116,21 +116,24 @@ const jobDetailsDB = [
     ]
   }
 ];
+
 export default function JobDetails() {
   const { id } = useParams();
+  
+  // Application Form State
   const [formData, setFormData] = useState({ name: '', email: '', portfolio: '', coverLetter: '' });
+  const [file, setFile] = useState(null); // File state for CV
+  const fileInputRef = useRef(null); // Reference for hidden file input
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState({ type: '', message: '' });
 
-  // Find the job matching the ID from the URL
   const job = jobDetailsDB.find((j) => j.id === parseInt(id));
 
-  // Scroll to top when page loads
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
 
-  // If job is not found, redirect to careers page
   if (!job) {
     return <Navigate to="/careers" />;
   }
@@ -139,27 +142,45 @@ export default function JobDetails() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleFileChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setFile(e.target.files[0]);
+    }
+  };
+
+  const removeFile = () => {
+    setFile(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
+  // --- SUBMIT FUNCTION WITH FILE UPLOAD ---
   const handleApply = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setStatus({ type: '', message: '' });
 
-    // Web3Forms Logic for Application
     const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+
+    // Use FormData instead of JSON to support File Uploads
+    const formSubmissionData = new FormData();
+    formSubmissionData.append('access_key', accessKey);
+    formSubmissionData.append('subject', `New Job Application: ${job.title}`);
+    formSubmissionData.append('name', formData.name);
+    formSubmissionData.append('email', formData.email);
+    formSubmissionData.append('portfolio_or_linkedin', formData.portfolio);
+    formSubmissionData.append('cover_letter', formData.coverLetter);
+    formSubmissionData.append('applied_for', job.title);
+
+    // If CV exists, append it as an attachment
+    if (file) {
+      formSubmissionData.append('attachment', file);
+    }
 
     try {
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          access_key: accessKey,
-          subject: `New Job Application: ${job.title}`,
-          name: formData.name,
-          email: formData.email,
-          portfolio_or_linkedin: formData.portfolio,
-          cover_letter: formData.coverLetter,
-          applied_for: job.title,
-        }),
+        // IMPORTANT: When using FormData, DO NOT set 'Content-Type' header. The browser will set it automatically.
+        body: formSubmissionData,
       });
 
       const data = await response.json();
@@ -167,6 +188,7 @@ export default function JobDetails() {
       if (response.ok && data.success) {
         setStatus({ type: 'success', message: 'Application submitted successfully! We will be in touch.' });
         setFormData({ name: '', email: '', portfolio: '', coverLetter: '' });
+        setFile(null);
       } else {
         setStatus({ type: 'error', message: data.message || 'Something went wrong.' });
       }
@@ -205,7 +227,6 @@ export default function JobDetails() {
             Back to Careers
           </Link>
 
-          {/* FIX: Updated Department Badge to match Terms and Conditions "Last Updated" design */}
           <div className="flex flex-wrap items-center gap-4 mb-6">
             <div className="flex items-center gap-3 px-5 py-2.5 bg-[#F4F7FB] border border-gray-100 rounded-full text-sm font-medium text-gray-600">
               <div className="w-2 h-2 rounded-full bg-[#29AAE3] animate-pulse" />
@@ -224,25 +245,20 @@ export default function JobDetails() {
           </div>
         </motion.div>
 
-        {/* --- Content Layout (Main + Sticky Sidebar) --- */}
+        {/* --- Content Layout --- */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           
-          {/* LEFT: Job Description */}
           <motion.article 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="lg:col-span-8 flex flex-col gap-12"
           >
-            {/* About the Role */}
             <section>
               <h3 className="text-2xl md:text-3xl font-medium text-black tracking-tight mb-5">About the Role</h3>
-              <p className="text-base md:text-lg text-gray-600 leading-relaxed">
-                {job.about}
-              </p>
+              <p className="text-base md:text-lg text-gray-600 leading-relaxed">{job.about}</p>
             </section>
 
-            {/* Responsibilities */}
             <section>
               <h3 className="text-2xl md:text-3xl font-medium text-black tracking-tight mb-5">What you'll do</h3>
               <ul className="flex flex-col gap-4">
@@ -255,7 +271,6 @@ export default function JobDetails() {
               </ul>
             </section>
 
-            {/* Requirements */}
             <section>
               <h3 className="text-2xl md:text-3xl font-medium text-black tracking-tight mb-5">What we're looking for</h3>
               <ul className="flex flex-col gap-4">
@@ -268,7 +283,7 @@ export default function JobDetails() {
               </ul>
             </section>
 
-            {/* Application Form Section */}
+            {/* APPLICATION FORM WITH CV UPLOAD */}
             <section id="apply-form" className="mt-8 pt-12 border-t border-gray-200">
               <h3 className="text-3xl md:text-4xl font-medium text-black tracking-tight mb-4">Apply for this position</h3>
               <p className="text-gray-500 mb-8 md:mb-10 text-sm md:text-base">Please complete the form below. We usually respond within 48 hours.</p>
@@ -296,14 +311,57 @@ export default function JobDetails() {
                         className="w-full bg-white border border-gray-200 rounded-xl px-5 py-4 text-black placeholder-gray-400 focus:outline-none focus:border-black transition-colors"
                       />
                     </div>
+                    
                     <input 
                       type="url" name="portfolio" value={formData.portfolio} onChange={handleInputChange}
-                      placeholder="LinkedIn or Portfolio URL (Optional)" 
+                      placeholder="LinkedIn or Portfolio URL" 
                       className="w-full bg-white border border-gray-200 rounded-xl px-5 py-4 text-black placeholder-gray-400 focus:outline-none focus:border-black transition-colors"
                     />
+
+                    {/* CUSTOM CV UPLOAD FIELD */}
+                    <div className="w-full">
+                      <input 
+                        type="file" 
+                        accept=".pdf,.doc,.docx" 
+                        onChange={handleFileChange} 
+                        ref={fileInputRef} 
+                        className="hidden" 
+                      />
+                      
+                      {!file ? (
+                        <div 
+                          onClick={() => fileInputRef.current.click()}
+                          className="w-full bg-white border-2 border-dashed border-gray-300 rounded-xl px-5 py-8 flex flex-col items-center justify-center cursor-pointer hover:border-black hover:bg-gray-50 transition-colors group"
+                        >
+                          <UploadCloud size={32} className="text-gray-400 group-hover:text-black mb-3 transition-colors" />
+                          <p className="text-black font-medium mb-1">Click to upload your CV</p>
+                          <p className="text-xs text-gray-500">PDF, DOC, or DOCX (Max 5MB)</p>
+                        </div>
+                      ) : (
+                        <div className="w-full bg-white border border-[#29AAE3] rounded-xl px-5 py-4 flex items-center justify-between shadow-[0_0_15px_rgba(41,170,227,0.1)]">
+                          <div className="flex items-center gap-3 overflow-hidden">
+                            <div className="w-10 h-10 rounded-full bg-[#29AAE3]/10 flex items-center justify-center shrink-0">
+                              <FileText size={18} className="text-[#29AAE3]" />
+                            </div>
+                            <div className="flex flex-col truncate">
+                              <span className="text-black font-medium text-sm truncate">{file.name}</span>
+                              <span className="text-gray-500 text-xs">{(file.size / 1024 / 1024).toFixed(2)} MB</span>
+                            </div>
+                          </div>
+                          <button 
+                            type="button" 
+                            onClick={removeFile}
+                            className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors shrink-0"
+                          >
+                            <X size={18} />
+                          </button>
+                        </div>
+                      )}
+                    </div>
+
                     <textarea 
                       name="coverLetter" required value={formData.coverLetter} onChange={handleInputChange}
-                      placeholder="Why are you a great fit for this role?" rows="5"
+                      placeholder="Cover Letter / Why are you a great fit?" rows="5"
                       className="w-full bg-white border border-gray-200 rounded-xl px-5 py-4 text-black placeholder-gray-400 focus:outline-none focus:border-black transition-colors resize-none"
                     ></textarea>
 
@@ -311,9 +369,9 @@ export default function JobDetails() {
 
                     <button 
                       type="submit" disabled={isSubmitting}
-                      className="w-full bg-black text-white font-medium py-4 rounded-xl hover:bg-gray-800 active:scale-[0.98] transition-all flex justify-center items-center gap-2 mt-2"
+                      className="w-full bg-black text-white font-medium py-4 rounded-xl hover:bg-gray-800 active:scale-[0.98] transition-all flex justify-center items-center gap-2 mt-2 disabled:opacity-70"
                     >
-                      {isSubmitting ? "Submitting..." : "Submit Application"}
+                      {isSubmitting ? "Submitting Application..." : "Submit Application"}
                     </button>
                   </form>
                 )}
@@ -328,14 +386,11 @@ export default function JobDetails() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="lg:col-span-4 hidden lg:flex flex-col gap-6 sticky top-32"
           >
-            {/* Action Box */}
             <div className="bg-[#1A1A1A] p-8 rounded-3xl text-white shadow-xl">
               <h4 className="text-2xl font-medium mb-3">Ready to join us?</h4>
               <p className="text-gray-400 text-sm leading-relaxed mb-8">
                 Take the next step in your career. Submit your application below and let's build the future together.
               </p>
-              
-              {/* Scrolls down to the form */}
               <a 
                 href="#apply-form"
                 className="w-full flex items-center justify-between bg-white text-black px-6 py-4 rounded-full font-bold hover:bg-gray-100 transition-colors group"
@@ -345,7 +400,6 @@ export default function JobDetails() {
               </a>
             </div>
 
-            {/* Summary Box */}
             <div className="bg-gray-50 border border-gray-200 p-8 rounded-3xl">
               <h4 className="text-sm font-bold uppercase tracking-widest text-gray-400 mb-6">Role Summary</h4>
               <div className="flex flex-col gap-4 text-[15px]">
