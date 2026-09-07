@@ -1,24 +1,35 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { ArrowLeft, CheckCircle2, Sparkles, Mail } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowLeft, CheckCircle2, Sparkles, Mail, ChevronDown, Check } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function GeneralApplication() {
-  // Application Form State
   const [formData, setFormData] = useState({ 
     name: '', 
     email: '', 
     interest: '',
-    resumeLink: '', // CV / Resume URL
+    resumeLink: '',
     portfolio: '', 
     coverLetter: '' 
   });
 
+  // Custom Dropdown State
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState({ type: '', message: '' });
 
-  // Scroll to top when page loads
+  // Dropdown Options
+  const interestOptions = [
+    "Engineering & Development",
+    "UI/UX & Product Design",
+    "AI & Machine Learning",
+    "Digital Strategy & Consulting",
+    "Marketing & Sales",
+    "Other"
+  ];
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -27,9 +38,15 @@ export default function GeneralApplication() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // --- SUBMIT FUNCTION USING SIMPLE JSON (NO FILES) ---
   const handleApply = async (e) => {
     e.preventDefault();
+    
+    // Custom Validation for Dropdown
+    if (!formData.interest) {
+      setStatus({ type: 'error', message: 'Please select an Area of Interest.' });
+      return;
+    }
+
     setIsSubmitting(true);
     setStatus({ type: '', message: '' });
 
@@ -45,7 +62,7 @@ export default function GeneralApplication() {
           name: formData.name,
           email: formData.email,
           area_of_interest: formData.interest,
-          resume_link: formData.resumeLink, // URL field for CV
+          resume_link: formData.resumeLink,
           portfolio_or_linkedin: formData.portfolio,
           message: formData.coverLetter,
           applied_for: 'General Application / Talent Pool',
@@ -148,26 +165,70 @@ export default function GeneralApplication() {
                       />
                     </div>
                     
-                    {/* Area of Interest Dropdown */}
+                    {/* ================= PREMIUM CUSTOM DROPDOWN ================= */}
                     <div className="relative">
-                      <select 
-                        name="interest" required value={formData.interest} onChange={handleInputChange}
-                        className={`w-full bg-white border border-gray-200 rounded-xl px-5 py-4 focus:outline-none focus:border-black transition-colors appearance-none ${formData.interest ? 'text-black' : 'text-gray-400'}`}
+                      {/* Hidden input to handle required validation seamlessly */}
+                      <input type="text" required value={formData.interest} className="absolute opacity-0 w-0 h-0 pointer-events-none" readOnly />
+                      
+                      {/* Dropdown Button */}
+                      <div 
+                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                        className={`w-full bg-white border ${isDropdownOpen ? 'border-black shadow-sm' : 'border-gray-200'} rounded-xl px-5 py-4 cursor-pointer flex justify-between items-center transition-all duration-300`}
                       >
-                        <option value="" disabled>Select Area of Interest</option>
-                        <option value="Engineering & Development">Engineering & Development</option>
-                        <option value="UI/UX & Product Design">UI/UX & Product Design</option>
-                        <option value="AI & Machine Learning">AI & Machine Learning</option>
-                        <option value="Digital Strategy & Consulting">Digital Strategy & Consulting</option>
-                        <option value="Marketing & Sales">Marketing & Sales</option>
-                        <option value="Other">Other</option>
-                      </select>
-                      <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
-                        ▼
+                        <span className={formData.interest ? "text-black font-medium" : "text-gray-400"}>
+                          {formData.interest || "Select Area of Interest"}
+                        </span>
+                        <ChevronDown 
+                          size={20} 
+                          className={`text-gray-400 transition-transform duration-300 ${isDropdownOpen ? "rotate-180 text-black" : ""}`} 
+                        />
                       </div>
-                    </div>
 
-                    {/* CV / Resume Link Field */}
+                      {/* Animated Dropdown Menu */}
+                      <AnimatePresence>
+                        {isDropdownOpen && (
+                          <>
+                            {/* Invisible overlay to close dropdown when clicking outside */}
+                            <div 
+                              className="fixed inset-0 z-40" 
+                              onClick={() => setIsDropdownOpen(false)}
+                            />
+                            
+                            <motion.div 
+                              initial={{ opacity: 0, y: -10, scaleY: 0.95 }}
+                              animate={{ opacity: 1, y: 0, scaleY: 1 }}
+                              exit={{ opacity: 0, y: -10, scaleY: 0.95 }}
+                              transition={{ duration: 0.2, ease: "easeOut" }}
+                              className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-100 rounded-2xl shadow-xl z-50 overflow-hidden transform origin-top"
+                            >
+                              <div className="flex flex-col py-2 max-h-64 overflow-y-auto custom-scrollbar">
+                                {interestOptions.map((option) => (
+                                  <div 
+                                    key={option}
+                                    onClick={() => {
+                                      setFormData({ ...formData, interest: option });
+                                      setIsDropdownOpen(false);
+                                    }}
+                                    className="px-5 py-3.5 hover:bg-gray-50 cursor-pointer flex items-center justify-between transition-colors group"
+                                  >
+                                    <span className={`text-[15px] ${formData.interest === option ? 'text-black font-medium' : 'text-gray-500 group-hover:text-black'}`}>
+                                      {option}
+                                    </span>
+                                    {formData.interest === option && (
+                                      <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
+                                        <Check size={18} className="text-[#29AAE3]" />
+                                      </motion.div>
+                                    )}
+                                  </div>
+                                ))}
+                              </div>
+                            </motion.div>
+                          </>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                    {/* ======================================================= */}
+
                     <div className="w-full">
                       <input 
                         type="url" name="resumeLink" required value={formData.resumeLink} onChange={handleInputChange}
@@ -181,7 +242,7 @@ export default function GeneralApplication() {
 
                     <input 
                       type="url" name="portfolio" value={formData.portfolio} onChange={handleInputChange}
-                      placeholder="LinkedIn or Portfolio URL" 
+                      placeholder="LinkedIn or Portfolio URL (Optional)" 
                       className="w-full bg-white border border-gray-200 rounded-xl px-5 py-4 text-black placeholder-gray-400 focus:outline-none focus:border-black transition-colors"
                     />
 
