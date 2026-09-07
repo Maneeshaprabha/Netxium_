@@ -12,7 +12,7 @@ const jobDetailsDB = [
     department: "Engineering",
     type: "Full-time",
     location: "Remote / Global",
-    salary: "$120k - $160k",
+    salary: "LKR120k - LKR160k",
     about: "As a Senior AI Engineer at Netxium, you will be at the forefront of building intelligent systems that transform enterprise workflows. You will lead the design, training, and deployment of machine learning models, working closely with product and engineering teams to solve complex, real-world problems.",
     responsibilities: [
       "Design, develop, and deploy scalable machine learning models and NLP applications.",
@@ -35,7 +35,7 @@ const jobDetailsDB = [
     department: "Engineering",
     type: "Full-time",
     location: "Hybrid",
-    salary: "$100k - $140k",
+    salary: "LKR100k - LKR140k",
     about: "We are looking for a visionary Frontend Architect who obsesses over performance, accessibility, and micro-interactions. You will own the frontend architecture for our core products, ensuring they look stunning and run at 60fps.",
     responsibilities: [
       "Architect and build highly interactive web applications using React and Next.js.",
