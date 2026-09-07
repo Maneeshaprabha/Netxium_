@@ -16,6 +16,10 @@ export const nav = [
         link: "/blogs"
     },
     {
+        name: "Careers",
+        link: "/careers"
+    },
+    {
         name: "Contact",
         link: "/contact"
     },
