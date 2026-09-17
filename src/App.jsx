@@ -16,6 +16,7 @@ import Careers from "./Components/Careers/Careers";
 import JobDetails from "./Components/Careers/CareersDetails";
 import GeneralApplication from "./Components/Careers/GeneralApplication";
 import ScrollToTopButton from "./Components/ScrollToTopButton/ScrollToTopButton";
+import Pricing from "./Components/Pricing/Pricing";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
         <Route path="/blog/:id" element={<BlogPost />} />
         <Route path="/term-of-service" element={<Term/>}/>
         <Route path="/privacy-policy" element={<PrivacyPolicy/>} />
+        <Route path="/pricing" element={<Pricing/>} />
         {/* Add more routes as needed */}
       </Routes>
 
