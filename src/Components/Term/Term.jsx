@@ -64,7 +64,7 @@ const termsData = [
           The Service and its original content, features, and functionality are
           and will remain the exclusive property of Netxium and its licensors.
           The Service is protected by copyright, trademark, and other laws of
-          both the United States and foreign countries.
+          both the Sri Lanka and foreign countries.
         </p>
         <p>
           Our trademarks and trade dress may not be used in connection with any
