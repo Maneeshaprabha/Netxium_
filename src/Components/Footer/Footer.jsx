@@ -89,13 +89,20 @@ export default function Footer() {
               </a>
               
               {/* Other Social Circles */}
-              {['Ig', 'Dr', 'Fb', 'In'].map((platform, i) => (
+           {[
+                { name: 'Ig', url: 'https://www.instagram.com/_netxium/' },
+                { name: 'Dr', url: '#' },
+                { name: 'Fb', url: 'https://www.facebook.com/profile.php?id=61575572604117' }, // <-- Add your FB link here
+                { name: 'In', url: 'https://www.instagram.com/_netxium/' }
+              ].map((platform, i) => (
                 <a 
                   key={i} 
-                  href="#" 
+                  href={platform.url} 
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-9 h-9 bg-neutral-800 text-white rounded-full flex items-center justify-center text-xs font-bold hover:bg-white hover:text-black hover:scale-110 transition-all duration-300"
                 >
-                  {platform}
+                  {platform.name}
                 </a>
               ))}
             </div>
