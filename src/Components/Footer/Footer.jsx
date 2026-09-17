@@ -61,7 +61,7 @@ export default function Footer() {
               href="mailto:hello@netxium.design" 
               className="text-lg md:text-xl font-medium hover:text-white/80 transition-colors duration-300"
             >
-              hello@netxium.design
+              netxiumsolution@gmail.com
             </a>
           </div>
 
