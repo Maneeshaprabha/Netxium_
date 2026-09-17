@@ -89,7 +89,7 @@ export default function Footer() {
               </a>
               
               {/* Other Social Circles */}
-              {['Ig', 'Dr', 'Be', 'In'].map((platform, i) => (
+              {['Ig', 'Dr', 'Fb', 'In'].map((platform, i) => (
                 <a 
                   key={i} 
                   href="#" 

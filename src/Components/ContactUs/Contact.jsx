@@ -227,7 +227,7 @@ export default function Contact() {
               </h4>
 
               <div className="text-[15px] text-gray-600">
-                <p>netxium@mail.com</p>
+                <p>netxiumsolution@gmail.com</p>
               </div>
             </div>
 
