@@ -6,29 +6,29 @@ import { Link, useParams, Navigate } from "react-router-dom";
 
 // --- FULL JOB DATABASE ---
 const jobDetailsDB = [
-  {
-    id: 1,
-    title: "Senior AI Engineer",
-    department: "Engineering",
-    type: "Full-time",
-    location: "Remote / Global",
-    salary: "LKR120k - LKR160k",
-    about: "As a Senior AI Engineer at Netxium, you will be at the forefront of building intelligent systems that transform enterprise workflows. You will lead the design, training, and deployment of machine learning models, working closely with product and engineering teams to solve complex, real-world problems.",
-    responsibilities: [
-      "Design, develop, and deploy scalable machine learning models and NLP applications.",
-      "Optimize existing AI infrastructure for low latency and high throughput.",
-      "Collaborate with backend engineers to integrate AI models into production environments.",
-      "Lead technical architecture discussions and mentor junior engineers.",
-      "Stay current with the latest advancements in LLMs and generative AI technologies."
-    ],
-    requirements: [
-      "5+ years of experience in software engineering, with at least 3 years dedicated to Machine Learning.",
-      "Strong proficiency in Python, PyTorch, or TensorFlow.",
-      "Experience deploying models to production using AWS, GCP, or Azure.",
-      "Solid understanding of vector databases (Pinecone, Milvus) and LLM frameworks.",
-      "Excellent problem-solving skills and ability to thrive in an autonomous, remote environment."
-    ]
-  },
+  // {
+  //   id: 1,
+  //   title: "Senior AI Engineer",
+  //   department: "Engineering",
+  //   type: "Full-time",
+  //   location: "Remote / Global",
+  //   salary: "LKR120k - LKR160k",
+  //   about: "As a Senior AI Engineer at Netxium, you will be at the forefront of building intelligent systems that transform enterprise workflows. You will lead the design, training, and deployment of machine learning models, working closely with product and engineering teams to solve complex, real-world problems.",
+  //   responsibilities: [
+  //     "Design, develop, and deploy scalable machine learning models and NLP applications.",
+  //     "Optimize existing AI infrastructure for low latency and high throughput.",
+  //     "Collaborate with backend engineers to integrate AI models into production environments.",
+  //     "Lead technical architecture discussions and mentor junior engineers.",
+  //     "Stay current with the latest advancements in LLMs and generative AI technologies."
+  //   ],
+  //   requirements: [
+  //     "5+ years of experience in software engineering, with at least 3 years dedicated to Machine Learning.",
+  //     "Strong proficiency in Python, PyTorch, or TensorFlow.",
+  //     "Experience deploying models to production using AWS, GCP, or Azure.",
+  //     "Solid understanding of vector databases (Pinecone, Milvus) and LLM frameworks.",
+  //     "Excellent problem-solving skills and ability to thrive in an autonomous, remote environment."
+  //   ]
+  // },
   {
     id: 2,
     title: "Frontend Architect (React/Next.js)",

@@ -6,13 +6,13 @@ import { Link } from "react-router-dom";
 
 // --- MOCK DATA: OPEN POSITIONS ---
 const openPositions = [
-  {
-    id: 1,
-    title: "Senior AI Engineer",
-    department: "Engineering",
-    type: "Full-time",
-    location: "Remote / Global",
-  },
+  // {
+  //   id: 1,
+  //   title: "Senior AI Engineer",
+  //   department: "Engineering",
+  //   type: "Full-time",
+  //   location: "Remote / Global",
+  // },
   {
     id: 2,
     title: "Frontend Architect (React/Next.js)",
