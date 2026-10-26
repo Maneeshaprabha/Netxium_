@@ -3,36 +3,41 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, Calendar, Clock, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import phpSecurityImage from "../../assets/PHPSecurityUpdateonSmartphone.webp";
 
 // --- Mock Blog Data ---
 const featuredPost = {
   id: 1,
-  title: "The Future of AI in Enterprise Workflows: A 2026 Perspective",
-  excerpt: "Discover how intelligent automation and large language models are fundamentally restructuring how modern agencies and enterprises handle complex daily operations.",
-  category: "Artificial Intelligence",
-  date: "May 24, 2026",
+  title: "PHP2Shell: Critical PHP Vulnerabilities That Could Put Web Servers at Risk",
+  excerpt: "Two critical security vulnerabilities in PHP have raised concerns among developers, website owners, and system administrators. ",
+  category: "Cybersecurity | Web Security | PHP",
+  date: "October 25, 2026",
   readTime: "8 min read",
-  image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2000&auto=format&fit=crop", 
+  image: phpSecurityImage, 
 };
 
 const allBlogPosts = [
+  
   {
-    id: 2, title: "Next-Gen Spatial Computing", excerpt: "Why traditional 2D UI principles fall short in AR/VR environments and how to adapt your design system.", category: "UI/UX Design", date: "May 18, 2026", readTime: "5 min read", image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop",
+    id: 2, title: "The Future of AI in Enterprise Workflows: A 2026 Perspective", excerpt: "Discover how intelligent automation and large language models are fundamentally restructuring how modern agencies and enterprises handle complex daily operations.", category: "Artificial Intelligence", date: "May 24, 2026", readTime: "8 min read", image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2000&auto=format&fit=crop",
   },
   {
-    id: 3, title: "Scaling Next.js for High Traffic", excerpt: "A deep dive into caching strategies, edge computing, and database optimization for million-user spikes.", category: "Engineering", date: "May 12, 2026", readTime: "12 min read", image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000&auto=format&fit=crop",
+    id: 3, title: "Next-Gen Spatial Computing", excerpt: "Why traditional 2D UI principles fall short in AR/VR environments and how to adapt your design system.", category: "UI/UX Design", date: "May 18, 2026", readTime: "5 min read", image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop",
   },
   {
-    id: 4, title: "The Micro-Interaction Audit", excerpt: "How tiny, almost invisible animations can drastically improve user retention and perceived performance.", category: "Design Systems", date: "May 05, 2026", readTime: "6 min read", image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop",
+    id: 4, title: "Scaling Next.js for High Traffic", excerpt: "A deep dive into caching strategies, edge computing, and database optimization for million-user spikes.", category: "Engineering", date: "May 12, 2026", readTime: "12 min read", image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000&auto=format&fit=crop",
   },
   {
-    id: 5, title: "Death of the Traditional Dashboard", excerpt: "Moving from static charts to generative, conversational data interfaces that actually answer questions.", category: "Product Strategy", date: "April 28, 2026", readTime: "7 min read", image: "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1000&auto=format&fit=crop",
+    id: 5, title: "The Micro-Interaction Audit", excerpt: "How tiny, almost invisible animations can drastically improve user retention and perceived performance.", category: "Design Systems", date: "May 05, 2026", readTime: "6 min read", image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop",
   },
   {
-    id: 6, title: "Serverless vs Edge in 2026", excerpt: "Analyzing the cost-to-performance ratio of modern deployment architectures for global applications.", category: "Cloud Architecture", date: "April 20, 2026", readTime: "9 min read", image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop",
+    id: 6, title: "Death of the Traditional Dashboard", excerpt: "Moving from static charts to generative, conversational data interfaces that actually answer questions.", category: "Product Strategy", date: "April 28, 2026", readTime: "7 min read", image: "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1000&auto=format&fit=crop",
   },
   {
-    id: 7, title: "Mastering Framer Motion", excerpt: "A comprehensive guide to orchestrating complex, performant layout animations without sacrificing load times.", category: "Frontend Dev", date: "April 15, 2026", readTime: "11 min read", image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000&auto=format&fit=crop",
+    id: 7, title: "Serverless vs Edge in 2026", excerpt: "Analyzing the cost-to-performance ratio of modern deployment architectures for global applications.", category: "Cloud Architecture", date: "April 20, 2026", readTime: "9 min read", image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop",
+  },
+  {
+    id: 8, title: "Mastering Framer Motion", excerpt: "A comprehensive guide to orchestrating complex, performant layout animations without sacrificing load times.", category: "Frontend Dev", date: "April 15, 2026", readTime: "11 min read", image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000&auto=format&fit=crop",
   }
 ];
 

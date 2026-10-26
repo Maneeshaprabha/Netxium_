@@ -3,19 +3,159 @@ import React, { useEffect, useState } from "react";
 import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
 import { ArrowLeft, Twitter, Linkedin, Link2, Calendar, Clock, ArrowUpRight, ArrowRight } from "lucide-react";
 import { Link, useParams, Navigate } from "react-router-dom";
+import phpSecurityImage from "../../assets/PHPSecurityUpdateonSmartphone.webp";
 
 // --- FULL BLOG DATABASE ---
 const allBlogPosts = [
   {
     id: 1,
+    title: "PHP2Shell: Critical PHP Vulnerabilities That Could Put Web Servers at Risk",
+    category: "Cybersecurity",
+    date: "October 25, 2026",
+    readTime: "6 min read",
+    author: {
+      name: "Maneesha Herath",
+      role: "Software Engineer",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Maneeshaa",
+    },
+    heroImage: phpSecurityImage, 
+    content: (
+      <>
+        <p className="text-xl md:text-[22px] leading-relaxed text-gray-600 mb-10 font-light">
+          Two critical security vulnerabilities in PHP have raised concerns among developers, website owners, and system administrators. Known collectively as PHP2Shell, the vulnerabilities are tracked as CVE-2026-109618 and CVE-2026-109619.
+        </p>
+
+        <blockquote className="border-l-4 border-red-500 bg-red-50/50 rounded-r-2xl p-6 md:p-8 my-10 shadow-sm border-y border-r border-y-red-100 border-r-red-100">
+          <p className="text-xl md:text-2xl font-medium leading-snug text-black m-0">
+            According to security advisories, successful exploitation could allow an unauthenticated attacker to execute code remotely on a vulnerable server. Both vulnerabilities have a reported CVSS v4.0 severity score of 9.2 out of 10.
+          </p>
+        </blockquote>
+
+        <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-black mt-16 mb-6">What Is PHP2Shell?</h2>
+        <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-6">
+          PHP is a widely used server-side programming language that powers dynamic websites and web applications. It is also used by popular platforms such as WordPress, Drupal, and Joomla.
+        </p>
+        <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-8">
+          PHP2Shell refers to two vulnerabilities in the PHP runtime itself. This is important because the issue is not limited to a particular website theme, plugin, or application. A vulnerable PHP runtime can expose the applications running on it to security risks. The vulnerabilities involve memory-safety problems that can occur during error handling and request processing.
+        </p>
+
+        <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-black mt-16 mb-6">Understanding the Two Vulnerabilities</h2>
+        
+        <h3 className="text-2xl font-medium tracking-tight text-black mt-8 mb-4">1. CVE-2026-109618: Out-of-Memory Corruption</h3>
+        <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-6">
+          This vulnerability relates to how PHP handles certain out-of-memory conditions. Under specific circumstances, PHP may leave internal request data in an invalid or partially initialized state. Subsequent cleanup operations can then handle that data incorrectly. If successfully exploited, this flaw could allow an attacker to execute arbitrary code on an affected server.
+        </p>
+
+        <h3 className="text-2xl font-medium tracking-tight text-black mt-8 mb-4">2. CVE-2026-109619: Stale Global State</h3>
+        <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-8">
+          The second vulnerability involves internal PHP state that may continue referencing memory after that memory has been released. This is associated with a memory-safety issue known as a use-after-free vulnerability. Under certain conditions, an attacker could trigger the vulnerable behaviour and potentially achieve remote code execution.
+        </p>
+
+        <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-black mt-16 mb-6">What Is Remote Code Execution (RCE)?</h2>
+        <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-6">
+          Remote Code Execution, commonly abbreviated as RCE, occurs when an attacker can cause a computer or server to execute code remotely. If an attacker successfully exploits a vulnerability like PHP2Shell, the consequences may include:
+        </p>
+        <ul className="list-disc pl-6 space-y-2 text-lg md:text-xl text-gray-600 leading-relaxed mb-8">
+          <li>Unauthorized execution of commands.</li>
+          <li>Exposure or theft of sensitive information.</li>
+          <li>Unauthorized access to application data or databases.</li>
+          <li>Installation of malicious software.</li>
+          <li>Further compromise of the affected server.</li>
+        </ul>
+        <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-8">
+          The actual impact depends on the server configuration, the privileges of the affected process, and the security controls in place.
+        </p>
+
+        <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-black mt-16 mb-6">Which PHP Versions Are Affected?</h2>
+        <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-6">
+          The initial PHP2Shell advisories identify the following fixed releases:
+        </p>
+        
+        {/* Styled HTML Table */}
+        <div className="overflow-x-auto mb-8 border border-gray-200 rounded-2xl shadow-sm">
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr className="bg-gray-50 border-b border-gray-200">
+                <th className="p-4 font-semibold text-black">PHP Branch</th>
+                <th className="p-4 font-semibold text-black border-l border-gray-200">Fixed Release</th>
+              </tr>
+            </thead>
+            <tbody className="text-lg text-gray-600">
+              <tr className="border-b border-gray-200"><td className="p-4">PHP 8.5</td><td className="p-4 border-l border-gray-200">8.5.12</td></tr>
+              <tr className="border-b border-gray-200"><td className="p-4 bg-gray-50/50">PHP 8.4</td><td className="p-4 bg-gray-50/50 border-l border-gray-200">8.4.27</td></tr>
+              <tr className="border-b border-gray-200"><td className="p-4">PHP 8.3</td><td className="p-4 border-l border-gray-200">8.3.36</td></tr>
+              <tr><td className="p-4 bg-gray-50/50">PHP 8.2</td><td className="p-4 bg-gray-50/50 border-l border-gray-200">8.2.35</td></tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-8">
+          Earlier releases in these branches are affected. PHP 8.1 and older versions are also affected, although they no longer receive regular security updates from the PHP project. Some operating-system vendors may provide backported security fixes. Always verify the exact status of your installed version with the official PHP security advisories.
+        </p>
+
+        <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-black mt-16 mb-6">How Can Website Owners Protect Their Websites?</h2>
+        <div className="space-y-6">
+          <div>
+            <h3 className="text-xl font-bold text-black mb-2">1. Check Your PHP Version</h3>
+            <p className="text-lg md:text-xl text-gray-600 leading-relaxed">Identify the PHP version actually used by your production website. Remember that the version running in your local development environment may differ from the version running on your hosting server.</p>
+          </div>
+          <div>
+            <h3 className="text-xl font-bold text-black mb-2">2. Install the Appropriate Security Updates</h3>
+            <p className="text-lg md:text-xl text-gray-600 leading-relaxed">Upgrade to a fixed PHP release or install a security-patched package provided by your operating-system or hosting vendor. Updating PHP is the primary and complete remediation for these vulnerabilities.</p>
+          </div>
+          <div>
+            <h3 className="text-xl font-bold text-black mb-2">3. Review Your Hosting Environment</h3>
+            <p className="text-lg md:text-xl text-gray-600 leading-relaxed">Check whether PHP is running through PHP-FPM, Apache with mod_php, CGI, or another supported configuration. Also check third-party applications, containers, and hosting tools that may include their own PHP runtime.</p>
+          </div>
+          <div>
+            <h3 className="text-xl font-bold text-black mb-2">4. Review Logs for Suspicious Activity</h3>
+            <p className="text-lg md:text-xl text-gray-600 leading-relaxed">Examine web server, application, authentication, and system logs for unusual requests, unexpected processes, unfamiliar files, or suspicious outbound connections. If you suspect a compromise, investigate it rather than assuming that installing a patch alone removes any existing malicious activity.</p>
+          </div>
+          <div>
+            <h3 className="text-xl font-bold text-black mb-2">5. Restrict Exposure if You Cannot Patch</h3>
+            <p className="text-lg md:text-xl text-gray-600 leading-relaxed">If you cannot apply the required fix immediately, assess the risk and consider isolating the vulnerable server from public access until it can be patched. Temporary configuration changes may reduce certain attack paths, but they do not replace the official update.</p>
+          </div>
+        </div>
+
+        <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-black mt-16 mb-6">Does This Affect WordPress Websites?</h2>
+        <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-8">
+          Potentially, yes. WordPress relies on PHP, so a WordPress website running an affected PHP runtime may be exposed even if WordPress and its plugins are up to date. Updating WordPress alone does not fix a vulnerability in the PHP runtime. Website owners should check both their application updates and their hosting environment.
+        </p>
+
+        <blockquote className="border-l-4 border-black bg-gray-50 rounded-r-2xl p-6 md:p-8 my-12 shadow-sm border-y border-r border-y-gray-200 border-r-gray-200 text-center">
+          <p className="text-2xl md:text-3xl font-bold tracking-widest leading-snug text-black m-0 uppercase">
+            PATCH • VERIFY • PROTECT
+          </p>
+        </blockquote>
+
+        <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-8">
+          PHP2Shell highlights an important cybersecurity lesson: securing a website involves more than protecting passwords and updating application code. The underlying runtime, server configuration, dependencies, and monitoring practices also matter. Keeping your server software updated is an essential part of maintaining a secure web application.
+        </p>
+
+        <div className="mt-12 p-6 bg-gray-50 rounded-2xl border border-gray-200">
+          <h4 className="font-bold text-black mb-4">Official Resources</h4>
+          <ul className="list-disc pl-5 space-y-2 text-gray-600">
+            <li>PHP Security Advisories — PHP News Archive</li>
+            <li>NHS England Digital — Critical PHP Vulnerabilities</li>
+            <li>Canadian Centre for Cyber Security — PHP Vulnerability Alert</li>
+          </ul>
+          <p className="text-sm text-gray-500 mt-6 italic">
+            Security note: This article covers the PHP2Shell vulnerabilities disclosed on October 21, 2026. Check the official advisories for subsequent updates and newly disclosed vulnerabilities before taking action.
+          </p>
+        </div>
+      </>
+    )
+  },
+  {
+    id: 2,
     title: "The Future of AI in Enterprise Workflows: A 2026 Perspective",
     category: "Artificial Intelligence",
     date: "May 24, 2026",
     readTime: "8 min read",
     author: {
-      name: "Elena Rodriguez",
+      name: "Maneesha Herath",
       role: "Head of AI Strategy",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Elena",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Maneesha",
     },
     heroImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2000&auto=format&fit=crop",
     excerpt: "Discover how intelligent automation and large language models are fundamentally restructuring how modern agencies and enterprises handle complex daily operations.",
@@ -54,7 +194,7 @@ const allBlogPosts = [
     )
   },
   {
-    id: 2,
+    id: 3,
     title: "Designing for the Next Generation of Spatial Computing",
     category: "UI/UX Design",
     date: "May 18, 2026",
@@ -84,7 +224,7 @@ const allBlogPosts = [
     )
   },
   {
-    id: 3,
+    id: 4,
     title: "Scaling Next.js Applications for High Traffic Events",
     category: "Engineering",
     date: "May 12, 2026",
@@ -105,7 +245,7 @@ const allBlogPosts = [
     )
   },
   {
-    id: 4,
+    id: 5,
     title: "The Micro-Interaction Audit",
     category: "Design Systems",
     date: "May 05, 2026",
@@ -131,7 +271,7 @@ const allBlogPosts = [
     )
   },
   {
-    id: 5,
+    id: 6,
     title: "Death of the Traditional Dashboard",
     category: "Product Strategy",
     date: "April 28, 2026",
@@ -152,7 +292,7 @@ const allBlogPosts = [
     )
   },
   {
-    id: 6,
+    id: 7,
     title: "Serverless vs Edge in 2026",
     category: "Cloud Architecture",
     date: "April 20, 2026",
@@ -173,7 +313,7 @@ const allBlogPosts = [
     )
   },
   {
-    id: 7,
+    id: 8,
     title: "Mastering Framer Motion",
     category: "Frontend Dev",
     date: "April 15, 2026",
